@@ -9,30 +9,41 @@ import {isConsonant} from '../helpers'
 //   return letter.match(c) !== null;
 // }
 
-
+var currentConsonant = ""
+var vowels = []
 
 const convertEnglishToAmharic = (dispatch, letter ) => {
   if (letter) {
      if (letter.match(/[^a-zA-z]/)) {
-        var obj = {english: letter, abesha: letter}
-        dispatch(addText(obj))
+        dispatch(addText(letter))
       }
 
-    var consonant = isConsonant(letter);
-    if (consonant) {
-      var obj = {english: letter, abesha: keyboardMap[letter]}
-      dispatch(addText(obj)) 
-    }else {
-        dispatch(updateVowel(letter))
-    } 
+     var consonant = isConsonant(letter);
+     if (consonant) {
+        currentConsonant = letter;
+        vowels = [] 
+        dispatch(addText(keyboardMap[letter]))
+            
+      }else {
+           vowels.push(letter)
+           var keyboardCombo = currentConsonant + vowels.join("")
+           var vowel = keyboardMap[keyboardCombo]
+           if(vowel){
+              dispatch(updateVowel(vowel))
+           }
+          
+      } 
     
   }
 }
 
-const mapStateToProps = (state)  =>  ({
-  text: state.text.abesha.join("")
-})
-
+const mapStateToProps = (state)  => {
+  console.log(state.text)
+  return ({
+    text: state.text.abesha.join("")
+  })
+  
+} 
 const mapDispatchToProps = dispatch => {
 console.log(dispatch.getState)
 return ({

@@ -1,10 +1,10 @@
 
-export const addText = object => ({
+export const addText = char => ({
   type: 'ADD_CHAR',
-  object 
+  char 
 })
 
-export const updateVowel = object => ({
+export const updateVowel = char => ({
   type:'UPDATE_VOWEL',
-  object
+  char
 })

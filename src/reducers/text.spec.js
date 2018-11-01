@@ -5,28 +5,28 @@ describe('text reducer', () => {
   it('should handle initial state', () => {
     expect(
       text(undefined, {})
-    ).toEqual({"abesha": [], "english": []})
+    ).toEqual({abesha: []})
   })
 
   it('should handle ADD_CHAR', () => {
-    var obj = {english:[], abesha: []}
+    var obj = {abesha: []}
     deepFreeze(obj)
     expect(
       text(obj, {
         type: 'ADD_CHAR',
-        object: {english: "h", abesha: "\u1200"}
+        char: "\u1200"
       })
-    ).toEqual({english: ["h"], abesha:  ["\u1200"]})
+    ).toEqual({ abesha:  ["\u1200"]})
 
 
-    var obj = {english: ["l"], abesha:  ["\u1208"]}
+    var obj = {abesha:  ["\u1208"]}
     deepFreeze(obj)
     expect(
       text(obj , {
         type: 'ADD_CHAR',
-        object: {english: "h", abesha: "\u1200"}
+        char: "\u1200"
       })
-    ).toEqual({english: ["l", "h"], abesha:  ["\u1208", "\u1200" ]})
+    ).toEqual({ abesha:  ["\u1208", "\u1200" ]})
 
 
 
@@ -35,16 +35,16 @@ describe('text reducer', () => {
   })
 
   it('should handle UPDATE_VOWEL', () => {
-      var obj = { english: ['h', 'e'], abesha: ["\u1200"]}
+      var obj = { abesha: ["\u1200", "\u1201"]}
       deepFreeze(obj);
       expect(
 
         text(obj, {
           type: 'UPDATE_VOWEL',
-          object: 'e'
+          char: "\u1202"
         })
 
-      ).toEqual({ english: ['h', 'e', 'e'], abesha: ["\u1202"] })
+      ).toEqual({abesha: ["\u1200","\u1202"]} )
 
 
   })
