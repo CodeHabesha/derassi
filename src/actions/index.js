@@ -1,5 +1,10 @@
 
-export const addText = char => ({
-  type: 'ADD_TEXT',
-  char 
+export const addText = object => ({
+  type: 'ADD_CHAR',
+  object 
+})
+
+export const updateVowel = object => ({
+  type:'UPDATE_VOWEL',
+  object
 })
