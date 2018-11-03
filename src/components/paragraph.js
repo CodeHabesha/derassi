@@ -3,9 +3,15 @@ import PropTypes from 'prop-types'
 
 const Paragraph = ({ onKeyPress, text }) => (
   <div>
-  <input 
-    onKeyPress={onKeyPress}
-  />
+  <textarea 
+    onKeyPress={onKeyPress}  style={{width: window.innerWidth - 20, paddingLeft: 20}}
+  >
+  {text}
+  </textarea>
+
+
+
+
   <p>
   
     {text}
