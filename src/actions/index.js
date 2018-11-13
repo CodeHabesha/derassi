@@ -8,3 +8,9 @@ export const updateVowel = char => ({
   type:'UPDATE_VOWEL',
   char
 })
+
+
+export const deleteAWord = (arr) => ({
+  type:'UPDATE_WITH_NEW',
+  arr
+})

@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Abesha Arada';
+    src: url('../fonts/AbeshaArada-Regular.woff');
+}
+
+@font-face {
+    font-family: 'Abesha Arada Caps';
+    src: url('../fonts/AbeshaAradaCaps-Regular.woff');
+}
+
+.abesha {
+    font-family: 'Abesha Arada';
+}

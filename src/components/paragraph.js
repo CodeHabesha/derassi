@@ -1,28 +1,39 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Paragraph = ({ onKeyPress, text }) => (
-  <div>
-  <textarea 
-    onKeyPress={onKeyPress}  style={{width: window.innerWidth - 20, paddingLeft: 20}}
-  >
-  {text}
-  </textarea>
+class Paragraph extends React.Component  {
 
 
+ componentDidMount()  {
+    this.input.addEventListener('input', this.props.onChange)
+ }
 
 
-  <p>
+  render = () => {
   
-    {text}
-  </p>
+    let letters = this.props.text.map ( (e,i) => <Letter letter={e} key={i} />   )
+    return (
+    <div>
+  
+    <p autoFocus contentEditable={true}  onChange={this.props.onChange}  onKeyPress={this.props.onKeyPress} ref={input => this.input = input} >
+    
+      {letters}
+    </p>
+  
+    </div>
+  )
 
-  </div>
-)
+  }
+}
+
+
+const Letter = ({letter}) => 
+      <span style={{color: 'red'}}>{letter}</span>
+
 
 Paragraph.propTypes = {
   onKeyPress: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.array.isRequired
 }
 
 export default Paragraph;
