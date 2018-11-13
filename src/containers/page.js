@@ -33,7 +33,11 @@ const convertEnglishToAmharic = (dispatch, event ) => {
      let consonant = isConsonant(letter);
      if (consonant) {
         currentConsonant = letter;
-        console.log(event.getModifierState('CapsLock'))
+        let caps = event.getModifierState('CapsLock')
+        if(caps ){
+          console.log(caps)
+        }
+      
         vowels = [] 
         dispatch(addText(keyboardMap[letter]))
             
