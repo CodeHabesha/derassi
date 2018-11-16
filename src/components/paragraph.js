@@ -7,13 +7,23 @@ import {fontStyle} from '../GLOBAL'
 class Paragraph extends React.Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this)
     this.state = {
       html: ""
     };
   }
 
+  // function: sends events to the container Elemnet: Page on input change
+  handleChange(e){
+     this.props.onChange(e)
+  }
+
+
   componentDidMount() {
+    //when page loads the Carot is ready and blinking 
     this.element.focus();
+    // adds change event on the contentEditable components
+    this.element.addEventListener("input", this.handleChange)
   }
 
   sanitizeConf = {
@@ -36,6 +46,7 @@ class Paragraph extends React.Component {
         <div
           contentEditable = {true}
           onKeyPress={this.props.onKeyPress}
+
           onBlur={this.sanitize}
           ref={(el) => this.element = el}
          >

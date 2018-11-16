@@ -2,31 +2,31 @@ import text from './text'
 import deepFreeze from 'deep-freeze'
 
 describe('text reducer', () => {
-  it('should handle initial state', () => {
+  it(' handles initial state', () => {
     expect(
       text(undefined, {})
-    ).toEqual({abesha: []})
+    ).toEqual({body: []})
   })
 
-  it('should handle ADD_CHAR', () => {
-    var obj = {abesha: []}
+  it(' handles to SAVE_STATE', () => {
+    var obj = {body: [ "<h1> Hello </h1>" ]}
     deepFreeze(obj)
     expect(
       text(obj, {
-        type: 'ADD_CHAR',
-        char: "\u1200"
+        type: 'SAVE_STATE',
+        html: "<h1> world </h1>"
       })
-    ).toEqual({ abesha:  ["\u1200"]})
+    ).toEqual({ body:  [ "<h1> Hello </h1>", "<h1> world </h1>"]})
 
 
-    var obj = {abesha:  ["\u1208"]}
-    deepFreeze(obj)
-    expect(
-      text(obj , {
-        type: 'ADD_CHAR',
-        char: "\u1200"
-      })
-    ).toEqual({ abesha:  ["\u1208", "\u1200" ]})
+    // var obj = {abesha:  ["\u1208"]}
+    // deepFreeze(obj)
+    // expect(
+    //   text(obj , {
+    //     type: 'ADD_CHAR',
+    //     char: "\u1200"
+    //   })
+    // ).toEqual({ abesha:  ["\u1208", "\u1200" ]})
 
 
 
@@ -34,19 +34,19 @@ describe('text reducer', () => {
 
   })
 
-  it('should handle UPDATE_VOWEL', () => {
-      var obj = { abesha: ["\u1200", "\u1201"]}
-      deepFreeze(obj);
-      expect(
-
-        text(obj, {
-          type: 'UPDATE_VOWEL',
-          char: "\u1202"
-        })
-
-      ).toEqual({abesha: ["\u1200","\u1202"]} )
-
-
-  })
+  // it('should handle UPDATE_VOWEL', () => {
+  //     var obj = { abesha: ["\u1200", "\u1201"]}
+  //     deepFreeze(obj);
+  //     expect(
+  //
+  //       text(obj, {
+  //         type: 'UPDATE_VOWEL',
+  //         char: "\u1202"
+  //       })
+  //
+  //     ).toEqual({abesha: ["\u1200","\u1202"]} )
+  //
+  //
+  // })
 
 })
