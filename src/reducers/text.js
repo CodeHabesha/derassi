@@ -13,15 +13,16 @@ const text = (state = { abesha: []}, action) => {
                    abesha: [...state.abesha.slice(0, state.abesha.length - 1) , action.char]
               }
         }
-    case 'DELETE_A_WORD':
+    case 'DELETE_LAST':
         {
-          console.log(state.abesha)
-          console.log(".....deleting a world.....")
-            state.abesha = [...state.abesha.slice(0,state.abesha.length - 1)]
-            // don't return anyting just fix this new value 
           
+          console.log(".....deleting a world.....")
+          console.log(state.abesha)
+            return { abesha: [...state.abesha.slice(0, state.abesha.length - 1)] }
+            // don't return anyting just fix this new value 
+           
         }
-        break; 
+      
     default:
       return state
   }

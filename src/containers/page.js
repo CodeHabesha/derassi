@@ -1,111 +1,160 @@
 import { connect } from 'react-redux'
-import { addText, updateVowel, deleteAWord } from '../actions/index'
+import { addText, updateVowel, deleteLast } from '../actions/index'
 import Paragraph from '../components/paragraph';
 import keyboardMap from '../keyboardMap'
 import {isConsonant} from '../helpers'
+import {fontStyle} from '../GLOBAL'
 
 // function isConsonant(letter) {
 //   let c = /[a-bdf-hj-np-tv-wyz]/
 //   return letter.match(c) !== null;
 // }
 
-let currentConsonant = ""
-let vowels = []
-
-const convertEnglishToAmharic = (dispatch, event ) => {
-
-   console.log(event.key)
-   if(event.getModifierState('CapsLock')){
-     console.log(
-       "caps lock "
-     )
-   }else {
-     console.log('not caps ')
-   }
-  let letter = event.key.toLowerCase(); 
-  if (letter) {
-
-     if(letter.onChange)
-     if (letter.match(/[^a-zA-z]/)) {
-        dispatch(addText(letter))
-      }
-
-     let consonant = isConsonant(letter);
-     if (consonant) {
-        currentConsonant = letter;
-        let caps = event.getModifierState('CapsLock')
-        if(caps ){
-          console.log(caps)
-        }
-      
-        vowels = [] 
-        dispatch(addText(keyboardMap[letter]))
-            
-      }else {
-           vowels.push(letter)
-           let keyboardCombo = currentConsonant + vowels.join("")
-           let vowel = keyboardMap[keyboardCombo]
-           if(vowel){
-              dispatch(updateVowel(vowel))
-           }
-          
-      } 
-    
-  }
+function formatDoc(dispatch, oDoc, sCmd, sValue) {
+  if(document) { document.execCommand(sCmd, false, sValue); oDoc.focus();}
 }
 
 
-//source: 
-//https://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity/3866442#3866442
-const setEndOfContenteditable = (contentEditableElement) =>
-{
-    let range,selection;
-    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
-    {
-        range = document.createRange();//Create a range (a range is a like the selection but invisible)
-        range.selectNodeContents(contentEditableElement);//Select the entire contents of the element with the range
-        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-        selection = window.getSelection();//get the selection object (allows you to change selection)
-        selection.removeAllRanges();//remove any selections already made
-        selection.addRange(range);//make the range you have just created the visible selection
-    }
+var vowels = ""
+var currentConsonant = ""
+
+
+function keypressed(e, dispatch) {
+  let oDoc = e.target
+  console.log(oDoc)
+  console.log("..key code ...")
+  console.log(e.key)
+  console.log(e.keyCode)
+  if(e.key === 'Enter' ) {
+
+    formatDoc(dispatch, oDoc, "insertHTML", "<br/>");
+    return;
+  }
+  if(!e.key){
+    return;
   }
 
+  //  if(e.keyCode === 9 ) {
+  //   // 4 space for tab
+  //    e.stopPropagation();
+  //    formatDoc("insertHTML", "&nbsp;&nbsp;&nbsp;&nbsp;");
+  //   return;
+  // }
+
+  var isCaps = e.getModifierState('CapsLock');
+  console.log("is it caps")
+  console.log(isCaps )
+  var letter = e.key
+
+
+
+  if (letter) {
+    if (letter.match(/[^a-zA-z]/)) {
+      return
+    }
+
+    e.preventDefault()
+
+    var key = letter.toLowerCase()
+    var consonant = isConsonant(key);
+    if (consonant) {
+
+      if (isCaps){
+        var html = `<span style="font-family: ${fontStyle.currentCapStyle}";>${keyboardMap[key]}</span>`
+        formatDoc(dispatch, oDoc, "insertHTML", html);
+
+
+      }else{
+        var html = `<span style="font-family: ${fontStyle.currentStyle}";>${keyboardMap[key]}</span>`
+        formatDoc(dispatch, oDoc, "insertHTML", html);
+      }
+
+
+      currentConsonant = letter;
+    }else {
+      vowels += letter
+
+      var key = (currentConsonant + vowels).toLocaleLowerCase();
+      var val = keyboardMap[key]
+      if(val){
+        // go back one and edit
+        formatDoc(dispatch, oDoc, "delete")
+        if (isCaps){
+          var html = `<span style="font-family: ${fontStyle.currentCapStyle}";>${keyboardMap[key]}</span>`
+          formatDoc(dispatch, oDoc, "insertHTML", html);
+
+        }else{
+          var html = `<span style="font-family: ${fontStyle.currentStyle}";>${keyboardMap[key]}</span>`
+          formatDoc(dispatch, oDoc, "insertHTML", html);
+        }
+
+
+      }
+      return;
+    }
+
+    vowels = ""
+
+  }
+
+
+
+}
+// let currentConsonant = ""
+// let vowels = []
+// let caps = false;
+// const convertEnglishToAmharic = (dispatch, event ) => {
+//
+//   console.log(event.key)
+//   let letter = event.key.toLowerCase();
+//   if (letter) {
+//
+//     if (letter.match(/[^a-zA-z]/)) {
+//       dispatch(addText(letter))
+//       return;
+//     }
+//
+//
+//
+//     let consonant = isConsonant(letter);
+//     if (consonant) {
+//       currentConsonant = letter;
+//       caps = event.getModifierState('CapsLock')
+//       console.log(caps)
+//       vowels = []
+//       dispatch(addText({char:  keyboardMap[letter], caps: caps}))
+//
+//     }else {
+//       vowels.push(letter)
+//       let keyboardCombo = currentConsonant + vowels.join("")
+//       let vowel = keyboardMap[keyboardCombo]
+//       if(vowel){
+//         dispatch(updateVowel({char: vowel, caps: caps}))
+//       }
+//
+//     }
+//
+//   }
+// }
+
+
+
 const mapStateToProps = (state)  => {
-  console.log(
-    "lakjdklfjaklsjfklasjdfklajsdfxxxxx"
-  )
-  console.log(state.text)
+  console.log("state changed.......: ")
+  console.log(state.text.abesha)
   return ({
     text: state.text.abesha
   })
-  
-} 
-const mapDispatchToProps = dispatch => {
-console.log(dispatch.getState)
 
-return ({
-  onKeyPress: e  => { 
-    e.preventDefault()
-    setEndOfContenteditable(e.target)
-    return convertEnglishToAmharic(dispatch, e)
-  
-  },
-  onChange : e => {
-    console.log(e)
-    if(e.inputType === "deleteContentBackward"){
-        let alive = Object.values(e.target.childNodes).map( m => m.innerHTML)
-        console.log(e.target.childNodes.length)
-        console.log(alive)
-      
-       // let list = e.target.childNodes
-       // list.removeChild(list.childNodes[list.length - 1]); 
-         dispatch(deleteAWord())
-    }
-
-  }
 }
-)
+const mapDispatchToProps = dispatch => {
+  console.log(dispatch.getState)
+
+  return ({
+    onKeyPress: e  => {
+       return keypressed(e, dispatch)
+     }
+  })
 
 }
 
