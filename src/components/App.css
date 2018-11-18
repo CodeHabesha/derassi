@@ -11,3 +11,7 @@
 .abesha {
     font-family: 'Abesha Arada';
 }
+
+div[contenteditable="true"]:focus {
+  outline: none;
+}

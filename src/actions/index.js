@@ -1,16 +1,17 @@
 
-export const addText = char => ({
-  type: 'ADD_CHAR',
-  char 
+export const saveState = (html) => ({
+  type: 'SAVE_STATE',
+   html
 })
 
-export const updateVowel = char => ({
-  type:'UPDATE_VOWEL',
-  char
-})
-
-
-export const deleteAWord = (arr) => ({
-  type:'UPDATE_WITH_NEW',
-  arr
-})
+// export const updateVowel = (char, caps) => ({
+//   type:'UPDATE_VOWEL',
+//   char,
+//   caps
+// })
+//
+//
+// export const deleteLast = (arr)  => ({
+//   type:'DELETE_LAST',
+//   arr
+// })

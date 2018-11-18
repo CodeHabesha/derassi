@@ -1,108 +1,92 @@
 import { connect } from 'react-redux'
-import { addText, updateVowel, deleteAWord } from '../actions/index'
+import { addText, updateVowel, deleteLast } from '../actions/index'
 import Paragraph from '../components/paragraph';
 import keyboardMap from '../keyboardMap'
-import {isConsonant} from '../helpers'
+import {isConsonant, formatDoc} from '../helpers'
+import {fontStyle} from '../GLOBAL'
+import { saveState } from './../actions'
 
-// function isConsonant(letter) {
-//   let c = /[a-bdf-hj-np-tv-wyz]/
-//   return letter.match(c) !== null;
-// }
 
-let currentConsonant = ""
-let vowels = []
-
-const convertEnglishToAmharic = (dispatch, event ) => {
-
-   console.log(event.key)
-   if(event.getModifierState('CapsLock')){
-     console.log(
-       "caps lock "
-     )
-   }else {
-     console.log('not caps ')
-   }
-  let letter = event.key.toLowerCase(); 
-  if (letter) {
-
-     if(letter.onChange)
-     if (letter.match(/[^a-zA-z]/)) {
-        dispatch(addText(letter))
-      }
-
-     let consonant = isConsonant(letter);
-     if (consonant) {
-        currentConsonant = letter;
-        console.log(event.getModifierState('CapsLock'))
-        vowels = [] 
-        dispatch(addText(keyboardMap[letter]))
-            
-      }else {
-           vowels.push(letter)
-           let keyboardCombo = currentConsonant + vowels.join("")
-           let vowel = keyboardMap[keyboardCombo]
-           if(vowel){
-              dispatch(updateVowel(vowel))
-           }
-          
-      } 
-    
-  }
+function handleChange(e, dispatch){
+    let oDoc = e.target
+    console.log("handle change")
+    console.log(e)
+    dispatch(saveState(oDoc.innerHTML))
 }
 
+let vowels = ""
+let currentConsonant = ""
 
-//source: 
-//https://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity/3866442#3866442
-const setEndOfContenteditable = (contentEditableElement) =>
-{
-    let range,selection;
-    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
-    {
-        range = document.createRange();//Create a range (a range is a like the selection but invisible)
-        range.selectNodeContents(contentEditableElement);//Select the entire contents of the element with the range
-        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-        selection = window.getSelection();//get the selection object (allows you to change selection)
-        selection.removeAllRanges();//remove any selections already made
-        selection.addRange(range);//make the range you have just created the visible selection
-    }
+
+function keypressed(e, dispatch) {
+  if(!e.key){
+    return;
+  }
+  let oDoc = e.target
+  if(e.key === 'Enter' ) {
+    formatDoc(dispatch, oDoc, "insertHTML", "<br/>");
+    return;
   }
 
+  let isCaps = e.getModifierState('CapsLock');
+  let letter = e.key
+
+  if (letter) {
+    if (letter.match(/[^a-zA-z]/)) { return }
+
+    e.preventDefault()
+    let key = letter.toLowerCase()
+    let consonant = isConsonant(key);
+    if (consonant) {
+
+      if (isCaps){
+        let html = `<span style="font-family: ${fontStyle.currentCapStyle}";>${keyboardMap[key]}</span>`
+        formatDoc(dispatch, oDoc, "insertHTML", html);
+      }else{
+        let html = `<span style="font-family: ${fontStyle.currentStyle}";>${keyboardMap[key]}</span>`
+        formatDoc(dispatch, oDoc, "insertHTML", html);
+      }
+      currentConsonant = letter; //reset
+    }else {
+      vowels += letter
+      let key = (currentConsonant + vowels).toLocaleLowerCase();
+      let val = keyboardMap[key]
+      if(val){
+        // go back one and edit
+        formatDoc(dispatch, oDoc, "delete")
+        if (isCaps){
+          let html = `<span style="font-family: ${fontStyle.currentCapStyle}";>${keyboardMap[key]}</span>`
+          formatDoc(dispatch, oDoc, "insertHTML", html);
+
+        }else{
+          let html = `<span style="font-family: ${fontStyle.currentStyle}";>${keyboardMap[key]}</span>`
+          formatDoc(dispatch, oDoc, "insertHTML", html);
+        }
+      }
+      return;
+    }
+    vowels = "" //reset
+  }
+
+}
+
 const mapStateToProps = (state)  => {
-  console.log(
-    "lakjdklfjaklsjfklasjdfklajsdfxxxxx"
-  )
-  console.log(state.text)
+  console.log(state)
   return ({
     text: state.text.abesha
   })
-  
-} 
-const mapDispatchToProps = dispatch => {
-console.log(dispatch.getState)
-
-return ({
-  onKeyPress: e  => { 
-    e.preventDefault()
-    setEndOfContenteditable(e.target)
-    return convertEnglishToAmharic(dispatch, e)
-  
-  },
-  onChange : e => {
-    console.log(e)
-    if(e.inputType === "deleteContentBackward"){
-        let alive = Object.values(e.target.childNodes).map( m => m.innerHTML)
-        console.log(e.target.childNodes.length)
-        console.log(alive)
-      
-       // let list = e.target.childNodes
-       // list.removeChild(list.childNodes[list.length - 1]); 
-         dispatch(deleteAWord())
-    }
-
-  }
 }
-)
 
+
+const mapDispatchToProps = dispatch => {
+  return ({
+    onKeyPress: e  => {
+      return keypressed(e, dispatch)
+    },
+    onChange: e => {
+      return handleChange(e, dispatch)
+    }
+  })
 }
 
 export default connect(
