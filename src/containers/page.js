@@ -76,6 +76,8 @@ const mapStateToProps = (state)  => {
     text: state.text.abesha
   })
 }
+
+
 const mapDispatchToProps = dispatch => {
   return ({
     onKeyPress: e  => {

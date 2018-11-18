@@ -20,10 +20,16 @@ class Paragraph extends React.Component {
 
 
   componentDidMount() {
-    //when page loads the Carot is ready and blinking 
+    //when page loads the Carot is ready and blinking
     this.element.focus();
     // adds change event on the contentEditable components
     this.element.addEventListener("input", this.handleChange)
+    this.element.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        document.execCommand("insertHTML", false, "&nbsp;&nbsp;&nbsp;&nbsp;");
+      }
+    });
   }
 
   sanitizeConf = {
