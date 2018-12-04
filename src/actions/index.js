@@ -4,6 +4,12 @@ export const saveState = (html) => ({
    html
 })
 
+
+export const addParagraph = (paragraph) => ({
+  type: 'ADD_PARAGRAPH',
+   paragraph
+})
+
 // export const updateVowel = (char, caps) => ({
 //   type:'UPDATE_VOWEL',
 //   char,

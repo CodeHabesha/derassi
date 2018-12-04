@@ -26,10 +26,12 @@ function keypressed(e, dispatch) {
     return;
   }
 
-  if(e.key === 'Enter' ) {
-    formatDoc(dispatch, e.target, "insertHTML", "<br/>");
-    return;
-  }
+  // if(e.key === 'Enter' ) {
+  //   e.preventDefault()
+  //   return;
+  //   formatDoc(dispatch, e.target, "insertHTML", "<br/>");
+  //   return;
+  // }
 
   let isCaps = e.getModifierState('CapsLock');
   let letter = e.key
