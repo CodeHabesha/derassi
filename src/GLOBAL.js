@@ -1,4 +1,4 @@
 export const fontStyle = {
-    currentStyle:  'Abesha Arada',
-    currentCapStyle: 'Abesha Arada Caps'
+    currentStyle:  'Abesha Arif',
+    currentCapStyle: 'Abesha Arif Caps'
 }

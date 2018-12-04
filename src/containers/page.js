@@ -7,11 +7,14 @@ import {fontStyle} from '../GLOBAL'
 import { saveState } from './../actions'
 
 
-function handleChange(e, dispatch){
-    let oDoc = e.target
-    console.log("handle change")
-    console.log(e)
-    dispatch(saveState(oDoc.innerHTML))
+
+
+function onKeyDown(e,dispatch){
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        formatDoc(dispatch, e.target, "insertHTML", "&nbsp;&nbsp;&nbsp;&nbsp;");
+        return;
+      }
 }
 
 let vowels = ""
@@ -22,9 +25,9 @@ function keypressed(e, dispatch) {
   if(!e.key){
     return;
   }
-  let oDoc = e.target
+
   if(e.key === 'Enter' ) {
-    formatDoc(dispatch, oDoc, "insertHTML", "<br/>");
+    formatDoc(dispatch, e.target, "insertHTML", "<br/>");
     return;
   }
 
@@ -41,10 +44,10 @@ function keypressed(e, dispatch) {
 
       if (isCaps){
         let html = `<span style="font-family: ${fontStyle.currentCapStyle}";>${keyboardMap[key]}</span>`
-        formatDoc(dispatch, oDoc, "insertHTML", html);
+        formatDoc(dispatch, e.target, "insertHTML", html);
       }else{
         let html = `<span style="font-family: ${fontStyle.currentStyle}";>${keyboardMap[key]}</span>`
-        formatDoc(dispatch, oDoc, "insertHTML", html);
+        formatDoc(dispatch, e.target, "insertHTML", html);
       }
       currentConsonant = letter; //reset
     }else {
@@ -53,14 +56,14 @@ function keypressed(e, dispatch) {
       let val = keyboardMap[key]
       if(val){
         // go back one and edit
-        formatDoc(dispatch, oDoc, "delete")
+        formatDoc(dispatch, e.target, "delete")
         if (isCaps){
           let html = `<span style="font-family: ${fontStyle.currentCapStyle}";>${keyboardMap[key]}</span>`
-          formatDoc(dispatch, oDoc, "insertHTML", html);
+          formatDoc(dispatch, e.target, "insertHTML", html);
 
         }else{
           let html = `<span style="font-family: ${fontStyle.currentStyle}";>${keyboardMap[key]}</span>`
-          formatDoc(dispatch, oDoc, "insertHTML", html);
+          formatDoc(dispatch, e.target, "insertHTML", html);
         }
       }
       return;
@@ -83,8 +86,8 @@ const mapDispatchToProps = dispatch => {
     onKeyPress: e  => {
       return keypressed(e, dispatch)
     },
-    onChange: e => {
-      return handleChange(e, dispatch)
+    onKeyDown: e => {
+      return onKeyDown(e, dispatch)
     }
   })
 }
