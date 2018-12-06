@@ -65,10 +65,29 @@
     src: url('../fonts/AbeshaTanaCaps-Regular.woff');
 }
 
-.abesha {
-    font-family: 'Abesha Arada';
+body {
+    background-color: gainsboro;
+    margin-left: 0.2in;
+}
+
+.page {
+    margin: 0.2in auto 0.2in auto;
+    background-color: white;
+    padding:  0.2in 1in 0.2in 1in;
+    height: 11in;
+    width: 8.5in;
+    box-align: center;
+    transform: scale(0.9); /* Equal to scaleX(0.7) scaleY(0.7) */
+    
+}
+.paragraph {
+    padding-top: 0.2in;
 }
 
 div[contenteditable="true"]:focus {
   outline: none;
 }
+
+
+.intLink:hover { cursor: pointer; }
+.menu {  display: inline-block;}
