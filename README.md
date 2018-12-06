@@ -1,4 +1,4 @@
-# Redux Word Processor for Abesha Lang
+# React Word Processor App for Abesha Lang
 
 ## Available Scripts
 
