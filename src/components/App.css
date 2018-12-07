@@ -73,11 +73,11 @@ body {
 .page {
     margin: 0.2in auto 0.2in auto;
     background-color: white;
-    padding:  0.2in 1in 0.2in 1in;
+    padding:  1in 1in 1in 1in;
     height: 11in;
     width: 8.5in;
     box-align: center;
-    transform: scale(0.9); /* Equal to scaleX(0.7) scaleY(0.7) */
+    transform: scale(0.9); 
     
 }
 .paragraph {

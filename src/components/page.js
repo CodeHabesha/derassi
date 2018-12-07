@@ -12,12 +12,21 @@ function onKeyDown(e, self){
         return;
       }
 
+      if (e.key === 'Backspace') {
+         console.log("...backespace....")
+         console.log(self)
+         //TODO: add logic to reassign focus and current paragraph when this paragraph is empty.
+         // use e.targe.id to find the location on this.state
+      }
+
       if(e.key === 'Enter' ) {
         e.preventDefault()
         formatDoc( e.target, "insertHTML", "<br/>");
-        console.log("entere hit")
-        console.log(self.state)
-        self.setState({ paragraphs: [...self.state.paragraphs, 0]});
+        //console.log("entere hit")
+        
+        //TODO: add all logic to insert/append new paragraph when Enter is hit 
+        self.setState({ paragraphs: [...self.state.paragraphs, self.state.paragraphs.length]});
+        console.log(self)
         
         
         return;
@@ -35,8 +44,8 @@ function onKeyPress(e) {
     return;
   }
 
-   console.log("..ke presed.>")
-    console.log(e)
+   //console.log("..ke presed.>")
+    //console.log(e)
   let isCaps = e.getModifierState('CapsLock');
   let letter = e.key
 
@@ -49,10 +58,10 @@ function onKeyPress(e) {
     if (consonant) {
 
       if (isCaps){
-        let html = `<span style="font-family: ${fontStyle.currentCapStyle}";>${keyboardMap[key]}</span>`
+        let html = `<span style="font-family: ${fontStyle.currentCapStyle}">${keyboardMap[key]}</span>`
         formatDoc( e.target, "insertHTML", html);
       }else{
-        let html = `<span style="font-family: ${fontStyle.currentStyle}";>${keyboardMap[key]}</span>`
+        let html = `<span style="font-family: ${fontStyle.currentStyle}">${keyboardMap[key]}</span>`
         formatDoc(e.target, "insertHTML", html);
       }
       currentConsonant = letter; //reset
@@ -64,11 +73,11 @@ function onKeyPress(e) {
         // go back one and edit
         formatDoc( e.target, "delete")
         if (isCaps){
-          let html = `<span style="font-family: ${fontStyle.currentCapStyle}";>${keyboardMap[key]}</span>`
+          let html = `<span style="font-family: ${fontStyle.currentCapStyle}">${keyboardMap[key]}</span>`
           formatDoc( e.target, "insertHTML", html);
 
         }else{
-          let html = `<span style="font-family: ${fontStyle.currentStyle}";>${keyboardMap[key]}</span>`
+          let html = `<span style="font-family: ${fontStyle.currentStyle}">${keyboardMap[key]}</span>`
           formatDoc(e.target, "insertHTML", html);
         }
       }
@@ -90,14 +99,21 @@ class Page extends React.Component {
 
             }
           this.handleKeyDown = this.handleKeyDown.bind(this)
+          this.handleOnChange = this.handleOnChange.bind(this)
        }
 
        handleKeyDown = (e) => onKeyDown(e, this)
+       handleOnChange = (e) => {
+         console.log("....changing....")
+         console.log(e.target.id)
+         console.log(e.target.innerHTML.toString().length)
+       }
 
     render() {
-      console.log("alkjasdkfjaksldj")
-      console.log(typeof this.state.paragraphs)
-      let paras = this.state.paragraphs.map( (e,i) => <Paragraph onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress} key={i} /> )
+      console.log("=================")
+      console.log(this.state.paragraphs)
+      // key is assigned by state's current element, which is a number, and that number is assigned as ref
+      let paras = this.state.paragraphs.map( (el) => <Paragraph onChange={this.handleOnChange} id={el}  onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress} key={el} /> )
          return(
            
              <div>

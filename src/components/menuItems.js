@@ -2,8 +2,8 @@ import React from "react";
 import {fontStyle} from '../GLOBAL'
 const executeCommand = (props) => {
 
-  console.log("..........menu button......")
-  console.log(props)
+  //console.log("..........menu button......")
+  //console.log(props)
 
   document.execCommand(props.cmd, false, props.arg); // Send the command to the browser
 }
@@ -32,9 +32,9 @@ export const  EditButton = (props) =>
     }
 
     handleChange = (e) => {
-      console.log("values of e of ...")
-       console.log(e.target.value)
-       console.log(this.props)
+      //console.log("values of e of ...")
+       //console.log(e.target.value)
+       //console.log(this.props)
         fontStyle.setFont(e.target.value)
         executeCommand({cmd: this.props.cmd, arg: e.target.value})
     }
