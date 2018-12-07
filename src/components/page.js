@@ -24,7 +24,7 @@ function onKeyDown(e, self){
       }
 }
 
-const provideParagraph = (yes=false) => yes; 
+
 
 let vowels = ""
 let currentConsonant = ""

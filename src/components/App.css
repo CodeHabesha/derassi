@@ -90,4 +90,6 @@ div[contenteditable="true"]:focus {
 
 
 .intLink:hover { cursor: pointer; }
-.menu {  display: inline-block;}
+.menu {  display: inline; 
+         white-space: nowrap; 
+     }

@@ -28,21 +28,22 @@ export const  EditButton = (props) =>
     constructor(props){
        super(props)
        
-       this.handleClick = this.handleClick.bind(this)
+       this.handleChange = this.handleChange.bind(this)
     }
 
-    handleClick = (e) => {
+    handleChange = (e) => {
       console.log("values of e of ...")
        console.log(e.target.value)
+       console.log(this.props)
         fontStyle.setFont(e.target.value)
-        executeCommand(this.props.cmd, this.props.fontFamily)
+        executeCommand({cmd: this.props.cmd, arg: e.target.value})
     }
     render(){
       let values = this.props.fonts.map( (value,i) => <option value={value.fontFamily}  key={i}> {value.fontFamily} </option>)
       return(
         
         <div >
-           <select onClick={this.handleClick}>
+           <select onChange={this.handleChange}>
             <option className="heading" >- {this.props.heading} -</option>
                 {values}
            </select>
