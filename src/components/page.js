@@ -22,11 +22,22 @@ function onKeyDown(e, self){
       if(e.key === 'Enter' ) {
         e.preventDefault()
         formatDoc( e.target, "insertHTML", "<br/>");
-        //console.log("entere hit")
+      
+        console.log(id)
+        console.log(" ... ... .....")
+        console.log(e.target.id)
         
         //TODO: add all logic to insert/append new paragraph when Enter is hit 
-        self.setState({ paragraphs: [...self.state.paragraphs, self.state.paragraphs.length]});
-        console.log(self)
+        let numberOfPragraphs = self.state.paragraphs.length 
+        let thisPragraphId =  e.target.id
+        let id = thisPragraphId + 1; 
+        if(thisPragraphId < numberOfPragraphs ){
+          id = thisPragraphId
+        }
+        let para = <Paragraph shouldFocus={true} onChange={self.handleOnChange} id={id}  onKeyDown={self.handleKeyDown} onKeyPress={onKeyPress} key={id} />
+    
+        self.setState({ paragraphs: [self.state.paragraphs.slice(0,thisPragraphId - 1), para, self.state.paragraphs.slice(thisPragraphId + 1, numberOfPragraphs)]});
+        console.log(self.state)
         
         
         return;
@@ -94,8 +105,9 @@ class Page extends React.Component {
        
        constructor(props){
             super(props)
+           this.para =  <Paragraph shouldFocus={true} onChange={this.handleOnChange} id={0}  onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress} key={0} />
             this.state = {
-              paragraphs: [0],
+              paragraphs: [this.para],
 
             }
           this.handleKeyDown = this.handleKeyDown.bind(this)
@@ -105,7 +117,9 @@ class Page extends React.Component {
        handleKeyDown = (e) => onKeyDown(e, this)
        handleOnChange = (e) => {
          console.log("....changing....")
+         console.log(e.id)
          console.log(e.target.id)
+
          console.log(e.target.innerHTML.toString().length)
        }
 
@@ -113,7 +127,7 @@ class Page extends React.Component {
       console.log("=================")
       console.log(this.state.paragraphs)
       // key is assigned by state's current element, which is a number, and that number is assigned as ref
-      let paras = this.state.paragraphs.map( (el) => <Paragraph onChange={this.handleOnChange} id={el}  onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress} key={el} /> )
+      //let paras = this.state.paragraphs.map( (el) => <Paragraph onChange={this.handleOnChange} id={el}  onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress} key={el} /> )
          return(
            
              <div>
@@ -121,7 +135,7 @@ class Page extends React.Component {
                <Menu/>
             
               <div className="page">
-                  {paras}
+                  {this.state.paragraphs.map( para => para)}
               </div>
 
 

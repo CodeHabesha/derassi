@@ -7,9 +7,11 @@ class Paragraph extends React.Component {
         super(props)
      }
      componentDidMount(){
-        this.element.focus();
+        if(this.props.shouldFocus){
+            this.element.focus();
+        }
         this.element.className = "paragraph"
-        this.element.id = `paragraph-${this.props.id}`
+        this.element.id = this.props.id
         this.element.addEventListener("input", this.props.onChange)
      }
     render(){
