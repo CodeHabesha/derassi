@@ -1,11 +1,16 @@
 import React from 'react'
-import {List, EditButton, FontList} from "./menuItems"
+import {GenericList, EditButton, FontList} from "./menuItems"
 import italic from '../icons/italic.gif'
 import bold from '../icons/bold.gif'
 import hyperlink from '../icons/hyperlink.gif'
 import fonts from './fontFamily'
+import { fontStyle } from '../GLOBAL';
 
-
+/**
+ * Menu contains all menu items. 
+ * It is a funcitonal React component 
+ * @class Menu
+ */
 const Menu = () => {
 
     return(
@@ -19,8 +24,38 @@ const Menu = () => {
                   name="hyperlink"
                   img={hyperlink}
                   />
-                 <FontList cmd="fontName" fonts={fonts} heading= "Fonts"  />
-                  <List cmd="backcolor" 
+                
+                 <GenericList cmd="fontName"
+                        setGlobal={ {should: true, case: 'fontStyle' } }
+                        values= {
+                            fonts.map( font => ({name:font, value:font}) )
+                        } 
+                        heading="Fonts"
+                                
+                 />
+
+                    <GenericList cmd="fontSize"
+                        setGlobal={ {should: true, case: 'fontSize' } }
+                        values= {
+                            [ 8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96 ].map( size => ({name:size, value:size}) )
+                        } 
+                        heading="Font size"
+                                
+                 />
+                
+                  <GenericList cmd="forecolor" 
+                        values= { 
+                          [
+                            {name: "Black", value: "black"},
+                            {name: "Red", value: "red"},
+                            {name: "Yellow", value: "yellow"},
+                            {name: "White", value: "white"}
+                           ]
+                          }
+                        heading="Text Color"
+                  />
+                  
+                       <GenericList cmd="backcolor" 
                         values= { 
                           [
                             {name: "Black", value: "black"},
@@ -31,7 +66,8 @@ const Menu = () => {
                           }
                         heading="Background Color"
                   />
-                  <List  cmd="formatBlock"
+                  
+                  <GenericList  cmd="formatBlock"
                         values = {
                             [
                                 {name: "h1", value: "h1"},
@@ -44,6 +80,8 @@ const Menu = () => {
                         } 
                         heading="Heading"
                   />
+
+                  
                 
         </div>
     )

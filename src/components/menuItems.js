@@ -1,5 +1,12 @@
 import React from "react";
 import {fontStyle} from '../GLOBAL'
+
+
+/**
+ * A DRYed out utility fuction used for most/all MenuItems
+ * @param {Object} props 
+ * @return {Void} calls browser with execCommand
+ */
 const executeCommand = (props) => {
 
   //console.log("..........menu button......")
@@ -8,6 +15,11 @@ const executeCommand = (props) => {
   document.execCommand(props.cmd, false, props.arg); // Send the command to the browser
 }
 
+/**
+ * General purpose edit button
+ * @class EditButton a React Fuctional component
+ * @param {Object} props contains {name:, value:} object
+ */
 export const  EditButton = (props) =>
 (
     <img
@@ -24,46 +36,33 @@ export const  EditButton = (props) =>
     </img>
   );
 
-  export const FontList = class FontList extends React.Component  { 
-    constructor(props){
-       super(props)
-       
-       this.handleChange = this.handleChange.bind(this)
-    }
+/**
+ * A generic list type for dropdown menus
+ * @class GeneralList 
+ * @param {Object} props 
+ */
 
-    handleChange = (e) => {
-      //console.log("values of e of ...")
-       //console.log(e.target.value)
-       //console.log(this.props)
-        fontStyle.setFont(e.target.value)
-        executeCommand({cmd: this.props.cmd, arg: e.target.value})
-    }
-    render(){
-      let values = this.props.fonts.map( (value,i) => <option value={value.fontFamily}  key={i}> {value.fontFamily} </option>)
-      return(
-        
-        <div >
-           <select onChange={this.handleChange}>
-            <option className="heading" >- {this.props.heading} -</option>
-                {values}
-           </select>
-        </div>
-
-      )
-    }
- 
-  }
-
-
-// props: {values: value, name: name, cmd: command, heading: heading}
-export  const List = class List extends React.Component {
+export  const GenericList = class GenericList extends React.Component {
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
+        
     }
 
     handleChange(e){
+        if(this.props.setGlobal && this.props.setGlobal.should){
+          switch(this.props.setGlobal.case){
+            case 'fontStyle':
+              fontStyle.setFont(e.target.value)
+              break;
+            case 'fontSize':
+             //TEMPORARY HACK to get it woring
+                executeCommand( { cmd: this.props.cmd, arg: e.target.value/13 } ) 
+              return;
+          }
+        }
         executeCommand( { cmd: this.props.cmd, arg: e.target.value } ) 
+
     }
 
   render(){
