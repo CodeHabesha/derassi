@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import sanitizeHtml from "sanitize-html";
 import {fontStyle} from '../GLOBAL'
 
+
 class Paragraph extends React.Component {
   constructor(props) {
     super(props);
@@ -41,59 +42,22 @@ class Paragraph extends React.Component {
     this.setState({ html: sanitizeHtml(this.state.html, this.sanitizeConf) });
   };
 
-  toggleEditable = () => {
-    this.setState({ editable: !this.state.editable });
-  };
-
   render = () => {
     return (
-      <div>
-        <h3>editable contents</h3>
+      <div class="page-container">
         <div
-          contentEditable = {true}
-          onKeyPress={this.props.onKeyPress}
+          class           ="editable-page"
+          contentEditable = "true"
+          onKeyPress      = {this.props.onKeyPress}
 
-          onBlur={this.sanitize}
-          ref={(el) => this.element = el}
+          onBlur          = {this.sanitize}
+          ref             = {(el) => this.element = el}
          >
             {this.state.html}
          </div>
-        <h3>source</h3>
-        <textarea
-          className="editable"
-          value={this.state.html}
-          onChange={this.handleChange}
-          onBlur={this.sanitize}
-        />
-        <h3>actions</h3>
-        <EditButton cmd="italic" />
-        <EditButton cmd="bold" />
-        <EditButton cmd="formatBlock" arg="h1" name="heading" />
-        <EditButton
-          cmd="createLink"
-          arg="https://github.com/lovasoa/react-contenteditable"
-          name="hyperlink"
-        />
-        <button onClick={this.toggleEditable}>
-          Make {this.state.editable ? "readonly" : "editable"}
-        </button>
       </div>
     );
   };
-}
-
-function EditButton(props) {
-  return (
-    <button
-      key={props.cmd}
-      onMouseDown={evt => {
-        evt.preventDefault(); // Avoids loosing focus from the editable area
-        document.execCommand(props.cmd, false, props.arg); // Send the command to the browser
-      }}
-    >
-      {props.name || props.cmd}
-    </button>
-  );
 }
 
 

@@ -1,10 +1,10 @@
-import { connect } from 'react-redux'
-import { addText, updateVowel, deleteLast } from '../actions/index'
-import Paragraph from '../components/paragraph';
-import keyboardMap from '../keyboardMap'
-import {isConsonant, formatDoc} from '../helpers'
-import {fontStyle} from '../GLOBAL'
-import { saveState } from './../actions'
+import { connect } from 'react-redux';
+import { addText, updateVowel, deleteLast } from '../actions/index';
+import Paragraph from '../components/Paragraph';
+import keyboardMap from '../keyboardMap';
+import {isConsonant, formatDoc} from '../helpers';
+import {fontStyle} from '../GLOBAL';
+import { saveState } from './../actions';
 
 
 function handleChange(e, dispatch){
