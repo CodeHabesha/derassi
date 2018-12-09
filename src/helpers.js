@@ -8,8 +8,6 @@ export const isConsonant = (letter)  => {
 export const  formatDoc = ( oDoc, sCmd, sValue)  => {
   if(document) {
     document.execCommand(sCmd, false, sValue); oDoc.focus();
-    //Now save the state
-    //dispatch(saveState(oDoc.innerHTML));
 
   }
 }
