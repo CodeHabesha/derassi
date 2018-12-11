@@ -13,7 +13,7 @@ class Paragraph extends React.Component {
      }
     render(){
         return (
-            <div contentEditable = {true} ref={ (element) => this.element = element } onKeyDown={this.props.onKeyDown} onKeyPress={this.props.onKeyPress}> </div>
+            <div contentEditable = {true} id={this.props.id} ref={ (element) => this.element = element } onKeyDown={this.props.onKeyDown} onKeyPress={this.props.onKeyPress}> </div>
         )
     }
    
