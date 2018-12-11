@@ -1,12 +1,12 @@
 import React from 'react'
-import Page from './page'
+import Pages from './pages'
 import { fontStyle}  from '../GLOBAL'
 import './App.css'
 
 
 const App = () => (
   <div style={{fontFamily: fontStyle.currentStyle, fontSize: fontStyle.currentSize}} >
-    <Page/>
+    <Pages/>
   </div>
 )
 
