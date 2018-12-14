@@ -1,5 +1,6 @@
 
 import {formatDoc} from '../helpers'
+import sanitizeHtml from 'sanitize-html'
 
 
 
@@ -12,10 +13,12 @@ const onKeyDown = (e,self)  => {
     if(e.key === 'Backspace'){
         console.log(" removing  ", e.target.id)
         console.log(e.target.innerHTML)
-        if(!e.target.innerHTML ){
-          self.removePage(e.target.id)
+        let clean = sanitizeHtml(e.target.innerHTML)
+        console.log(clean)
+        if(clean.length === 0  ){
+          self.removePage(e)
         }
-        
+        return; 
     }
     if(e.key === 'Enter' ) {
       e.preventDefault()
