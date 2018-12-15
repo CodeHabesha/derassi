@@ -89,6 +89,9 @@ div[contenteditable="true"]:focus {
 }
 
 
+
+
+
 .intLink:hover { cursor: pointer; }
 .menu div {  display: inline; 
          white-space: nowrap; 
