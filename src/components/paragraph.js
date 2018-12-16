@@ -6,22 +6,30 @@ import { timingSafeEqual } from "crypto";
 class Paragraph extends React.Component {
      constructor(props){
         super(props)
-        this.handleFocus = this.handleFocus.bind(this)
+        this.handlePaste = this.handlePaste.bind(this);
+        this.handleOverflow = this.handleOverflow.bind(this);
      }
      componentDidMount(){
         this.element.focus();
         this.element.className = "paragraph"
-        //this.element.addEventListener("input", this.props.onChange)
+        this.element.addEventListener("paste", this.handlePaste)
+        this.element.addEventListener("overflow", this.handleOverflow)
      }
 
-     handleFocus = (e) => {
-         console.log("pragraph focused... ", this.props.id, "...", e)
+
+     handleOverflow = (e) => {
+         console.log("..overflow...", e)
+     }
+     handlePaste = (e) => {
+         console.log("...pasted  heights compare",  this.element.offsetHeight, e.target, e)
+         
+         //console.log("..value...", e.clipboardData.getData('text/plain'))
          //this.element.value = this.element.value
      }
 
     render(){
         return (
-            <div contentEditable = {true} onFocus={this.handleFocus} id={this.props.id} ref={ (element) => this.element = element } onKeyDown={this.props.onKeyDown} onKeyPress={this.props.onKeyPress}> </div>
+            <div contentEditable = {true}  id={this.props.id} ref={ (element) => this.element = element } onKeyDown={this.props.onKeyDown} onKeyPress={this.props.onKeyPress}> </div>
         )
     }
    

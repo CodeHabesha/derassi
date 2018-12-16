@@ -80,9 +80,11 @@ body {
     transform: scale(0.9); 
     
 }
-.paragraph {
-    padding-top: 0.2in;
-}
+/* .paragraph {
+    height:  inherit;
+    padding-bottom: 1in;
+    overflow: hidden;
+} */
 
 div[contenteditable="true"]:focus {
   outline: none;

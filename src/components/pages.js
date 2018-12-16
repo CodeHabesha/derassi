@@ -18,15 +18,15 @@ class  Page extends React.Component {
         super(props)
         //this.handleChange = this.handleChange.bind(this)
         this.handleKeyPress = this.handleKeyPress.bind(this)
-        this.handleOverFlow = this.handleOverFlow.bind(this)
+        //this.handleOverFlow = this.handleOverFlow.bind(this)
         
     }
       // handleChange = (e) => onChange(e,this)
        handleKeyPress = (e) => onKeyPress(e,this)
-       handleOverFlow = (e) => {
-           console.log("..over flowing ....")
-           console.log(e)
-       }
+    //    handleOverFlow = (e) => {
+    //        console.log("..over flowing ....")
+    //        console.log()
+    //    }
 
     componentDidMount(){
         this.element.focus()
@@ -143,11 +143,14 @@ const findLastTextNode =  (node) => {
       var sel = window.getSelection();
       
 
-      let html = target.innerHTML
-      console.log(html)
+      //let html = target.innerHTML
+      console.log(", target len" , target.firstChild.length)
 
       //TODO: figur out how to find the right legth of innnerHTML to replace 0 in setStart(targe, 0)
-      range.setStart(target, 0 ); 
+       //while(html.length && html.childNodes){
+        //console.log(html)
+        range.setStart(target, 0); 
+      //}
       range.collapse(true);
       sel.removeAllRanges();
       sel.addRange(range);
