@@ -63,6 +63,7 @@ class Pages extends React.Component {
          
           this.state = {  pages: [<Page id={0}  onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress} key={0}  />]}
           this.addPage = this.addPage.bind(this)
+          this.removePage = this.removePage.bind(this)
           this.handleChange = this.handleChange.bind(this)
           this.handleKeyDown = this.handleKeyDown.bind(this)
 
@@ -87,14 +88,17 @@ class Pages extends React.Component {
             
         }
 
-        removePage = (e) => {
+        removePage = (e, empty ) => {
             let pageId = e.target.id
         
             let previous = -1; 
-            let pages = this.state.pages.filter( (page,i) => { previous = i - 1 ;return(page.props.id !== pageId )})
+            let pages = this.state.pages.filter( (page,i) => 
+                                                { previous = i - 1 ;
+                                                 return(page.props.id !== pageId && empty)
+                                                })
             let prevPage = pages[previous]
 
-            if(prevPage.props.id === "0"){
+            if(prevPage.props.id === "0" || previous === -1){
                 return; 
             }
         
