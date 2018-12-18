@@ -21,8 +21,8 @@ class Paragraph extends React.Component {
          console.log("..overflow...", e)
      }
      handlePaste = (e) => {
-         console.log("...pasted  heights compare",  this.element.offsetHeight, e.target, e)
-         
+         console.log("...pasted  heights compare",  this.element.offsetHeight, e.currentTarget, e.offsetHeight)
+        
          //console.log("..value...", e.clipboardData.getData('text/plain'))
          //this.element.value = this.element.value
      }

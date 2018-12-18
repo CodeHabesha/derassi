@@ -80,10 +80,12 @@ body {
     transform: scale(0.9); 
     
 }
+
+
+/* dont set height on paragraph class because javascript needs it changing */
 /* .paragraph {
-    height:  inherit;
-    padding-bottom: 1in;
-    overflow: hidden;
+    height:  11in;;
+
 } */
 
 div[contenteditable="true"]:focus {

@@ -11,18 +11,20 @@ const onKeyDown = (e,self)  => {
       return;
     }
     if(e.key === 'Backspace'){
+        
         console.log(" removing  ", e.target.id)
         console.log(e.target.innerHTML)
-        let clean = sanitizeHtml(e.target.innerHTML)
+        let clean = sanitizeHtml(e.target.innerHTML )
         console.log(clean)
-        if(clean.length === 0  ){
+        if(clean.length === 0 || e.target.innerHTML === '<br>' && e.target.id !== "0" ){
           self.removePage(e)
         }
         return; 
     }
     if(e.key === 'Enter' ) {
       e.preventDefault()
-      formatDoc(e.target, 'insertParagraph');
+      //(e.target, 'insertParagraph');
+      formatDoc(e.target, "insertHTML", '<br><br>')
      // document.execCommand('insertParagraph',false); 
       return;
     }
