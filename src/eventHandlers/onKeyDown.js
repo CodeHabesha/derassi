@@ -19,7 +19,7 @@ const onKeyDown = (e,self)  => {
         let deletable = (empty || !dirty) && e.target.id !== "0" 
         
         if(deletable){
-          self.removePage(e, empty)
+          self.removePage(e)
         }
         return; 
     }

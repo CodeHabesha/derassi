@@ -16,32 +16,16 @@ class  Page extends React.Component {
 
     constructor(props){
         super(props)
-        this.handleChange = this.handleChange.bind(this)
         this.handleKeyPress = this.handleKeyPress.bind(this)
-        //this.handleOverFlow = this.handleOverFlow.bind(this)
-        
     }
-       handleChange = (e) => {
-           console.log("... page handlePage...")
-           console.log(e.target.offsetHeight, this.element.offsetHeight)
-           //do something here to adjust page overload 
-           console.log(e.target.offsetHeight, document.activeElement.offsetHeight, e.target.innerHeight)
-           console.log(this.element.selection.getRangeAt(0))
-       }
+    
        handleKeyPress = (e) => onKeyPress(e,this)
-    //    handleOverFlow = (e) => {
-    //        console.log("..over flowing ....")
-    //        console.log()
-    //    }
+   
 
     componentDidMount(){
         this.element.focus()
         this.element.id = this.props.id
-        this.element.addEventListener("input", this.handleChange)
-        this.element.selection = window.getSelection();
-
-
-    }
+        }
     
    
     render(){
@@ -88,22 +72,35 @@ class Pages extends React.Component {
             
         }
 
-        removePage = (e, empty ) => {
+        removePage = (e ) => {
+
             let pageId = e.target.id
         
             let previous = -1; 
-            let pages = this.state.pages.filter( (page,i) => 
+            let next = 1; 
+        
+            let  pages = this.state.pages.filter( (page,i) => 
                                                 { previous = i - 1 ;
-                                                 return(page.props.id !== pageId && empty)
+                                                  next = i + 1;
+                                                 return page.props.id !== pageId
                                                 })
-            let prevPage = pages[previous]
+                            
+            console.log(pages, " beofre..")
 
-            if(prevPage.props.id === "0" || previous === -1){
+            let prevPage = pages[previous]
+            let nextPage = pages[next] ? pages[next] : null;  
+            
+            console.log(prevPage)
+            if(!prevPage) return; 
+
+            if(e.target.id === "0" ){
                 return; 
             }
-        
+            console.log(" why is this not setting...",)
             this.setState({pages: pages})
             this.forceUpdate()
+
+            //console.log(this.state.pages.length, " after ..")
 
             let pid = prevPage.props.id
             let prevEl = document.getElementById(pid)
@@ -112,6 +109,8 @@ class Pages extends React.Component {
              // you need to set focus here before replacing carot
              node.focus()
              replaceCaret(node)
+
+             console.log( ".....replaced cart")
             
         }
 
@@ -155,8 +154,8 @@ const findLastTextNode =  (node) => {
     const isTargetFocused = document.activeElement === target;
     
     if (target/*&& target.nodeValue !== null && isTargetFocused */) {
-      var range = document.createRange();
-      var sel = window.getSelection();
+      let range = document.createRange();
+      let sel = window.getSelection();
       
 
       //let html = target.innerHTML
