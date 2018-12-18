@@ -12,10 +12,10 @@ const onKeyDown = (e,self)  => {
     }
     if(e.key === 'Backspace'){
         
-        console.log(" removing  ", e.target.id)
-        console.log(e.target.innerHTML)
+        // console.log(" removing  ", e.target.id)
+        // console.log(e.target.innerHTML)
         let clean = sanitizeHtml(e.target.innerHTML )
-        console.log(clean)
+        //console.log(clean)
         if(clean.length === 0 || e.target.innerHTML === '<br>' && e.target.id !== "0" ){
           self.removePage(e)
         }

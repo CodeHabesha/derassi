@@ -16,16 +16,17 @@ class  Page extends React.Component {
 
     constructor(props){
         super(props)
-         this.handleChange = this.handleChange.bind(this)
+        this.handleChange = this.handleChange.bind(this)
         this.handleKeyPress = this.handleKeyPress.bind(this)
         //this.handleOverFlow = this.handleOverFlow.bind(this)
         
     }
        handleChange = (e) => {
-           console.log("...changinng page...")
+           console.log("... page handlePage...")
            console.log(e.target.offsetHeight, this.element.offsetHeight)
            //do something here to adjust page overload 
            console.log(e.target.offsetHeight, document.activeElement.offsetHeight, e.target.innerHeight)
+           console.log(this.element.selection.getRangeAt(0))
        }
        handleKeyPress = (e) => onKeyPress(e,this)
     //    handleOverFlow = (e) => {
@@ -37,6 +38,8 @@ class  Page extends React.Component {
         this.element.focus()
         this.element.id = this.props.id
         this.element.addEventListener("input", this.handleChange)
+        this.element.selection = window.getSelection();
+
 
     }
     
@@ -90,6 +93,10 @@ class Pages extends React.Component {
             let previous = -1; 
             let pages = this.state.pages.filter( (page,i) => { previous = i - 1 ;return(page.props.id !== pageId )})
             let prevPage = pages[previous]
+
+            if(prevPage.props.id === "0"){
+                return; 
+            }
         
             this.setState({pages: pages})
             this.forceUpdate()
@@ -154,7 +161,7 @@ const findLastTextNode =  (node) => {
       //TODO: figur out how to find the right legth of innnerHTML to replace 0 in setStart(targe, 0)
        //while(html.length && html.childNodes){
         //console.log(html)
-        range.setStart(target, 0); 
+        range.setStart(target, 1); 
       //}
       range.collapse(true);
       sel.removeAllRanges();
