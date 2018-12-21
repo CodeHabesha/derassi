@@ -5,6 +5,7 @@ import Paragraph from './paragraph'
 import onChange from '../eventHandlers/onChange'
 import onKeyDown from '../eventHandlers/onKeyDown'
 import onKeyPress from '../eventHandlers/onKeyPress'
+import onPaste from '../eventHandlers/onPaste'
 import { element, node } from "prop-types"
 import uniqid from 'uniqid'
 
@@ -17,21 +18,33 @@ class  Page extends React.Component {
     constructor(props){
         super(props)
         this.handleKeyPress = this.handleKeyPress.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleKeyDown = this.handleKeyDown.bind(this)
+        this.handleFocus= this.handleFocus.bind(this)
     }
     
        handleKeyPress = (e) => onKeyPress(e,this)
-   
+       handleChange = (e) => onChange(e,this)
+       handleKeyDown = (e) => onKeyDown(e,this)
+       handleFocus = (e) => {
+           console.log("foucs ", e , e.clientY)
+       }
 
     componentDidMount(){
         this.element.focus()
         this.element.id = this.props.id
+        this.element.addEventListener("input", this.handleChange)
+        this.element.addEventListener("focus", this.handleFocus)
+
         }
     
    
     render(){
         return(
-        <div className="page"   ref={ el => this.element = el}  >
-            <Paragraph id={this.props.id}   onKeyDown={this.props.onKeyDown} onKeyPress={this.handleKeyPress}/>
+        <div contentEditable={true} className="page"  
+            id={this.props.id} ref={ el => this.element = el} 
+            onKeyDown={this.handleKeyDown} onKeyPress={this.handleKeyPress}  >
+            {/* <Paragraph id={this.props.id}   onKeyDown={this.props.onKeyDown} onKeyPress={this.handleKeyPress}/> */}
         </div>
         )
     }
@@ -45,93 +58,111 @@ class Pages extends React.Component {
        constructor(props){
           super(props)
          
-          this.state = {  pages: [<Page id={0}  onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress} key={0}  />]}
+          this.state = {  pages: [<Page id={0} goToNextPage={this.goToNextPage} onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress} key={0}  />]}
           this.addPage = this.addPage.bind(this)
-          this.removePage = this.removePage.bind(this)
-          this.handleChange = this.handleChange.bind(this)
-          this.handleKeyDown = this.handleKeyDown.bind(this)
-
+        //   this.removePage = this.removePage.bind(this)
+        //   this.handleChange = this.handleChange.bind(this)
+        //   this.handleKeyDown = this.handleKeyDown.bind(this)
+        //   this.handlePaste = this.handlePaste.bind(this)
+          this.goToNextPage = this.goToNextPage.bind(this);
         
        }
 
        componentDidMount(){
-         
+
+        // this.selection = window.getSelection()
+
+        // this.element.addEventListener("paste", this.handlePaste)
+
        }
+
+       goToNextPage = (args) => {
+           console.log(this, "got to next page called..", args)
+           let nextId = (Number(args.id) + 1).toString()
+           if(! document.getElementById(nextId) ) {
+               this.addPage(args)
+           }
+       }
+
+       render() {
+        return(
+            <div>
+              <Menu/>
+              <div className="pages" ref={ el => this.element = el }>
+                 
+                 {this.state.pages.map( (p,i) => { return p})}
+               
+               </div>
+            </div>
+        )
+     }
       
-       handleKeyDown = (e) => onKeyDown(e,this)
-       handleChange = (e) => onChange(e,this)
+    //    handlePaste = (e) => onPaste(e,this)
+    //    handleKeyDown = (e) => onKeyDown(e,this)
+    //    handleChange = (e) => onChange(e,this)
        
-        addPage =  () => {
-            let id = uniqid()
-            let page = <Page  id={id} onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress}  key={id} />
+        addPage =  (args) => {
+            //let id = uniqid()
+            let page = <Page  id={args.id} onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress}  key={args.id} />
             let pages = [...this.state.pages, page]
             this.setState({  pages: pages })
             this.forceUpdate();
-            console.log(document.activeElement);
+            let thisPage = document.getElementById(args.id)
+            thisPage.insertBefore(args.content, thisPage.firstChild)
+            //console.log(document.activeElement);
  
             
         }
 
-        removePage = (e ) => {
+    //     removePage = (e ) => {
 
-            let pageId = e.target.id
+    //         let pageId = e.target.id
         
-            let previous = -1; 
-            let next = 1; 
+    //         let previous = -1; 
+    //         let next = 1; 
         
-            let  pages = this.state.pages.filter( (page,i) => 
-                                                { previous = i - 1 ;
-                                                  next = i + 1;
-                                                 return page.props.id !== pageId
-                                                })
+    //         let  pages = this.state.pages.filter( (page,i) => 
+    //                                             { previous = i - 1 ;
+    //                                               next = i + 1;
+    //                                              return page.props.id !== pageId
+    //                                             })
                             
-            console.log(pages, " beofre..")
+    //         //console.log(pages, " beofre..")
 
-            let prevPage = pages[previous]
-            let nextPage = pages[next] ? pages[next] : null;  
+    //         let prevPage = pages[previous]
+    //         let nextPage = pages[next] ? pages[next] : null;  
             
-            console.log(prevPage)
-            if(!prevPage) return; 
+    //         //console.log(prevPage)
+    //         if(!prevPage) return; 
 
-            if(e.target.id === "0" ){
-                return; 
-            }
-            console.log(" why is this not setting...",)
-            this.setState({pages: pages})
-            this.forceUpdate()
+    //         if(e.target.id === "0" ){
+    //             return; 
+    //         }
+    //         //console.log(" why is this not setting...",)
+    //         this.setState({pages: pages})
+    //         this.forceUpdate()
 
-            //console.log(this.state.pages.length, " after ..")
+    //         ////console.log(this.state.pages.length, " after ..")
 
-            let pid = prevPage.props.id
-            let prevEl = document.getElementById(pid)
-            let node = prevEl.childNodes[0]
+    //         let pid = prevPage.props.id
+    //         let prevEl = document.getElementById(pid)
+    //         let node = prevEl.childNodes[0]
             
-             // you need to set focus here before replacing carot
-             node.focus()
-             replaceCaret(node)
+    //          // you need to set focus here before replacing carot
+    //          node.focus()
+    //          replaceCaret(node)
 
-             console.log( ".....replaced cart")
+    //          //console.log( ".....replaced cart")
             
-        }
+    //     }
 
-    componentDidMount(){
-        this.element.addEventListener("input", this.handleChange)
-    }
+    // componentDidMount(){
+    //     this.element.addEventListener("input", this.handleChange)
+    // }
 
     
 
-    render() {
-         return(
-             <div>
-               <Menu/>
-               <div className="pages" ref={ el => this.element = el }>
-                  
-                  {this.state.pages.map( (p,i) => { return p})}
-                
-                </div>
-             </div>
-         )
-    }
+    
 }
 
 
