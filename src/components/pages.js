@@ -7,7 +7,7 @@ import onKeyDown from '../eventHandlers/onKeyDown'
 import onKeyPress from '../eventHandlers/onKeyPress'
 import onPaste from '../eventHandlers/onPaste'
 import { element, node } from "prop-types"
-import uniqid from 'uniqid'
+//import uniqid from 'uniqid'
 
 import sanitizeHtml from 'sanitize-html'
 
@@ -51,14 +51,16 @@ class  Page extends React.Component {
 }
 
 
+const getNewPage = (id,self) => 
+    <Page  id={id} goToNextPage={self.goToNextPage} onKeyDown={self.handleKeyDown} onKeyPress={onKeyPress}  key={id} />
 
 
 class Pages extends React.Component {
        
        constructor(props){
           super(props)
-         
-          this.state = {  pages: [<Page id={0} goToNextPage={this.goToNextPage} onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress} key={0}  />]}
+         let page = getNewPage(0,this)
+          this.state = {  pages: [page]}
           this.addPage = this.addPage.bind(this)
         //   this.removePage = this.removePage.bind(this)
         //   this.handleChange = this.handleChange.bind(this)
@@ -80,7 +82,7 @@ class Pages extends React.Component {
            console.log(this, "got to next page called..", args)
            let nextId = (Number(args.id) + 1).toString()
            if(! document.getElementById(nextId) ) {
-               this.addPage(args)
+               this.addPage({id: nextId, content: args.content})
            }
        }
 
@@ -103,12 +105,20 @@ class Pages extends React.Component {
        
         addPage =  (args) => {
             //let id = uniqid()
-            let page = <Page  id={args.id} onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress}  key={args.id} />
+            let page = getNewPage(args.id,this) 
+            //<Page  id={args.id} goToNextPage={this.goToNextPage} onKeyDown={this.handleKeyDown} onKeyPress={onKeyPress}  key={args.id} />
             let pages = [...this.state.pages, page]
             this.setState({  pages: pages })
             this.forceUpdate();
             let thisPage = document.getElementById(args.id)
-            thisPage.insertBefore(args.content, thisPage.firstChild)
+            if(thisPage && this.firstChild){
+                thisPage.insertBefore(args.content, thisPage.firstChild)
+            }else if(thisPage) {
+                let div = document.createElement('div')
+                thisPage.append(div)
+                div.append(args.content)
+            }
+                
             //console.log(document.activeElement);
  
             

@@ -74,12 +74,16 @@ body {
     margin: 0.2in 0.2in 0.2in 0.2in;
     background-color: white;
     padding:  1in 1in 1in 1in;
-    height: 11in;
-    width: 8.5in;
+    height: 10in;
+    width: 7.5in;
     box-align: center;
     transform: scale(0.9); 
     overflow: hidden;
     
+}
+
+.page div {
+    width: inherit; 
 }
 
 

@@ -1,53 +1,39 @@
 
-const y = new Set()
+//const y = new Set()
 
 const onChange = (e,self) => {
-    
- console.log(e.srcElement.firstChild,e.srcElement.lastChild)
-  let range  = document.caretRangeFromPoint(0, 0);
-//  //console.log(range)
- let selection = window.getSelection()
- 
-  //let range = selection.getRangeAt(1)
-  range.setStart(selection.anchorNode, 0)
-  range.setEnd(e.srcElement.lastChild, 0)
-  console.log(range.END_TO_END)
-  console.log(selection)
-  console.log(range)
-  console.log("achornode: ", selection.anchorNode, "focus node  ", selection.focusNode, "anchor offset: ",  selection.anchorOffset,  "base node: ", selection.baseNode, " base offset",  selection.baseOffset)
+  console.log(e)
+  console.log(">>>>>>>>>", self.element.id, document.activeElement.id)
+  // console.log("dif hights " , e.srcElement.scrollHeight ,  e.srcElement.clientHeight)
+  // let srcRange = document.createRange()
+  // srcRange.setStart(e.srcElement, 0)
+  // srcRange.setEnd(e.srcElement, e.srcElement.children.length)
+  // console.log(" src range: ", srcRange)
+  // console.log("src rect:",   srcRange.getBoundingClientRect())
 
-  let caretPosition = document.caretPositionFromPoint;
-  if(caretPosition){ 
-    console.log("carontpostion ", document.caretPositionFromPoint(100,100))}
+  // let lastChildRange = document.createRange()
+  // lastChildRange.setStart(e.srcElement.lastChild, 0)
+  // lastChildRange.setEnd(e.srcElement.lastChild, e.srcElement.lastChild.length)
+  //  console.log("laschil rect:  ", lastChildRange.getBoundingClientRect())
+  //  console.log("lastchild rang: " , lastChildRange)
 
-  //    console.log(selection.getRangeAt(0), " rang at zero ")
-//    range.setStart(selection.anchorNode, 0)
-//    range.setEnd(e.srcElement.lastChild, 0 )
- 
-//   if (!window.getSelection().rangeCount) return; 
-//   console.log(window.getSelection())
-//   console.log(range)
+ if(e.srcElement.scrollHeight > e.srcElement.clientHeight){
+        self.props.goToNextPage( {id: self.element.id, content: e.srcElement.lastChild})
+ }
 
-//  let pageHeight = range.getClientRects().length *  range.getClientRects()[range.getClientRects().length - 1].height
-//  console.log(pageHeight)
-//  console.log(e.srcElement.scrollHeight)
+ if(e.inputType === 'deleteContentBackward'){
+   console.log("deleting..", e)
+   console.log("selection " , window.getSelection())
+   let selection = window.getSelection()
+   if(selection.anchorNode === e.srcElement && selection.anchorOffset === 0){
+     console.log("......make a method to go to last page.....")
+      //self.props.goToLastPage({id: self.element.id, content: e.srcElement.firtChild})
+      if(e.srcElement.id === "0") return; 
+      let prevId = (Number(e.srcElement.id) - 1).toString();
+      document.getElementById(prevId).focus();
+   }
+ }
 
-//  let lastContent = ""
-//  if(pageHeight >= 1000){
-//         //self.props.goToNextPage( {id: self.element.id, content: e.srcElement.lastChild})
-//         console.log(" .. end reached.....")
-//         console.log(range)
-//         console.log( "end", e.srcElement.children.length)
-//         lastContent = e.srcElement.lastChild.innerText 
-//         console.log("last content: ", lastContent)
-//         let removed = e.srcElement.removeChild(e.srcElement.lastChild)
-//         range.setEnd(e.srcElement.lastChild, 0 )
-//         console.log("removed ", removed)
-    
-//        console.log( "end", e.srcElement.children.length)
-        
-
- //}
  
  
 
