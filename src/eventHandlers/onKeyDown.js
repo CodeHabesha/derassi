@@ -10,23 +10,24 @@ const onKeyDown = (e,self)  => {
       formatDoc( e.target, "insertHTML", "&nbsp;&nbsp;&nbsp;&nbsp;");
       return;
     }
-    if(e.key === 'Backspace'){
+    // if(e.key === 'Backspace'){
         
         
-        let empty = sanitizeHtml(e.target.innerHTML).length === 0 
-        let dirty = e.target.innerHTML.replace( /(<br>)/g,'') 
+    //     let empty = sanitizeHtml(e.target.innerHTML).length === 0 
+    //     let dirty = e.target.innerHTML.replace( /(<br>)/g,'') 
         
-        let deletable = (empty || !dirty) && e.target.id !== "0" 
+    //     let deletable = (empty || !dirty) && e.target.id !== "0" 
         
-        if(deletable){
-          self.removePage(e)
-        }
-        return; 
-    }
+    //     if(deletable){
+    //       self.removePage(e)
+    //     }
+    //     return; 
+    // }
     if(e.key === 'Enter' ) {
       e.preventDefault()
       //(e.target, 'insertParagraph');
-      formatDoc(e.target, "insertHTML", '<br><br>')
+     //formatDoc(e.target, "insertParagraph", '<br><br>')
+      formatDoc(e.target, "insertParagraph"); //better to insertparagraph thatn use brbr
      // document.execCommand('insertParagraph',false); 
       return;
     }
