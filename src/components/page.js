@@ -20,7 +20,7 @@ class  Page extends React.Component {
        
 
     componentDidMount(){
-        this.element.focus()
+        if(this.props.focus) {this.element.focus()} ;
         this.element.id = this.props.id
         this.element.addEventListener("input", this.handleChange)
         this.element.addEventListener("focus", this.handleFocus)

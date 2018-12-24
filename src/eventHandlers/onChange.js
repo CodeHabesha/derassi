@@ -11,32 +11,41 @@ const moveLastLine  = (e, self) => {
 
 }
 const onChange = (e,self) => {
-  
 
+   let selection = window.getSelection()
   
+      
 
-
-  
-  
-   //console.log("lastchild rang: " , lastChildRange)
+   console.log(selection)
+     
    let srcRange = document.createRange()
          srcRange.setStart(e.srcElement, 0)
          srcRange.setEnd(e.srcElement.lastChild, 1)
          let srcRect = srcRange.getBoundingClientRect()
          console.log(srcRange, srcRect)
+
   let srcElementRectHeight = e.srcElement.getBoundingClientRect().height
- //if(e.srcElement.scrollHeight > e.srcElement.clientHeight ){
-  console.log(srcElementRectHeight , e.srcElement )
+
+ if(e.srcElement.scrollHeight > e.srcElement.clientHeight ){
+   console.log(e.srcElement.scrollHeight > e.srcElement.clientHeight )
+   console.log(srcElementRectHeight , e.srcElement )
          let range = document.caretRangeFromPoint(srcRect.x, srcRect.y + srcRect.height);
          let textNode = range.startContainer;
          let offset = range.startOffset;
          console.log(" y + heigh", srcRect.y + srcRect.height)
          console.log(range, textNode, offset)
-        let content = e.srcElement.lastChild //moveLastLine(e,self)
-       // e.srcElement.removeChild(e.srcElement.lastChild)
-        //self.props.goToNextPage( {id: self.element.id, content: content})
+        let content = textNode.textContent // e.srcElement.lastChild //moveLastLine(e,self)
+        
+         //remove the textnode: TODO 
+         //textNode.parentNode.removeChild(textNode);
 
-// }
+
+        //temporarily set focus true
+        let focus = true ;
+        
+        self.props.goToNextPage( {id: self.element.id, content: content, focus: focus})
+
+ }
 
  if(e.inputType === 'deleteContentBackward'){
    
