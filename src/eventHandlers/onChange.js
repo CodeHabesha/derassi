@@ -1,21 +1,38 @@
 
 import { findLastTextNode } from '../helpers'
 
+
 const onChange = (e, self) => {
 
   let selection = window.getSelection()
+  console.log(selection.anchorNode.parentElement.id )
 
+  console.log()
   if (e.srcElement.scrollHeight > e.srcElement.clientHeight) {
     let divs = e.srcElement.getElementsByTagName('div')
     let lastDivNode = divs[divs.length - 1]
+    let lastDivId = "lastDiv-" + e.srcElement.id
+    lastDivNode.setAttribute("id",lastDivId)
     let content = lastDivNode
     console.log(divs)
 
-    let focus = (selection.anchorNode === lastDivNode);
+ 
+
+
+    console.log(selection, selection.anchorNode.id , " .... " , lastDivNode.id)
+    let focus = (selection.anchorNode.id === lastDivNode.id) || (selection.anchorNode.parentNode === lastDivNode.id);
+    //console.log(selection.anchorNode, selection.focusNode, selection, selection.commonAncestorContainer.parentNode.id)
     console.log(selection.anchorNode, selection.focusNode, lastDivNode)
     console.log("should focus ", focus)
 
     lastDivNode.remove()
+
+    //  divs = e.srcElement.getElementsByTagName('div')
+    //  lastDivNode = divs[divs.length - 1]
+
+    let activeElement = document.activeElement
+    console.log(activeElement)
+
     self.props.goToNextPage({ id: self.element.id, content: content, focus: focus })
   }
 
