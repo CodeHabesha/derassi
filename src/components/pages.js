@@ -9,7 +9,7 @@ class Pages extends React.Component {
 
     constructor(props) {
         super(props)
-        let page = this.getNewPage(0)
+        let page = this.getNewPage(0, true)
         this.state = { pages: [page] }
         this.addPage = this.addPage.bind(this)
         this.removePage = this.removePage.bind(this)
@@ -21,7 +21,7 @@ class Pages extends React.Component {
 
     }
 
-    getNewPage = (id, focus = true) =>
+    getNewPage = (id, focus ) =>
         <Page id={id}
             goToNextPage={this.goToNextPage}
             goToPreviousPage={this.goToPreviousPage}
@@ -32,7 +32,17 @@ class Pages extends React.Component {
         console.log(this, "got to next page called..", args)
         let nextId = (Number(args.id) + 1).toString()
         if (!document.getElementById(nextId)) {
-            this.addPage({ id: nextId, content: args.content })
+            this.addPage({ id: nextId, content: args.content, focus: args.focus })
+        }else{
+        
+            let page = document.getElementById(nextId)
+            if (page && page.firstChild) {
+                page.insertBefore(args.content, page.firstChild)
+            } else {
+                let div = document.createElement('div')
+                page.append(div)
+                div.append(args.content)
+            }  
         }
     }
 
@@ -69,17 +79,18 @@ class Pages extends React.Component {
 
 
     addPage = (args) => {
+
         let page = this.getNewPage(args.id, args.focus)
         let pages = [...this.state.pages, page]
         this.setState({ pages: pages })
         this.forceUpdate();
-        let newPage;
+        let newPage; 
         setTimeout(() => {
             newPage = document.getElementById(args.id)
             console.log(newPage, page)
             console.log(newPage, page)
             if (newPage && newPage.firstChild) {
-                console.log("if..", newPage)
+                console.log("if.xxxxxxx.", newPage)
                 newPage.insertBefore(args.content, newPage.firstChild)
                 console.log("if..111", newPage)
             } else if (newPage) {
@@ -88,7 +99,10 @@ class Pages extends React.Component {
                 newPage.append(div)
                 div.append(args.content)
                 console.log("else1111", newPage)
+            }else {
+                console.log(">>>>>>>>>>")
             }
+
         }, 0);
 
 
