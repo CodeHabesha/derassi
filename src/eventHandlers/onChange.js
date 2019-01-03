@@ -4,25 +4,28 @@ import { findLastTextNode } from '../helpers'
 
 const onChange = (e, self) => {
 
-  let selection = window.getSelection()
-  console.log(selection.anchorNode.parentElement.id )
+  
+
 
   console.log()
   if (e.srcElement.scrollHeight > e.srcElement.clientHeight) {
+
+    let selection = window.getSelection()
+    let range =    selection.getRangeAt(0)
+ 
     let divs = e.srcElement.getElementsByTagName('div')
     let lastDivNode = divs[divs.length - 1]
-    let lastDivId = "lastDiv-" + e.srcElement.id
-    lastDivNode.setAttribute("id",lastDivId)
+    
     let content = lastDivNode
-    console.log(divs)
+    let rect = lastDivNode.getBoundingClientRect()
+    
+    console.log(rect)
 
  
-
-
-    console.log(selection, selection.anchorNode.id , " .... " , lastDivNode.id)
-    let focus = (selection.anchorNode.id === lastDivNode.id) || (selection.anchorNode.parentNode === lastDivNode.id);
-    //console.log(selection.anchorNode, selection.focusNode, selection, selection.commonAncestorContainer.parentNode.id)
-    console.log(selection.anchorNode, selection.focusNode, lastDivNode)
+  
+    let focus = ( range.endContainer === lastDivNode)
+    console.log(range)
+    
     console.log("should focus ", focus)
 
     lastDivNode.remove()
@@ -37,12 +40,14 @@ const onChange = (e, self) => {
   }
 
   if (e.inputType === 'deleteContentBackward') {
-
+    console.log(e.srcElement.id, " going to last page")
     let selection = window.getSelection()
+    let range = selection.getRangeAt(0)
+    console.log(selection)
 
     // if top of page is reached...
-    if (selection.anchorNode === e.srcElement && selection.anchorOffset === 0) {
-      console.log(e.srcElement.id, " going to pre")
+    if (range.startContainer === e.srcElement.firstChild && selection.anchorOffset === 0) {
+      console.log(e.srcElement.id, " going to previous page")
       //self.props.goToLastPage({id: self.element.id, content: e.srcElement.firtChild})
       if (e.srcElement.id === "0") return;
       let id = e.srcElement.id // (Number(e.srcElement.id) - 1).toString();

@@ -3,7 +3,7 @@ import Menu from './menu'
 import Page from './page';
 import sanitizeHtml from 'sanitize-html'
 import { replaceCaret } from "../helpers";
-
+import { findLastTextNode } from '../helpers'
 
 class Pages extends React.Component {
 
@@ -18,7 +18,6 @@ class Pages extends React.Component {
         this.goToPreviousPage = this.goToPreviousPage.bind(this);
         this.getNewPage = this.getNewPage.bind(this)
 
-
     }
 
     getNewPage = (id, focus ) =>
@@ -32,17 +31,33 @@ class Pages extends React.Component {
         console.log(this, "got to next page called..", args)
         let nextId = (Number(args.id) + 1).toString()
         if (!document.getElementById(nextId)) {
+            console.log("...1")
             this.addPage({ id: nextId, content: args.content, focus: args.focus })
         }else{
-        
+            console.log("....2")
             let page = document.getElementById(nextId)
+            console.log("this page is: " , page)
+            console.log(page.id, " page with this id should foucs.")
             if (page && page.firstChild) {
+                console.log("....3")
                 page.insertBefore(args.content, page.firstChild)
+                console.log("focsing 1 timeeout ")
+                    setTimeout(() => {
+                        if(args.focus ){
+                            console.log("focsing afte timeeout ")
+                            page.focus();
+                        }
+                        
+                    }, 0); 
+                    
             } else {
+                console.log("....4")
                 let div = document.createElement('div')
                 page.append(div)
                 div.append(args.content)
-            }  
+            } 
+        
+            
         }
     }
 

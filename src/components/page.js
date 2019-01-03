@@ -11,12 +11,16 @@ class  Page extends React.Component {
         this.handleKeyPress = this.handleKeyPress.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleKeyDown = this.handleKeyDown.bind(this)
+        this.handleFocus = this.handleFocus.bind(this)
         
     }
     
        handleKeyPress = (e) => onKeyPress(e,this)
        handleChange = (e) => onChange(e,this)
        handleKeyDown = (e) => onKeyDown(e,this)
+       handleFocus = (e) => {
+           console.log(" focus called on ", this.element.id)
+       }
        
 
     componentDidMount(){
