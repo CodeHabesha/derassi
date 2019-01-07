@@ -28,30 +28,30 @@ class Pages extends React.Component {
             key={id} />
 
     goToNextPage = (args) => {
-        console.log(this, "got to next page called..", args)
+        //console.log(this, "got to next page called..", args)
         let nextId = (Number(args.id) + 1).toString()
         if (!document.getElementById(nextId)) {
-            console.log("...1")
+            //console.log("...1")
             this.addPage({ id: nextId, content: args.content, focus: args.focus })
         }else{
-            console.log("....2")
+            //console.log("....2")
             let page = document.getElementById(nextId)
-            console.log("this page is: " , page)
-            console.log(page.id, " page with this id should foucs.")
+            //console.log("this page is: " , page)
+            //console.log(page.id, " page with this id should foucs.")
             if (page && page.firstChild) {
-                console.log("....3")
-                page.insertBefore(args.content, page.firstChild)
-                console.log("focsing 1 timeeout ")
+                //console.log("....3")
+                page.prepend(args.content) //, page.firstChild)
+                //console.log("focsing 1 timeeout ")
                     setTimeout(() => {
                         if(args.focus ){
-                            console.log("focsing afte timeeout ")
+                            ////console.log("focsing afte timeeout ")
                             page.focus();
                         }
                         
                     }, 0); 
                     
             } else {
-                console.log("....4")
+                //console.log("....4")
                 let div = document.createElement('div')
                 page.append(div)
                 div.append(args.content)
@@ -62,19 +62,19 @@ class Pages extends React.Component {
     }
 
     goToPreviousPage = (args) => {
-        console.log(this, "going to prev page..")
+        //console.log(this, "going to prev page..")
         let thisId = args.id
-        console.log("this page content....", document.getElementById(thisId))
+        //console.log("this page content....", document.getElementById(thisId))
         let prevId = (Number(thisId) - 1).toString();
         let thisEl = document.getElementById(thisId)
         let empty = sanitizeHtml(thisEl.innerHTML).length === 0
         let dirty = thisEl.innerHTML.replace(/(<br>)/g, '')
         let deletable = (empty || !dirty) && thisEl.id !== "0"
         if (deletable) {
-            console.log("...removing page", thisId)
+            //console.log("...removing page", thisId)
             this.removePage(thisId, prevId)
         } else {
-            console.log("..going back a page, ", prevId)
+            //console.log("..going back a page, ", prevId)
             this.goBackApage(prevId)
         }
     }
@@ -102,20 +102,20 @@ class Pages extends React.Component {
         let newPage; 
         setTimeout(() => {
             newPage = document.getElementById(args.id)
-            console.log(newPage, page)
-            console.log(newPage, page)
+            //console.log(newPage, page)
+            //console.log(newPage, page)
             if (newPage && newPage.firstChild) {
-                console.log("if.xxxxxxx.", newPage)
-                newPage.insertBefore(args.content, newPage.firstChild)
-                console.log("if..111", newPage)
+                //console.log("if.xxxxxxx.", newPage)
+                newPage.prepend(args.content) //, newPage.firstChild)
+                //console.log("if..111", newPage)
             } else if (newPage) {
-                console.log("esel ..", newPage)
+                //console.log("esel ..", newPage)
                 let div = document.createElement('div')
                 newPage.append(div)
                 div.append(args.content)
-                console.log("else1111", newPage)
+                //console.log("else1111", newPage)
             }else {
-                console.log(">>>>>>>>>>")
+                //console.log(">>>>>>>>>>")
             }
 
         }, 0);

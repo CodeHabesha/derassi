@@ -1,20 +1,30 @@
 
-import { findLastTextNode } from '../helpers'
-import { node } from 'prop-types';
 
 
 const onChange = (e, self) => {
 
-  if (e.srcElement.scrollHeight > e.srcElement.clientHeight) {
 
-    let selection = window.getSelection()
-    let range = selection.getRangeAt(0)
-    let divs = e.srcElement.getElementsByTagName('div')
-    let lastDivNode = divs[divs.length - 1]
-    let content = fixLastNode(e.srcElement, lastDivNode)
-    let focus = (range.endContainer === lastDivNode)
+
+  if (e.srcElement.scrollHeight > e.srcElement.clientHeight) {
+    
+    let selection = document.getSelection()
+    let range = document.createRange()
+    range.setStart(selection.focusNode, 0)
+    range.setEnd(e.srcElement.lastChild, 0)
+    let rect = range.getBoundingClientRect()
+
+    console.log("...")
+
+    console.log(selection, range, rect.height - selection.getRangeAt(0).getBoundingClientRect().height)
+
+    let focus = (rect.height - selection.getRangeAt(0).getBoundingClientRect().height) <= 0;
+    console.log(focus)
+    let content = moveLastLine(e.srcElement)
 
     self.props.goToNextPage({ id: self.element.id, content: content, focus: focus })
+
+
+
   }
 
   if (e.inputType === 'deleteContentBackward') {
@@ -36,8 +46,42 @@ const onChange = (e, self) => {
   }
 }
 
+const moveLastLine = (el) => {
+
+  let range = document.createRange()
+  range.selectNodeContents(el)
+  let rect = range.getBoundingClientRect();
+  console.log(rect)
+  let lastLine = document.createElement('span')
+  //lastLine.append("")
+  let height = rect.height
+
+  let children = el.childNodes
+  console.log(children)
+  let index = children.length - 1
+  while (1) {
+    if (index < 0) break;
+    let lastChild = children[index]
+    let clone = lastChild.cloneNode(true);
+    lastLine.prepend(clone) //, lastLine.lastChild)
+    lastChild.remove()
+
+    range.selectNodeContents(el)
+    rect = range.getBoundingClientRect()
+    if (height !== rect.height) break;
+    height = rect.height
+    index--;
+  }
+  console.log(lastLine, " last line")
+  return lastLine
+
+}
 const fixLastNode = (parent, el) => {
-  
+  console.log(el.childNodes.length, el, el.content)
+  if (el.childNodes.length === 0) {
+    el.remove()
+    return document.createElement('div')
+  }
   let nodes = el.childNodes
   let array = []
   let i = 0;
@@ -55,7 +99,7 @@ const fixLastNode = (parent, el) => {
     i++;
   }
 
-  
+
   let lastDiv = document.createElement('div')
   for (let index = 0; index < array.length; index++) {
     const element = array[index];
@@ -67,7 +111,7 @@ const fixLastNode = (parent, el) => {
   let divs = parent.getElementsByTagName('div')
   let lastDivNode = divs[divs.length - 1]
   let lastLine = document.createElement('div')
-  lastLine.append("")
+  //lastLine.append("")
 
   let rect = lastDivNode.getBoundingClientRect()
   let height = rect.height
@@ -78,7 +122,7 @@ const fixLastNode = (parent, el) => {
     if (k < 0) break;
     let lastChild = children[k]
     let clone = lastChild.cloneNode(true);
-    lastLine.insertBefore(clone, lastLine.lastChild)
+    lastLine.prepend(clone) //, lastLine.lastChild)
     lastChild.remove()
 
     rect = lastDivNode.getBoundingClientRect()
@@ -86,6 +130,7 @@ const fixLastNode = (parent, el) => {
     height = rect.height
     k--;
   }
+
   return lastLine
 }
 

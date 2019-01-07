@@ -15,6 +15,7 @@ const  onKeyPress = (e)  => {
   let letter = e.key
 
   if (letter) {
+    
     if (letter.match(/[^a-zA-z]/)) { return }
 
     e.preventDefault()
