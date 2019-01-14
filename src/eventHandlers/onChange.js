@@ -6,7 +6,7 @@ const onChange = (e, self) => {
 
 
   if (e.srcElement.scrollHeight > e.srcElement.clientHeight) {
-    
+     
     let selection = document.getSelection()
     let range = document.createRange()
     range.setStart(selection.focusNode, 0)
@@ -16,7 +16,7 @@ const onChange = (e, self) => {
     console.log("...")
 
     console.log(selection, range, rect.height - selection.getRangeAt(0).getBoundingClientRect().height)
-
+    console.log(rect.height, selection.getRangeAt(0).getBoundingClientRect().height )
     let focus = (rect.height - selection.getRangeAt(0).getBoundingClientRect().height) <= 0;
     console.log(focus)
     let content = moveLastLine(e.srcElement)
@@ -28,18 +28,22 @@ const onChange = (e, self) => {
   }
 
   if (e.inputType === 'deleteContentBackward') {
-    console.log(e.srcElement.id, " going to last page")
-    let selection = window.getSelection()
-    let range = selection.getRangeAt(0)
-    console.log(selection)
+    
+    let selection = document.getSelection()
+    let range = document.createRange()
+    range.setStart(selection.focusNode, 0)
+    range.setEnd(e.srcElement.lastChild, 0)
+    let rect = range.getBoundingClientRect()
 
     // if top of page is reached...
     if (range.startContainer === e.srcElement.firstChild && selection.anchorOffset === 0) {
       console.log(e.srcElement.id, " going to previous page")
       //self.props.goToLastPage({id: self.element.id, content: e.srcElement.firtChild})
       if (e.srcElement.id === "0") return;
+      let focus = false; 
+      let content = "temporary content "
       let id = e.srcElement.id // (Number(e.srcElement.id) - 1).toString();
-      self.props.goToPreviousPage({ id: id, content: e.srcElement.firstChild || "" })
+      self.props.goToPreviousPage({ id: id, content: content, foucs: focus })
       //document.getElementById(prevId).focus();
 
     }

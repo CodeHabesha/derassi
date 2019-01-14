@@ -18,16 +18,18 @@ const  onKeyPress = (e)  => {
     
     if (letter.match(/[^a-zA-z]/)) { return }
 
-    e.preventDefault()
+   e.preventDefault()
     let key = letter.toLowerCase()
     let consonant = isConsonant(key);
     if (consonant) {
       if (isCaps){
         let html = `<span style="font-family: ${fontStyle.currentCapStyle}">${keyboardMap[key]}</span>`
         formatDoc( e.target, "insertHTML", html);
+        //document.execCommand("insertHTML", false, html); e.target.focus();
       }else{
         let html = `<span style="font-family: ${fontStyle.currentStyle}">${keyboardMap[key]}</span>`
         formatDoc(e.target, "insertHTML", html);
+        //document.execCommand("insertHTML", false, html); e.target.focus();
       }
       currentConsonant = letter; //reset
       

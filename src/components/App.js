@@ -5,7 +5,7 @@ import './App.css'
 
 
 const App = () => (
-  <div style={{fontFamily: fontStyle.currentStyle, fontSize: fontStyle.currentSize}} >
+  <div>
     <Pages/>
   </div>
 )
