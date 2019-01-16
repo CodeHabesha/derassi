@@ -7,25 +7,19 @@ const onChange = (e, self) => {
 
   if (e.srcElement.scrollHeight > e.srcElement.clientHeight) {
      
-    let selection = document.getSelection()
-    let range = document.createRange()
-    range.setStart(selection.focusNode, 0)
-    range.setEnd(e.srcElement.lastChild, 0)
-    let rect = range.getBoundingClientRect()
-
-    console.log("...")
-
-    console.log(selection, range, rect.height - selection.getRangeAt(0).getBoundingClientRect().height)
-    console.log(rect.height, selection.getRangeAt(0).getBoundingClientRect().height )
-    let focus = (rect.height - selection.getRangeAt(0).getBoundingClientRect().height) <= 0;
-    console.log(focus)
-    let content = moveLastLine(e.srcElement)
-
+    let selection = window.getSelection()
+    let lastNode = e.srcElement.childNodes[selection.anchorOffset]
+    let focus = (lastNode === e.srcElement.lastChild);
+    //console.log(focus)
+    let content = ""
+    if(!focus) {
+       content = moveLastLine(e.srcElement)
+    }
+    
     self.props.goToNextPage({ id: self.element.id, content: content, focus: focus })
-
-
-
   }
+
+
 
   if (e.inputType === 'deleteContentBackward') {
     
@@ -50,33 +44,43 @@ const onChange = (e, self) => {
   }
 }
 
-const moveLastLine = (el) => {
+const moveLastLine = (element) => {
+
+
+  let style = window.getComputedStyle(element)
+  let padding = Number(style.paddingTop.slice(0,-2))
+  let pageHeight = Number(style.height.slice(0,-2)) 
+  let border = Number(style.borderTopWidth.slice(0,-2)) 
+ 
+
+  let pageLen = pageHeight - padding - border 
+  console.log(padding, height, border, pageLen)
 
   let range = document.createRange()
-  range.selectNodeContents(el)
+  range.selectNodeContents(element)
   let rect = range.getBoundingClientRect();
   console.log(rect)
   let lastLine = document.createElement('span')
   //lastLine.append("")
   let height = rect.height
 
-  let children = el.childNodes
-  console.log(children)
+  let children = element.childNodes
+  //console.log(children)
   let index = children.length - 1
-  while (1) {
+  while (height >= pageLen ) {
     if (index < 0) break;
     let lastChild = children[index]
     let clone = lastChild.cloneNode(true);
     lastLine.prepend(clone) //, lastLine.lastChild)
     lastChild.remove()
 
-    range.selectNodeContents(el)
+    range.selectNodeContents(element)
     rect = range.getBoundingClientRect()
-    if (height !== rect.height) break;
+    //if (height !== rect.height) break;
     height = rect.height
     index--;
   }
-  console.log(lastLine, " last line")
+  //console.log(lastLine, " last line")
   return lastLine
 
 }
