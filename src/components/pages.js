@@ -42,9 +42,7 @@ class Pages extends React.Component {
                     }, 0); 
                     
             } else {
-                let div = document.createElement('div')
-                page.append(div)
-                div.append(args.content)
+                page.append(args.content)
             } 
         }
     }
@@ -119,21 +117,22 @@ class Pages extends React.Component {
         let newPage; 
         setTimeout(() => {
             newPage = document.getElementById(args.id)
-            //console.log(newPage, page)
-            //console.log(newPage, page)
-            if (newPage && newPage.firstChild) {
-                //console.log("if.xxxxxxx.", newPage)
-                newPage.prepend(args.content) //, newPage.firstChild)
-                //console.log("if..111", newPage)
-            } else if (newPage) {
-                //console.log("esel ..", newPage)
-                let div = document.createElement('div')
-                newPage.append(div)
-                div.append(args.content)
-                //console.log("else1111", newPage)
-            }else {
-                //console.log(">>>>>>>>>>")
-            }
+            newPage.prepend(args.content)
+            
+            // //console.log(newPage, page)
+            // //console.log(newPage, page)
+            // if (newPage && newPage.firstChild) {
+            //     //console.log("if.xxxxxxx.", newPage)
+            //     newPage.prepend(args.content) //, newPage.firstChild)
+            //     //console.log("if..111", newPage)
+            // } else if (newPage) {
+            //     //console.log("esel ..", newPage)
+                
+            //     newPage.append(args.content)
+            //     //console.log("else1111", newPage)
+            // }else {
+            //     //console.log(">>>>>>>>>>")
+            // }
 
         }, 0);
 

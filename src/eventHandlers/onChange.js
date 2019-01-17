@@ -14,7 +14,7 @@ const onChange = (e, self) => {
     let content = ""
     if(!focus) {
        content = moveLastLine(e.srcElement)
-       console.log(content)
+       //console.log(content)
     }
     
     self.props.goToNextPage({ id: self.element.id, content: content, focus: focus })
@@ -27,7 +27,7 @@ const onChange = (e, self) => {
     let selection = document.getSelection()
     let firstNode = e.srcElement.childNodes[selection.anchorOffset]
     let focus = (firstNode === e.srcElement.firstChild)
-    console.log(selection, firstNode, focus, e.srcElement.firstChild)
+    //console.log(selection, firstNode, focus, e.srcElement.firstChild)
     
     if(focus){
         console.log(".......foucs.....", focus)
@@ -59,7 +59,8 @@ const moveLastLine = (element) => {
   range.selectNodeContents(element)
 
   let rect = range.getBoundingClientRect();
-  let lastLine = document.createElement('span')
+  //let lastLine = document.createElement('span')
+  var lastLine = document.createDocumentFragment();
   let height = rect.height
   let children = element.childNodes
   let index = children.length - 1
