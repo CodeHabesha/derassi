@@ -3,18 +3,35 @@ import { replaceCaret } from "../helpers";
 
 const onChange = (e, self) => {
 
+   /*
+   
+   Todos: 
+   remove dependency on scrollheight, it only works for the first page 
+   focus = lastnode ==== e.serElement.lastchild should change to a more sesible logic
 
+
+   issues: if carot is at first line, pushing to next page does not work, only if pusing starts from second or more lines. 
+   focus logic is not relable ... change that. 
+
+   
+
+
+
+
+   */
 
   if (e.srcElement.scrollHeight > e.srcElement.clientHeight) {
-     
+
+    console.log(e.srcElement.scrollHeight, e.srcElement.clientHeight, e.srcElement.id )
+    
     let selection = window.getSelection()
     let lastNode = e.srcElement.childNodes[selection.anchorOffset]
     let focus = (lastNode === e.srcElement.lastChild);
-    //console.log(focus)
+    console.log(focus)
     let content = ""
     if(!focus) {
        content = moveLastLine(e.srcElement)
-       //console.log(content)
+       console.log(content)
     }
     
     self.props.goToNextPage({ id: self.element.id, content: content, focus: focus })
@@ -34,12 +51,16 @@ const onChange = (e, self) => {
        self.props.goToPreviousPage(e.srcElement.id)
     }
 
-    if (e.srcElement.scrollHeight < e.srcElement.clientHeight) {
+    if (e.srcElement.scrollHeight <= e.srcElement.clientHeight) {
+        console.log("...backing up ")
         let prevId = (Number(e.srcElement.id) + 1).toString();
         let prevElement = document.getElementById(prevId)
         if(prevElement){
           let content = moveFirstLine(prevElement)
           e.srcElement.append(content)
+          if(prevElement.childNodes.length === 0 ){
+            self.props.removePage(prevElement.id)
+          }
         }
 
       }
@@ -101,7 +122,10 @@ const moveFirstLine = (element) => {
 
   while (1) {
     if (index < 0) break;
-    let firstChild = children[index]
+    if (children.length === 0) break; 
+    let firstChild = children[0]
+    console.log(firstChild, index)
+    console.log(children)
     let clone = firstChild.cloneNode(true);
     firstLine.prepend(clone) //, lastLine.lastChild)
     firstChild.remove()

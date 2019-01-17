@@ -24,30 +24,28 @@ class Pages extends React.Component {
         <Page id={id}
             goToNextPage={this.goToNextPage}
             goToPreviousPage={this.goToPreviousPage}
+            removePage={this.removePage}
             focus={focus}
             key={id} />
 
     goToNextPage = (args) => {
         let nextId = (Number(args.id) + 1).toString()
+        console.log("...next Id ", nextId)
         if (!document.getElementById(nextId)) {
             this.addPage({ id: nextId, content: args.content, focus: args.focus })
         }else{
             let page = document.getElementById(nextId)
-            if (page && page.firstChild) {
-                page.prepend(args.content) 
+            if (page) {
                     setTimeout(() => {
-                        if(args.focus ){
-                            page.focus();
-                        }
+                        page.prepend(args.content) 
+                        if(args.focus ) page.focus();
                     }, 0); 
-                    
-            } else {
-                page.append(args.content)
-            } 
+                }
         }
     }
 
     goToPreviousPage = (id) => {
+
         let thisId = id
         if(thisId === "0") return; 
       
@@ -62,8 +60,13 @@ class Pages extends React.Component {
             setTimeout(() => {
               prevElement.focus() 
               replaceCaret(prevElement)
-              if(this.element.childNodes.size === 0 ){
-                    this.removePage(prevId)
+              let thisElement = document.getElementById(thisId)
+              let removable = thisElement.childNodes.length === 0 ||
+                              (thisElement.childNodes.length === 1 &&
+                              thisElement.firstChild.tagName === "BR")
+             console.log(removable, thisElement.childNodes)
+              if(removable){
+                    this.removePage(thisId)
               }
               
             }, 0);
@@ -72,27 +75,7 @@ class Pages extends React.Component {
       
             }
       }
-    // goToPreviousPage = (args) => {
-    //     let thisId = args.id
-    //     let prevId = (Number(thisId) - 1).toString();
-    //     if(prevId === "0"){
-    //         return; 
-    //     }
-    //     let thisElement = document.getElementById(thisId)
-    //     let prevElement = document.getElementById(prevId)
-         
-    //     if(args.focus){
-    //         if(prevElement && prevElement.lastChild){
-    //             prevElement.lastChild.focus()
-    //         }
-                   
-    //     }
-    //     let content = args.content
-    //     if(content.length > 0){
-
-    //     }
-        
-    // }
+    
 
     render() {
         return (
@@ -119,21 +102,6 @@ class Pages extends React.Component {
             newPage = document.getElementById(args.id)
             newPage.prepend(args.content)
             
-            // //console.log(newPage, page)
-            // //console.log(newPage, page)
-            // if (newPage && newPage.firstChild) {
-            //     //console.log("if.xxxxxxx.", newPage)
-            //     newPage.prepend(args.content) //, newPage.firstChild)
-            //     //console.log("if..111", newPage)
-            // } else if (newPage) {
-            //     //console.log("esel ..", newPage)
-                
-            //     newPage.append(args.content)
-            //     //console.log("else1111", newPage)
-            // }else {
-            //     //console.log(">>>>>>>>>>")
-            // }
-
         }, 0);
 
 
@@ -149,10 +117,8 @@ class Pages extends React.Component {
             page.props.id !== thisId)
         this.setState({ pages: pages })
         this.forceUpdate()
-
-        // let prevEl = document.getElementById(prevId)
-        // prevEl.focus()
-        // replaceCaret(prevEl)
+        console.log(".... ", thisId, " removed")
+        
 
     }
 
