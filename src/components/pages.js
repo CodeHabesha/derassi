@@ -28,56 +28,73 @@ class Pages extends React.Component {
             key={id} />
 
     goToNextPage = (args) => {
-        //console.log(this, "got to next page called..", args)
         let nextId = (Number(args.id) + 1).toString()
         if (!document.getElementById(nextId)) {
-            //console.log("...1")
             this.addPage({ id: nextId, content: args.content, focus: args.focus })
         }else{
-            //console.log("....2")
             let page = document.getElementById(nextId)
-            //console.log("this page is: " , page)
-            //console.log(page.id, " page with this id should foucs.")
             if (page && page.firstChild) {
-                //console.log("....3")
-                page.prepend(args.content) //, page.firstChild)
-                //console.log("focsing 1 timeeout ")
+                page.prepend(args.content) 
                     setTimeout(() => {
                         if(args.focus ){
-                            ////console.log("focsing afte timeeout ")
                             page.focus();
                         }
-                        
                     }, 0); 
                     
             } else {
-                //console.log("....4")
                 let div = document.createElement('div')
                 page.append(div)
                 div.append(args.content)
             } 
-        
-            
         }
     }
 
-    goToPreviousPage = (args) => {
-        //console.log(this, "going to prev page..")
-        let thisId = args.id
-        //console.log("this page content....", document.getElementById(thisId))
+    goToPreviousPage = (id) => {
+        let thisId = id
+        if(thisId === "0") return; 
+      
         let prevId = (Number(thisId) - 1).toString();
-        let thisEl = document.getElementById(thisId)
-        let empty = sanitizeHtml(thisEl.innerHTML).length === 0
-        let dirty = thisEl.innerHTML.replace(/(<br>)/g, '')
-        let deletable = (empty || !dirty) && thisEl.id !== "0"
-        if (deletable) {
-            //console.log("...removing page", thisId)
-            this.removePage(thisId, prevId)
-        } else {
-            //console.log("..going back a page, ", prevId)
-            this.goBackApage(prevId)
-        }
-    }
+        console.log(prevId, " prevId")
+        
+        
+        let prevElement = document.getElementById(prevId)
+        console.log(prevElement)
+         
+          if(prevElement && prevElement.lastChild){
+            setTimeout(() => {
+              prevElement.focus() 
+              replaceCaret(prevElement)
+              if(this.element.childNodes.size === 0 ){
+                    this.removePage(prevId)
+              }
+              
+            }, 0);
+             
+            console.log(prevElement.lastChild, " focusiing...")
+      
+            }
+      }
+    // goToPreviousPage = (args) => {
+    //     let thisId = args.id
+    //     let prevId = (Number(thisId) - 1).toString();
+    //     if(prevId === "0"){
+    //         return; 
+    //     }
+    //     let thisElement = document.getElementById(thisId)
+    //     let prevElement = document.getElementById(prevId)
+         
+    //     if(args.focus){
+    //         if(prevElement && prevElement.lastChild){
+    //             prevElement.lastChild.focus()
+    //         }
+                   
+    //     }
+    //     let content = args.content
+    //     if(content.length > 0){
+
+    //     }
+        
+    // }
 
     render() {
         return (
@@ -125,7 +142,7 @@ class Pages extends React.Component {
     }
 
 
-    removePage = (thisId, prevId) => {
+    removePage = (thisId) => {
 
         if (thisId === "0") return;
 
@@ -134,9 +151,9 @@ class Pages extends React.Component {
         this.setState({ pages: pages })
         this.forceUpdate()
 
-        let prevEl = document.getElementById(prevId)
-        prevEl.focus()
-        replaceCaret(prevEl)
+        // let prevEl = document.getElementById(prevId)
+        // prevEl.focus()
+        // replaceCaret(prevEl)
 
     }
 
