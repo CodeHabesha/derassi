@@ -3,36 +3,29 @@ import { replaceCaret } from "../helpers";
 
 const onChange = (e, self) => {
 
-   /*
-   
-   Todos: 
-   remove dependency on scrollheight, it only works for the first page 
-   focus = lastnode ==== e.serElement.lastchild should change to a more sesible logic
-
-
-   issues: if carot is at first line, pushing to next page does not work, only if pusing starts from second or more lines. 
-   focus logic is not relable ... change that. 
-
-   
-
-
-
-
-   */
 
   if (e.srcElement.scrollHeight > e.srcElement.clientHeight) {
 
     console.log(e.srcElement.scrollHeight, e.srcElement.clientHeight, e.srcElement.id )
     
+    let style = window.getComputedStyle(e.srcElement)
+    let padding = Number(style.paddingTop.slice(0,-2))
+    let pageHeight = Number(style.height.slice(0,-2)) 
+    let border = Number(style.borderTopWidth.slice(0,-2)) 
+    let pageLen = pageHeight - padding - border 
+
+    let firstNode = e.srcElement.firstChild
     let selection = window.getSelection()
-    let lastNode = e.srcElement.childNodes[selection.anchorOffset]
-    let focus = (lastNode === e.srcElement.lastChild);
-    console.log(focus)
-    let content = ""
-    if(!focus) {
-       content = moveLastLine(e.srcElement)
-       console.log(content)
-    }
+    let range = document.createRange()
+        range.setStart(firstNode, 0)
+        range.setEnd(selection.anchorNode, 0)
+    let rect = range.getBoundingClientRect()
+    console.log(".,.....", rect.height, e.srcElement.clientHeight)
+    
+    let focus = (rect.height >= pageLen)
+    let content = moveLastLine(e.srcElement, pageLen)
+       //console.log(content.toString())
+    
     
     self.props.goToNextPage({ id: self.element.id, content: content, focus: focus })
   }
@@ -68,16 +61,18 @@ const onChange = (e, self) => {
   }
 }
 
-const moveLastLine = (element) => {
+const moveLastLine = (element,pageLen) => {
 
-  let style = window.getComputedStyle(element)
-  let padding = Number(style.paddingTop.slice(0,-2))
-  let pageHeight = Number(style.height.slice(0,-2)) 
-  let border = Number(style.borderTopWidth.slice(0,-2)) 
-  let pageLen = pageHeight - padding - border 
+  // let style = window.getComputedStyle(element)
+  // let padding = Number(style.paddingTop.slice(0,-2))
+  // let pageHeight = Number(style.height.slice(0,-2)) 
+  // let border = Number(style.borderTopWidth.slice(0,-2)) 
+  // let pageLen = pageHeight - padding - border 
+
   //console.log(padding, height, border, pageLen)
   let range = document.createRange()
-  range.selectNodeContents(element)
+  range.setStart(element.firstChild, 0)
+  range.setEnd(element.lastChild,0)
 
   let rect = range.getBoundingClientRect();
   //let lastLine = document.createElement('span')
@@ -85,8 +80,9 @@ const moveLastLine = (element) => {
   let height = rect.height
   let children = element.childNodes
   let index = children.length - 1
-
+   console.log(height, pageLen)
   while (height >= pageLen ) {
+    //console.log(children[index], " -- ")
     if (index < 0) break;
     let lastChild = children[index]
     let clone = lastChild.cloneNode(true);
@@ -97,6 +93,7 @@ const moveLastLine = (element) => {
     rect = range.getBoundingClientRect()
     //if (height !== rect.height) break;
     height = rect.height
+
     index--;
   }
 
