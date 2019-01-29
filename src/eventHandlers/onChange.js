@@ -21,7 +21,7 @@ const onChange = (e, self) => {
         range.setEnd(selection.anchorNode, 0)
     let rect = range.getBoundingClientRect()
     console.log(".,.....", rect.height, e.srcElement.clientHeight)
-    
+    let someLen = 10; 
     let focus = (rect.height >= pageLen)
     let content = moveLastLine(e.srcElement, pageLen)
        //console.log(content.toString())

@@ -21,13 +21,18 @@ const  onKeyPress = (e)  => {
    e.preventDefault()
     let key = letter.toLowerCase()
     let consonant = isConsonant(key);
+    let fontSize = fontStyle.currentSize
     if (consonant) {
       if (isCaps){
-        let html = `<span style="font-family: ${fontStyle.currentCapStyle}">${keyboardMap[key]}</span>`
+        let html = `<span style="font-family: 
+                          ${fontStyle.currentCapStyle}"
+                          class="size-${fontSize}">${keyboardMap[key]}</span>`
         formatDoc( e.target, "insertHTML", html);
         //document.execCommand("insertHTML", false, html); e.target.focus();
       }else{
-        let html = `<span style="font-family: ${fontStyle.currentStyle}">${keyboardMap[key]}</span>`
+        let html = `<span style="font-family: 
+                          ${fontStyle.currentStyle}"
+                          class="size-${fontSize}">${keyboardMap[key]}</span>`
         formatDoc(e.target, "insertHTML", html);
         //document.execCommand("insertHTML", false, html); e.target.focus();
       }
@@ -41,11 +46,15 @@ const  onKeyPress = (e)  => {
         // go back one and edit
         formatDoc( e.target, "delete")
         if (isCaps){
-          let html = `<span style="font-family: ${fontStyle.currentCapStyle}">${keyboardMap[key]}</span>`
+          let html = `<span style="font-family: 
+                            ${fontStyle.currentCapStyle}"
+                            class="size-${fontSize}">${keyboardMap[key]}</span>`
           formatDoc( e.target, "insertHTML", html);
 
         }else{
-          let html = `<span style="font-family: ${fontStyle.currentStyle}">${keyboardMap[key]}</span>`
+          let html = `<span style="font-family: 
+                            ${fontStyle.currentStyle}"
+                            class="size-${fontSize}">${keyboardMap[key]}</span>`
           formatDoc(e.target, "insertHTML", html);
         }
       }

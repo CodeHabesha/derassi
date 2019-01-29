@@ -1,5 +1,6 @@
 import React from "react";
 import {fontStyle} from '../GLOBAL'
+import { setTimeout } from "timers";
 
 
 /**
@@ -44,8 +45,17 @@ export const  EditButton = (props) =>
     }
 
     handleChange(e){
-      fontStyle.setSize(e.target.value/13)
-      executeCommand( { cmd: this.props.cmd, arg: e.target.value/13 } ) 
+      
+      let size = e.target.value
+      let selected = window.getSelection()
+      let range = selected.getRangeAt(0)
+      for(let child of range.commonAncestorContainer.childNodes){
+          if(selected.containsNode(child) || child === selected.anchorNode.parentNode || child === selected.focusNode.parentNode){
+            child.setAttribute('class', `size-${size}`)
+          }
+      } 
+      //set the global font class 
+      fontStyle.setSize(size)
   }
   render(){
 
@@ -65,7 +75,7 @@ export const  EditButton = (props) =>
   }
 
 
-  export const EditFont = class EditSize extends React.Component {
+  export const EditFont = class EditFont extends React.Component {
     constructor(props){
       super(props)
       this.handleChange = this.handleChange.bind(this)
@@ -101,7 +111,6 @@ export  const GenericList = class GenericList extends React.Component {
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
-        
     }
 
     handleChange(e){
@@ -109,10 +118,8 @@ export  const GenericList = class GenericList extends React.Component {
     }
 
   render(){
-
     let values = this.props.values.map( (val,i) => <option value={val.value}  key={i}> {val.name} </option>)
     return(
-
       <div>
       <select onChange={this.handleChange}>
       <option className="heading" selected>- {this.props.heading} -</option>
