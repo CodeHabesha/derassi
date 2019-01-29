@@ -3,25 +3,38 @@ import { replaceCaret } from "../helpers";
 
 const onChange = (e, self) => {
 
+  let style = window.getComputedStyle(e.srcElement)
+  let padding = Number(style.paddingTop.slice(0,-2))
+  let pageHeight = Number(style.height.slice(0,-2)) 
+  let border = Number(style.borderTopWidth.slice(0,-2)) 
+  let pageLen = pageHeight - padding - border 
 
-  if (e.srcElement.scrollHeight > e.srcElement.clientHeight) {
-
-    console.log(e.srcElement.scrollHeight, e.srcElement.clientHeight, e.srcElement.id )
-    
-    let style = window.getComputedStyle(e.srcElement)
-    let padding = Number(style.paddingTop.slice(0,-2))
-    let pageHeight = Number(style.height.slice(0,-2)) 
-    let border = Number(style.borderTopWidth.slice(0,-2)) 
-    let pageLen = pageHeight - padding - border 
-
-    let firstNode = e.srcElement.firstChild
+  let firstNode = e.srcElement.firstChild
     let selection = window.getSelection()
     let range = document.createRange()
         range.setStart(firstNode, 0)
         range.setEnd(selection.anchorNode, 0)
     let rect = range.getBoundingClientRect()
     console.log(".,.....", rect.height, e.srcElement.clientHeight)
-    let someLen = 10; 
+
+  if (e.srcElement.scrollHeight > e.srcElement.clientHeight) {
+
+    console.log(e.srcElement.scrollHeight, e.srcElement.clientHeight, e.srcElement.id )
+    
+    // let style = window.getComputedStyle(e.srcElement)
+    // let padding = Number(style.paddingTop.slice(0,-2))
+    // let pageHeight = Number(style.height.slice(0,-2)) 
+    // let border = Number(style.borderTopWidth.slice(0,-2)) 
+    // let pageLen = pageHeight - padding - border 
+
+    // let firstNode = e.srcElement.firstChild
+    // let selection = window.getSelection()
+    // let range = document.createRange()
+    //     range.setStart(firstNode, 0)
+    //     range.setEnd(selection.anchorNode, 0)
+    // let rect = range.getBoundingClientRect()
+    // console.log(".,.....", rect.height, e.srcElement.clientHeight)
+    // // let someLen = 10; 
     let focus = (rect.height >= pageLen)
     let content = moveLastLine(e.srcElement, pageLen)
        //console.log(content.toString())
@@ -34,17 +47,19 @@ const onChange = (e, self) => {
 
   if (e.inputType === 'deleteContentBackward') {
     
-    let selection = document.getSelection()
-    let firstNode = e.srcElement.childNodes[selection.anchorOffset]
-    let focus = (firstNode === e.srcElement.firstChild)
-    //console.log(selection, firstNode, focus, e.srcElement.firstChild)
-    
+    // let style = window.getComputedStyle(e.srcElement)
+    // let padding = Number(style.paddingTop.slice(0,-2))
+    // let pageHeight = Number(style.height.slice(0,-2)) 
+    // let border = Number(style.borderTopWidth.slice(0,-2)) 
+    // let pageLen = pageHeight - padding - border 
+    let focus = ( e.srcElement.id != "0" && selection.anchorNode === e.srcElement.firstNode )
+    console.log(focus, rect)
     if(focus){
-        console.log(".......foucs.....", focus)
+        console.log(".......foucs.....", focus, rect)
        self.props.goToPreviousPage(e.srcElement.id)
     }
 
-    if (e.srcElement.scrollHeight <= e.srcElement.clientHeight) {
+    if (rect.height <= 0 ) {
         console.log("...backing up ")
         let prevId = (Number(e.srcElement.id) + 1).toString();
         let prevElement = document.getElementById(prevId)
