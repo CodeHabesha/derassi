@@ -45,14 +45,10 @@ class Pages extends React.Component {
     }
 
     goToPreviousPage = (id) => {
-
         let thisId = id
         if(thisId === "0") return; 
-      
         let prevId = (Number(thisId) - 1).toString();
         console.log(prevId, " prevId")
-        
-        
         let prevElement = document.getElementById(prevId)
         console.log(prevElement)
          
@@ -68,11 +64,8 @@ class Pages extends React.Component {
               if(removable){
                     this.removePage(thisId)
               }
-              
-            }, 0);
-             
+            }, 0); 
             console.log(prevElement.lastChild, " focusiing...")
-      
             }
       }
     
@@ -82,9 +75,7 @@ class Pages extends React.Component {
             <div>
                 <Menu />
                 <div className="pages" ref={el => this.element = el}>
-
                     {this.state.pages.map((p, i) => { return p })}
-
                 </div>
             </div>
         )
@@ -92,7 +83,6 @@ class Pages extends React.Component {
 
 
     addPage = (args) => {
-
         let page = this.getNewPage(args.id, args.focus)
         let pages = [...this.state.pages, page]
         this.setState({ pages: pages })
@@ -101,25 +91,17 @@ class Pages extends React.Component {
         setTimeout(() => {
             newPage = document.getElementById(args.id)
             newPage.prepend(args.content)
-            
         }, 0);
-
-
-
     }
 
 
     removePage = (thisId) => {
-
         if (thisId === "0") return;
-
         let pages = this.state.pages.filter((page) =>
             page.props.id !== thisId)
         this.setState({ pages: pages })
         this.forceUpdate()
         console.log(".... ", thisId, " removed")
-        
-
     }
 
     goBackApage = (prevId) => {
@@ -127,7 +109,6 @@ class Pages extends React.Component {
         // you need to set focus here before replacing carot
         prevEl.focus()
         replaceCaret(prevEl)
-
     }
 
     componentDidMount = () => {
@@ -135,7 +116,5 @@ class Pages extends React.Component {
     }
 
 }
-
-
 
 export default Pages;

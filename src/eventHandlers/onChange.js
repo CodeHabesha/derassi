@@ -1,14 +1,11 @@
 
-import { replaceCaret } from "../helpers";
 
 const onChange = (e, self) => {
-
   let style = window.getComputedStyle(e.srcElement)
   let padding = Number(style.paddingTop.slice(0, -2))
   let pageHeight = Number(style.height.slice(0, -2))
   let border = Number(style.borderTopWidth.slice(0, -2))
   let pageLen = pageHeight - padding - border
-
   let firstNode = e.srcElement.firstChild
   let lastNode = e.srcElement.lastChild
   let range = document.createRange()
@@ -17,9 +14,7 @@ const onChange = (e, self) => {
   range.setEnd(lastNode, 0)
 
   let rect = range.getBoundingClientRect()
-
   if (rect.height > pageLen) {
-    
     let selection = window.getSelection()
     let selRange = document.createRange()
 
@@ -33,86 +28,58 @@ const onChange = (e, self) => {
     self.props.goToNextPage({ id: self.element.id, content: content, focus: focus })
   }
 
-
-
   if (e.inputType === 'deleteContentBackward') {
+    let sel = window.getSelection()
+    let range = document.createRange()
+    let startNode = e.srcElement.firstChild
 
-    let selection = window.getSelection()
-    let selRange = document.createRange()
+    range.setStart(startNode, 0)
+    range.setEnd(sel.anchorNode, 0)
 
-    selRange.setStart(firstNode, 0)
-    selRange.setEnd(selection.anchorNode, 0)
-
-    let selRect = selRange.getBoundingClientRect()
-    let focus = (selRect.height <= 0)
-  
-    console.log(focus, rect)
+    let rect = range.getBoundingClientRect()
+    let focus = (rect.height <= 0)
     if (focus) {
-      console.log(".......foucs.....", focus, rect)
       self.props.goToPreviousPage(e.srcElement.id)
     }
-
-    if (rect.height < 0) {
-      console.log("...backing up ")
       let prevId = (Number(e.srcElement.id) + 1).toString();
       let prevElement = document.getElementById(prevId)
       if (prevElement) {
         let content = moveFirstLine(prevElement)
+
         e.srcElement.append(content)
+
         if (prevElement.childNodes.length === 0) {
           self.props.removePage(prevElement.id)
         }
       }
-
-    }
-
   }
 }
 
 const moveLastLine = (element, pageLen) => {
-
-  // let style = window.getComputedStyle(element)
-  // let padding = Number(style.paddingTop.slice(0,-2))
-  // let pageHeight = Number(style.height.slice(0,-2)) 
-  // let border = Number(style.borderTopWidth.slice(0,-2)) 
-  // let pageLen = pageHeight - padding - border 
-
-  //console.log(padding, height, border, pageLen)
   let range = document.createRange()
   range.setStart(element.firstChild, 0)
   range.setEnd(element.lastChild, 0)
 
   let rect = range.getBoundingClientRect();
-  //let lastLine = document.createElement('span')
   var lastLine = document.createDocumentFragment();
   let height = rect.height
   let children = element.childNodes
   let index = children.length - 1
-  console.log(height, pageLen)
+  
   while (height >= pageLen) {
-    //console.log(children[index], " -- ")
     if (index < 0) break;
     let lastChild = children[index]
     let clone = lastChild.cloneNode(true);
+
     lastLine.prepend(clone) //, lastLine.lastChild)
     lastChild.remove()
-
     range.selectNodeContents(element)
     rect = range.getBoundingClientRect()
-    //if (height !== rect.height) break;
     height = rect.height
-
     index--;
   }
-
   return lastLine
-
 }
-
-
-
-
-
 
 const moveFirstLine = (element) => {
 
@@ -141,9 +108,7 @@ const moveFirstLine = (element) => {
     height = rect.height
     index++;
   }
-
   return firstLine;
-
 }
 
 
