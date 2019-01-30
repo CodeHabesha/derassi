@@ -37,19 +37,22 @@ const onChange = (e, self) => {
 
   if (e.inputType === 'deleteContentBackward') {
 
-    // let style = window.getComputedStyle(e.srcElement)
-    // let padding = Number(style.paddingTop.slice(0,-2))
-    // let pageHeight = Number(style.height.slice(0,-2)) 
-    // let border = Number(style.borderTopWidth.slice(0,-2)) 
-    // let pageLen = pageHeight - padding - border 
-    let focus = true //( e.srcElement.id != "0" && selection.anchorNode === e.srcElement.firstNode )
+    let selection = window.getSelection()
+    let selRange = document.createRange()
+
+    selRange.setStart(firstNode, 0)
+    selRange.setEnd(selection.anchorNode, 0)
+
+    let selRect = selRange.getBoundingClientRect()
+    let focus = (selRect.height <= 0)
+  
     console.log(focus, rect)
     if (focus) {
       console.log(".......foucs.....", focus, rect)
       self.props.goToPreviousPage(e.srcElement.id)
     }
 
-    if (rect.height <= 0) {
+    if (rect.height < 0) {
       console.log("...backing up ")
       let prevId = (Number(e.srcElement.id) + 1).toString();
       let prevElement = document.getElementById(prevId)
