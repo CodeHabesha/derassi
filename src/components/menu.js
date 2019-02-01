@@ -14,8 +14,8 @@ import fonts from './fontFamily'
 const Menu = () => {
 
     return (
-        <div className="menu">
-
+        <nav className="navbar sticky-top navbar-light bg-light">
+ 
             <EditButton cmd="italic" img={italic} />
             <EditButton cmd="bold" img={bold} />
             <EditButton
@@ -82,7 +82,7 @@ const Menu = () => {
 
 
 
-        </div>
+        </nav>
     )
 
 }

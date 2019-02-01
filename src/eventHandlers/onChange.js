@@ -11,6 +11,9 @@ const onChange = (e, self) => {
   let lastNode = e.srcElement.lastChild
   let range = document.createRange()
   
+  if(!range){
+    return;
+  }
   range.setStart(firstNode, 0)
   range.setEnd(lastNode, 0)
   let rect = range.getBoundingClientRect()

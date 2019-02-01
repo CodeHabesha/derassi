@@ -77,7 +77,7 @@ body {
     height: 10in;
     width: 7.5in;
     box-align: center;
-    transform: scale(0.9); 
+    /* transform: scale(0.9);  */
     overflow: hidden;
     
 }
