@@ -1,6 +1,7 @@
 
 
 const onChange = (e, self) => {
+
   let style = window.getComputedStyle(e.srcElement)
   let padding = Number(style.paddingTop.slice(0, -2))
   let pageHeight = Number(style.height.slice(0, -2))
@@ -9,11 +10,11 @@ const onChange = (e, self) => {
   let firstNode = e.srcElement.firstChild
   let lastNode = e.srcElement.lastChild
   let range = document.createRange()
-
+  
   range.setStart(firstNode, 0)
   range.setEnd(lastNode, 0)
-
   let rect = range.getBoundingClientRect()
+
   if (rect.height > pageLen) {
     let selection = window.getSelection()
     let selRange = document.createRange()
@@ -29,6 +30,7 @@ const onChange = (e, self) => {
   }
 
   if (e.inputType === 'deleteContentBackward') {
+
     let sel = window.getSelection()
     let range = document.createRange()
     let startNode = e.srcElement.firstChild
@@ -37,8 +39,12 @@ const onChange = (e, self) => {
     range.setEnd(sel.anchorNode, 0)
 
     let rect = range.getBoundingClientRect()
-    let focus = (rect.height <= 0)
+    let focus = (rect.height <= startNode.getBoundingClientRect().height && sel.anchorNode === startNode)
+  
     if (focus) {
+      if(e.srcElement.id === "0"){
+        return 
+      }
       self.props.goToPreviousPage(e.srcElement.id)
     }
       let prevId = (Number(e.srcElement.id) + 1).toString();
