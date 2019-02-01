@@ -49,9 +49,10 @@ export const  EditButton = (props) =>
       let size = e.target.value
       let selected = window.getSelection()
       let range = selected.getRangeAt(0)
+      console.log(range, selected)
       for(let child of range.commonAncestorContainer.childNodes){
           if(selected.containsNode(child) || child === selected.anchorNode.parentNode || child === selected.focusNode.parentNode){
-            child.setAttribute('class', `size-${size}`)
+            child.style.fontSize =  `${size}pt`
           }
       } 
       //set the global font class 

@@ -25,10 +25,11 @@ const onKeyDown = (e,self)  => {
     // }
     if(e.key === 'Enter' ) {
       e.preventDefault()
+      console.log(e.key)
       //(e.target, 'insertParagraph');
       //formatDoc(e.target, "insertHTML", '<br><br>')
-      formatDoc(e.target, "insertParagraph"); //better to insertparagraph thatn use brbr
-     // document.execCommand('insertParagraph',false); 
+      // formatDoc(e.target, "insertParagraph"); //better to insertparagraph thatn use brbr
+      document.execCommand('insertParagraph',false); 
       return;
     }
 }

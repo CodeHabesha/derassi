@@ -10,6 +10,13 @@ const  onKeyPress = (e)  => {
   if(!e.key){
     return;
   }
+  console.log(e.key)
+  let enter = e.getModifierState('Enter');
+  console.log(enter)
+  if(enter){
+    console.log("enteredmmm")
+    return;
+  }
 
   let isCaps = e.getModifierState('CapsLock');
   let letter = e.key
@@ -24,16 +31,10 @@ const  onKeyPress = (e)  => {
     let fontSize = fontStyle.currentSize
     if (consonant) {
       if (isCaps){
-        let html = `<span style="font-family: 
-                          ${fontStyle.currentCapStyle}"
-                          class="size-${fontSize}">${keyboardMap[key]}</span>`
-        formatDoc( e.target, "insertHTML", html);
+        formatDoc( e.target, "insertHTML", getSpan(isCaps, key));
         //document.execCommand("insertHTML", false, html); e.target.focus();
       }else{
-        let html = `<span style="font-family: 
-                          ${fontStyle.currentStyle}"
-                          class="size-${fontSize}">${keyboardMap[key]}</span>`
-        formatDoc(e.target, "insertHTML", html);
+        formatDoc(e.target, "insertHTML", getSpan(isCaps, key));
         //document.execCommand("insertHTML", false, html); e.target.focus();
       }
       currentConsonant = letter; //reset
@@ -46,16 +47,10 @@ const  onKeyPress = (e)  => {
         // go back one and edit
         formatDoc( e.target, "delete")
         if (isCaps){
-          let html = `<span style="font-family: 
-                            ${fontStyle.currentCapStyle}"
-                            class="size-${fontSize}">${keyboardMap[key]}</span>`
-          formatDoc( e.target, "insertHTML", html);
+          formatDoc( e.target, "insertHTML", getSpan(isCaps,key));
 
         }else{
-          let html = `<span style="font-family: 
-                            ${fontStyle.currentStyle}"
-                            class="size-${fontSize}">${keyboardMap[key]}</span>`
-          formatDoc(e.target, "insertHTML", html);
+          formatDoc(e.target, "insertHTML", getSpan(isCaps, key));
         }
       }
       return;
@@ -66,3 +61,20 @@ const  onKeyPress = (e)  => {
 }
 
 export default onKeyPress; 
+
+
+
+const getSpan = (isCaps, key) => {
+  let span = document.createElement('span')
+      span.style.fontSize = fontStyle.currentSize + 'pt' 
+  if (isCaps){
+    span.style.fontFamily = fontStyle.currentCapStyle
+    //return `<span  style="font-family: ${fontStyle.currentCapStyle}; font-size=${fontStyle.currentSize}pt">${keyboardMap[key]}</span>`
+  }else{
+    span.style.fontFamily = fontStyle.currentStyle
+    //return  `<span style="font-family: ${fontStyle.currentStyle};font-size=${fontStyle.currentSize}pt">${keyboardMap[key]}</span>`
+  }
+   let text = document.createTextNode(keyboardMap[key])
+   span.appendChild(text)
+   return span.outerHTML
+}
