@@ -6,7 +6,7 @@ const onChange = (e, self) => {
   let padding = Number(style.paddingTop.slice(0, -2))
   let pageHeight = Number(style.height.slice(0, -2))
   let border = Number(style.borderTopWidth.slice(0, -2))
-  let pageLen = pageHeight - padding - border
+  let pageLen = pageHeight - 2*padding - 2*border
   let firstNode = e.srcElement.firstChild
   let lastNode = e.srcElement.lastChild
   let range = document.createRange()
@@ -21,11 +21,12 @@ const onChange = (e, self) => {
   if (rect.height > pageLen) {
     let selection = window.getSelection()
     let selRange = document.createRange()
-
+    
     selRange.setStart(firstNode, 0)
     selRange.setEnd(selection.anchorNode, 0)
 
     let selRect = selRange.getBoundingClientRect()
+    console.log(selRect.height , pageLen)
     let focus = (selRect.height >= pageLen)
     let content = moveLastLine(e.srcElement, pageLen)
 

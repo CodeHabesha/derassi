@@ -71,7 +71,7 @@ body {
 }
 
 .page {
-    margin: 0.2in 0.2in 0.2in 0.2in;
+    margin: 0.2in 0.2in 0.2in 0.2in; 
     background-color: white;
     padding:  1in 1in 1in 1in;
     height: 10in;
@@ -82,8 +82,8 @@ body {
     
 }
 
-.page div {
-    width: inherit; 
+.pages .page {
+    margin: 20px; 
 }
 
 
