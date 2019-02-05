@@ -32,7 +32,7 @@ const EditBackcolor = class EditBackcolor extends React.Component {
     return(
         <ButtonDropdown  isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle  className="form-control" color="gainsboro" caret>
-          Background Color
+          Highlight
         </DropdownToggle>
         <DropdownMenu>
             {values}

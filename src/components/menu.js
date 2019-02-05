@@ -7,6 +7,7 @@ import EditBackcolor from './menuItems/editBackcolor'
 import EditFormatblock from './menuItems/editFormatblock'
 import italic from '../icons/italic.gif'
 import bold from '../icons/bold.gif'
+import { Button, ButtonGroup } from 'reactstrap';
 
 
 /**
@@ -18,13 +19,19 @@ const Menu = () => {
 
     return (
         <nav className="navbar sticky-top navbar-light bg-light">
-            <EditFont/>
-            <EditSize/>
-            <EditForecolor/>
-            <EditBackcolor/>
-            <EditFormatblock/>
-            <EditButton cmd="italic" img={italic} />
-            <EditButton cmd="bold" img={bold} />
+            <div className="row">
+
+                <EditFont/>
+                <EditSize/>
+                <EditForecolor/>
+                <EditBackcolor/>
+                <ButtonGroup>
+                    <Button outline color="secondary"> <EditButton cmd="italic" img={italic} /></Button>
+                    <Button outline color="secondary"> <EditButton cmd="bold" img={bold} /></Button>
+                </ButtonGroup>
+                <EditFormatblock/>
+
+            </div>
         </nav>
     )
 
