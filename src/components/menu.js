@@ -1,9 +1,11 @@
 import React from 'react'
-import { GenericList, EditButton, EditFont, EditSize } from "./menuItems"
+import GenericList from './menuItems/genericList'
+import EditFont from './menuItems/editFont'
+import EditSize  from './menuItems/editSize'
+import EditButton from './menuItems/editButton'
+import fonts from './fontFamily'
 import italic from '../icons/italic.gif'
 import bold from '../icons/bold.gif'
-import hyperlink from '../icons/hyperlink.gif'
-import fonts from './fontFamily'
 
 
 /**
@@ -15,15 +17,7 @@ const Menu = () => {
 
     return (
         <nav className="navbar sticky-top navbar-light bg-light">
- 
-            <EditButton cmd="italic" img={italic} />
-            <EditButton cmd="bold" img={bold} />
-            <EditButton
-                cmd="createLink"
-                arg="https://github.com/codeHabesha/derassi"
-                name="hyperlink"
-                img={hyperlink}
-            />
+
 
             <EditFont cmd="fontName"
                 setGlobal={{ should: true, case: 'fontStyle' }}
@@ -31,7 +25,6 @@ const Menu = () => {
                     fonts.map(font => ({ name: font, value: font }))
                 }
                 heading="Fonts"
-
             />
 
             <EditSize cmd="fontSize"
@@ -80,8 +73,8 @@ const Menu = () => {
                 heading="Heading"
             />
 
-
-
+            <EditButton cmd="italic" img={italic} />
+            <EditButton cmd="bold" img={bold} />
         </nav>
     )
 

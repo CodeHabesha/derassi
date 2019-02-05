@@ -23,7 +23,7 @@ const onChange = (e, self) => {
     let selRange = document.createRange()
     
     selRange.setStart(firstNode, 0)
-    selRange.setEnd(selection.anchorNode, 0)
+    selRange.setEnd(selection.focusNode, 0)
 
     let selRect = selRange.getBoundingClientRect()
     console.log(selRect.height , pageLen)
