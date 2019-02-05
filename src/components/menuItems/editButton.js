@@ -1,21 +1,18 @@
 
 import React from "react";
 import executeCommand from './menuHelpers'
-
+import {Button}  from 'reactstrap'
  const  EditButton = (props) =>
 (
-    <img
+   <Button 
+    outline
+    color="none"
+    size="sm"
     key={props.cmd}
-    className="intLink"
-    src={props.img ? props.img : ""}
-    title={props.name || props.cmd}
-    onMouseDown={evt => {
-      evt.preventDefault(); // Avoids loosing focus from the editable area
-      executeCommand(props); // Send the command to the browser
-    }}
-    >
-    
-    </img>
+    title={props.cmd}
+    onClick = {() => executeCommand(props)}>
+    <i className={props.icon}></i> 
+    </Button>
   );
 
   export default EditButton; 

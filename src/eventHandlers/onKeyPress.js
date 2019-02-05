@@ -28,7 +28,6 @@ const  onKeyPress = (e)  => {
    e.preventDefault()
     let key = letter.toLowerCase()
     let consonant = isConsonant(key);
-    let fontSize = fontStyle.currentSize
     if (consonant) {
       if (isCaps){
         formatDoc( e.target, "insertHTML", getSpan(isCaps, key));

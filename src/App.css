@@ -1,73 +1,72 @@
 @font-face {
     font-family: 'Abesha Arada';
-    src: url('../fonts/AbeshaArada-Regular.woff');
+    src: url('fonts/AbeshaArada-Regular.woff');
 }
 
 @font-face {
     font-family: 'Abesha Arada Caps';
-    src: url('../fonts/AbeshaAradaCaps-Regular.woff');
+    src: url('fonts/AbeshaAradaCaps-Regular.woff');
 }
 
 @font-face {
     font-family: 'Abesha Arif';
-    src: url('../fonts/AbeshaArif.woff');
+    src: url('fonts/AbeshaArif.woff');
 }
 
 @font-face {
     font-family: 'Abesha Arif Caps';
-    src: url('../fonts/AbeshaArifCaps.woff');
+    src: url('fonts/AbeshaArifCaps.woff');
 }
 
 @font-face {
     font-family: 'Abesha Demeke';
-    src: url('../fonts/AbeshaDemeke.woff');
+    src: url('fonts/AbeshaDemeke.woff');
 }
 
 @font-face {
     font-family: 'Abesha Demeke Caps';
-    src: url('../fonts/AbeshaDemekeCaps.woff');
+    src: url('fonts/AbeshaDemekeCaps.woff');
 }
 @font-face {
     font-family: 'Abesha Kitfo';
-    src: url('../fonts/AbeshaKitfo-Regular.woff');
+    src: url('fonts/AbeshaKitfo-Regular.woff');
 }
 
 @font-face {
     font-family: 'Abesha Kitfo Caps';
-    src: url('../fonts/AbeshaKitfo-Regular.woff');
+    src: url('fonts/AbeshaKitfo-Regular.woff');
 }
 
 @font-face {
     font-family: 'Abesha Lemma';
-    src: url('../fonts/AbeshaLemma-Regular.woff');
+    src: url('fonts/AbeshaLemma-Regular.woff');
 }
 @font-face {
     font-family: 'Abesha Lemma Caps';
-    src: url('../fonts/AbeshaLemmaCaps-Regular.woff');
+    src: url('fonts/AbeshaLemmaCaps-Regular.woff');
 }
 
 @font-face {
     font-family: 'Abesha Lemma Light';
-    src: url('../fonts/AbeshaLemma-Light.woff');
+    src: url('fonts/AbeshaLemma-Light.woff');
 }
 @font-face {
     font-family: 'Abesha Lemma Caps Light';
-    src: url('../fonts/AbeshaLemmaCaps-Light.woff');
+    src: url('fonts/AbeshaLemmaCaps-Light.woff');
 }
 
 @font-face {
     font-family: 'Abesha Tana';
-    src: url('../fonts/AbeshaTana-Regular.woff');
+    src: url('fonts/AbeshaTana-Regular.woff');
 }
 
 @font-face {
     font-family: 'Abesha Tana Caps';
-    src: url('../fonts/AbeshaTanaCaps-Regular.woff');
+    src: url('fonts/AbeshaTanaCaps-Regular.woff');
 }
 
 body {
     background-color: gainsboro;
-    margin-left: 0.2in;
 }
 
 .page {

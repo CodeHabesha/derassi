@@ -1,12 +1,14 @@
 import React from 'react'
+import Menu from './menu'
 import Pages from './pages'
-import { fontStyle}  from '../GLOBAL'
+import '../fontawsome/css/all.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'
+import '../App.css'
 
 
 const App = () => (
-  <div>
+  <div  className="container-fluid">
+    <Menu />
     <Pages/>
   </div>
 )

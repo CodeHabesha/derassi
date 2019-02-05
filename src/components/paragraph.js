@@ -1,6 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import { timingSafeEqual } from "crypto";
 
 
 class Paragraph extends React.Component {

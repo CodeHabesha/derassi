@@ -1,9 +1,8 @@
 import React from "react"
 import Menu from './menu'
 import Page from './page';
-import sanitizeHtml from 'sanitize-html'
 import { replaceCaret } from "../helpers";
-import { findLastTextNode } from '../helpers'
+
 
 class Pages extends React.Component {
 
@@ -73,7 +72,6 @@ class Pages extends React.Component {
     render() {
         return (
             <div>
-                <Menu />
                 <div className="pages" ref={el => this.element = el}>
                     {this.state.pages.map((p, i) => { return p })}
                 </div>

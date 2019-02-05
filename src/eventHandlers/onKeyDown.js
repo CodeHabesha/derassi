@@ -1,8 +1,4 @@
-
 import {formatDoc} from '../helpers'
-import sanitizeHtml from 'sanitize-html'
-
-
 
 const onKeyDown = (e,self)  => {
     if (e.key === 'Tab') {
