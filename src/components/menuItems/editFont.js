@@ -1,6 +1,7 @@
 import React from "react";
 import { fontStyle } from '../../GLOBAL'
 import executeCommand from './menuHelpers'
+import fonts from '../fontFamily'
 
 const EditFont = class EditFont extends React.Component {
     constructor(props){
@@ -10,13 +11,13 @@ const EditFont = class EditFont extends React.Component {
 
     handleChange(e){
       fontStyle.setFont(e.target.value)
-      executeCommand( { cmd: this.props.cmd, arg: e.target.value } ) 
+      executeCommand( { cmd: "fontName", arg: e.target.value } ) 
   }
   render(){
-    let values = this.props.values.map( (val,i) => <option value={val.value}  key={i}> {val.name} </option>)
+    let values =  fonts.map( (font,i) => <option value={font}  key={i}> {font} </option>)
     return(
       <div>
-      <select defaultValue={fontStyle.currentStyle} onChange={this.handleChange}>
+      <select className="form-control" defaultValue={fontStyle.currentStyle} onChange={this.handleChange}>
           {values}
       </select>
       </div>

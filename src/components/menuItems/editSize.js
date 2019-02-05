@@ -23,11 +23,13 @@ const EditSize = class EditSize extends React.Component {
         fontStyle.setSize(size)
     }
     render() {
-
-        let values = this.props.values.map((val, i) => <option value={val.value} key={i}> {val.name} </option>)
+        
+       let sizes = [8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96]
+        
+        let values = sizes.map((size, i) => <option value={size} key={i}> {size} </option>)
         return (
             <div>
-                <select defaultValue={fontStyle.currentSize} onChange={this.handleChange}>
+                <select className="form-control" defaultValue={fontStyle.currentSize} onChange={this.handleChange}>
                     {values}
                 </select>
             </div>
