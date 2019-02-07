@@ -10,10 +10,14 @@ import TextMenu from './textMenu'
 
 const App = () => (
   <div >
-    <Title/>
-    <TextMenu/>
-    <Menu />
+    <nav className="sticky-top">
+      <Title/>
+      <TextMenu/>
+      <Menu />
+    </nav>
+
     <Pages/>
+    
   </div>
 )
 

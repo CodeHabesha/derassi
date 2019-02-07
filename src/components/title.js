@@ -35,7 +35,7 @@ class Title extends React.Component {
     }
     
     render =  () =>  (
-                      <Navbar color="light" style={this.style}>
+                      <Navbar  color="light" style={this.style}>
                       <NavbarBrand>
                           <div contentEditable={true} onChange={this.handleChange} onKeyDown={this.handleEnter}>{this.state.title}</div>
                       </NavbarBrand>

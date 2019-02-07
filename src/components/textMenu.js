@@ -1,20 +1,14 @@
 import React from 'react'
-import { Nav, Navbar, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import { Navbar, Nav, NavItem} from 'reactstrap'
+import FileMenu from './textMenus/fileMenu'
+import EditMenu from './textMenus/editMenu'
+import ViewMenu from './textMenus/viewMenu'
+import FormatMenu from './textMenus/formatMenu'
+import HelpMenu from './textMenus/helpMenu'
+import ToolsMenu from './textMenus/toolsMenu'
+import InsertMenu from './textMenus/insertMenu'
 
 class TextMenu extends  React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            dropdownOpen: false
-        }
-        this.toggle = this.toggle.bind(this)
-    }
-
-    toggle(){
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-          });
-    }
 
     style={ borderBottomStyle: 'solid',
     borderBottomWidth: 'thin',
@@ -24,21 +18,40 @@ class TextMenu extends  React.Component {
     }
 
     render = () => (
-    <Navbar color="light" style={this.style}>
-        <Nav >
-        <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle color="white" >
-           File
-        </DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem header>Header</DropdownItem>
-          <DropdownItem disabled>Action</DropdownItem>
-          <DropdownItem>Another Action</DropdownItem>
-          <DropdownItem divider />
-          <DropdownItem>Another Action</DropdownItem>
-        </DropdownMenu>
-      </ButtonDropdown>
-         </Nav>
+    <Navbar color="light"  style={this.style} >
+        <Nav>
+
+          <NavItem>
+            <FileMenu/>
+          </NavItem> 
+
+          <NavItem>
+            <EditMenu/>
+          </NavItem>
+
+          <NavItem>
+            <ViewMenu/>
+          </NavItem> 
+
+           <NavItem>
+            <InsertMenu/>
+          </NavItem>
+
+          <NavItem>
+            <FormatMenu/>
+          </NavItem> 
+
+        
+          <NavItem>
+            <ToolsMenu/>
+          </NavItem>
+   
+          <NavItem>
+            <HelpMenu/>
+          </NavItem>
+
+        </Nav>
+        
      </Navbar>
     )
 }

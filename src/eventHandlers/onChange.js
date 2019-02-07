@@ -1,7 +1,6 @@
 
 
 const onChange = (e, self) => {
-
   let style = window.getComputedStyle(e.srcElement)
   let padding = Number(style.paddingTop.slice(0, -2))
   let pageHeight = Number(style.height.slice(0, -2))
