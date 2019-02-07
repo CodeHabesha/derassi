@@ -11,3 +11,10 @@ export const fontStyle =  {
     currentSize: 12
    
 }
+
+export const currentTitle = {
+    setCurrent: (title) => {
+        currentTitle.title = title
+    },
+    title: "untitled"
+}

@@ -3,9 +3,10 @@ import EditFont from './menuItems/editFont'
 import EditSize  from './menuItems/editSize'
 import EditButton from './menuItems/editButton'
 import EditForecolor from './menuItems/editForecolor'
-import EditBackcolor from './menuItems/editBackcolor'
+import EditColor from './menuItems/editColor'
 import EditFormatblock from './menuItems/editFormatblock'
 import { ButtonGroup } from 'reactstrap';
+import Underline from './menuItems/underline'
 
 
 /**
@@ -17,17 +18,21 @@ const Menu = () => {
 
     return (
         <nav className="navbar sticky-top navbar-light bg-light">
-          
+            
             <div className="row">
                 
                 <EditFont/>
+                <MenuBorder/>
                 <EditSize/>
-                <EditForecolor/>
-                <EditBackcolor/>
-                <ButtonGroup>
-                     <EditButton cmd="italic" icon="fa fa-italic" />
+                <MenuBorder/>
+                <ButtonGroup size="sm">
                      <EditButton cmd="bold" icon="fa fa-bold" />
+                     <EditButton cmd="italic" icon="fa fa-italic" />
+                     <Underline></Underline>
+                     <EditColor cmd="forecolor" icon="fa fa-font"/>
+                     <EditColor cmd="backcolor"icon="fa fa-pen"/>
                 </ButtonGroup>
+                <MenuBorder/>
                 <EditFormatblock/>
             
             </div>
@@ -35,6 +40,13 @@ const Menu = () => {
     )
 
 }
+
+const MenuBorder = () => (
+    <div style={{ borderRightStyle: 'solid',
+    borderRightWidth: 'thin',
+    borderRightColor: 'gainsboro'
+    }} ></div>
+)
 
 
 export default Menu;
