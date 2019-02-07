@@ -30,7 +30,8 @@ class Title extends React.Component {
 
     style={ borderBottomStyle: 'solid',
     borderBottomWidth: 'thin',
-    borderBottomColor: 'gainsboro'
+    borderBottomColor: 'gainsboro',
+    maxHeight: 40
     }
     
     render =  () =>  (

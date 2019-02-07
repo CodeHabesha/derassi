@@ -19,11 +19,18 @@ const Menu = () => {
     return (
         <nav className="navbar sticky-top navbar-light bg-light">
             
-            <div className="row">
-                
+            <div className="row" style={{maxHeight: 40}}>
+                <div style={{width: 20}}></div>
+                <EditButton cmd="undo" icon="fa fa-undo" />
+                <EditButton cmd="redo" icon="fa fa-redo" />
+                <MenuBorder/>
+                <EditButton cmd="print" icon="fa fa-print"/>
+                <MenuBorder/>
                 <EditFont/>
                 <MenuBorder/>
                 <EditSize/>
+                <MenuBorder/>
+                <EditFormatblock/>
                 <MenuBorder/>
                 <ButtonGroup size="sm">
                      <EditButton cmd="bold" icon="fa fa-bold" />
@@ -33,8 +40,11 @@ const Menu = () => {
                      <EditColor cmd="backcolor"icon="fa fa-pen"/>
                 </ButtonGroup>
                 <MenuBorder/>
-                <EditFormatblock/>
-            
+                <EditButton cmd="justifyCenter" icon="fa fa-align-center" />
+                <EditButton cmd="justifyLeft" icon="fa fa-align-left" />
+                <EditButton cmd="justifyRight" icon="fa fa-align-right" />
+                <EditButton cmd="justifyFull" icon="fa fa-align-justify" />
+                <MenuBorder/>
             </div>
         </nav>
     )
@@ -44,7 +54,7 @@ const Menu = () => {
 const MenuBorder = () => (
     <div style={{ borderRightStyle: 'solid',
     borderRightWidth: 'thin',
-    borderRightColor: 'gainsboro'
+    borderRightColor: 'gainsboro',
     }} ></div>
 )
 

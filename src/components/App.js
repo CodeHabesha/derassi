@@ -9,11 +9,9 @@ import TextMenu from './textMenu'
 
 
 const App = () => (
-  <div  className="container-fluid">
+  <div >
     <Title/>
-    {/* <Separator/> */}
-    <TextMenu style={{zIndex:200}}/>
-    {/* <Separator/> */}
+    <TextMenu/>
     <Menu />
     <Pages/>
   </div>

@@ -19,7 +19,8 @@ class TextMenu extends  React.Component {
     style={ borderBottomStyle: 'solid',
     borderBottomWidth: 'thin',
     borderBottomColor: 'gainsboro',
-    height: 50
+    maxHeight: 30
+
     }
 
     render = () => (
