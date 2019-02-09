@@ -5,9 +5,8 @@ import {Button}  from 'reactstrap'
  const  EditButton = (props) =>
 (
    <Button 
-    outline
-    color="none"
     size="sm"
+    color="light"
     key={props.cmd}
     title={props.cmd}
     onClick = {() => executeCommand(props)}>

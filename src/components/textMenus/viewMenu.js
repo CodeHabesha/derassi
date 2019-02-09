@@ -23,7 +23,7 @@ class ViewMenu extends React.Component {
     render =  () => (
 
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-         <DropdownToggle  color="white" outline="none" >
+         <DropdownToggle  color="light"  >
             View
         </DropdownToggle>
         <DropdownMenu>

@@ -49,7 +49,7 @@ const EditColor = class EditColor extends React.Component {
   
       return (
         <div>
-          <Button  outline color="white" onClick={ this.handleClick }>
+          <Button  color="light" onClick={ this.handleClick }>
           <i className={this.props.icon}></i>
           </Button>
           { this.state.displayColorPicker ? <div style={ popover } onDoubleClick={ this.handleClose }>

@@ -28,9 +28,7 @@ class Title extends React.Component {
           }
     }
 
-    style={ borderBottomStyle: 'solid',
-    borderBottomWidth: 'thin',
-    borderBottomColor: 'gainsboro',
+    style={ 
     maxHeight: 40
     }
     

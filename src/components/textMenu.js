@@ -10,11 +10,11 @@ import InsertMenu from './textMenus/insertMenu'
 
 class TextMenu extends  React.Component {
 
-    style={ borderBottomStyle: 'solid',
-    borderBottomWidth: 'thin',
-    borderBottomColor: 'gainsboro',
+    constructor(props){
+      super(props)
+    }
+    style={
     maxHeight: 30
-
     }
 
     render = () => (
@@ -22,32 +22,32 @@ class TextMenu extends  React.Component {
         <Nav>
 
           <NavItem>
-            <FileMenu/>
+            <FileMenu abeshaMenu={this.props.abeshaMenu}/>
           </NavItem> 
 
           <NavItem>
-            <EditMenu/>
+            <EditMenu abeshaMenu={this.props.abeshaMenu}/>
           </NavItem>
 
           <NavItem>
-            <ViewMenu/>
+            <ViewMenu abeshaMenu={this.props.abeshaMenu}/>
           </NavItem> 
 
            <NavItem>
-            <InsertMenu/>
+            <InsertMenu abeshaMenu={this.props.abeshaMenu}/>
           </NavItem>
 
           <NavItem>
-            <FormatMenu/>
+            <FormatMenu abeshaMenu={this.props.abeshaMenu}/>
           </NavItem> 
 
         
           <NavItem>
-            <ToolsMenu/>
+            <ToolsMenu abeshaMenu={this.props.abeshaMenu}/>
           </NavItem>
    
           <NavItem>
-            <HelpMenu/>
+            <HelpMenu abeshaMenu={this.props.abeshaMenu}/>
           </NavItem>
 
         </Nav>

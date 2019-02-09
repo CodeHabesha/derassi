@@ -8,18 +8,36 @@ import Title from './title'
 import TextMenu from './textMenu'
 
 
-const App = () => (
-  <div >
-    <nav className="sticky-top">
-      <Title/>
-      <TextMenu/>
-      <Menu />
-    </nav>
+class App extends React.Component{
 
-    <Pages/>
-    
-  </div>
-)
+  constructor(props){
+        super(props)
+        this.state = {
+             abeshaMenu: true,
+             abeshaBody: true
+        }
+        this.handleToggle = this.handleToggle.bind(this)
+  }
+
+  handleToggle(){
+    this.setState ({abeshaMenu: !this.state.abeshaMenu})
+    console.log("....toggleiing", this.state.abeshaMenu)
+  }
+
+  render = () => (
+    <div >
+      <nav className="sticky-top">
+        <Title />
+        <TextMenu onMenuToggle={this.handleToggle} abeshaMenu={this.state.abeshaMenu}/>
+        <Menu onMenuToggle={this.handleToggle} abeshaMenu={this.state.abeshaMenu} />
+      </nav>
+  
+      <Pages abeshaBody={this.state.abeshaBody}/>
+      
+    </div>
+  )
+
+}
 
 export default App
 

@@ -28,7 +28,7 @@ const EditFont = class EditFont extends React.Component {
     let values =  fonts.map( (font,i) => <DropdownItem onClick={this.handleChange} value={font}  key={i}> {font} </DropdownItem>)
     return(
       <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle className="form-control" color="gainsboro" caret>
+        <DropdownToggle  color="light" caret>
             {fontStyle.currentStyle}
         </DropdownToggle>
         <DropdownMenu>

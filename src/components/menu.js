@@ -2,12 +2,12 @@ import React from 'react'
 import EditFont from './menuItems/editFont'
 import EditSize  from './menuItems/editSize'
 import EditButton from './menuItems/editButton'
-import EditForecolor from './menuItems/editForecolor'
 import EditColor from './menuItems/editColor'
-import editHeading from './menuItems/editHeading'
-import { ButtonGroup, Navbar } from 'reactstrap';
+import { Navbar } from 'reactstrap';
 import Underline from './menuItems/underline'
 import EditHeading from './menuItems/editHeading';
+import ToggleEnglishMenu from './menuItems/toggleEnglishMenu'
+import ToggleEnglishBody from './menuItems/toggleEnglishBody'
 
 
 /**
@@ -15,12 +15,13 @@ import EditHeading from './menuItems/editHeading';
  * It is a funcitonal React component 
  * @class Menu
  */
-const Menu = () => {
+const Menu = (props) => {
 
     return (
         <Navbar color="light"  >
             
             <div className="row" style={{maxHeight: 40}}>
+
                 <div style={{width: 20}}></div>
                 <EditButton cmd="undo" icon="fa fa-undo"/>
                 <EditButton cmd="redo" icon="fa fa-redo"/>
@@ -30,6 +31,15 @@ const Menu = () => {
                 <EditButton cmd="print" icon="fa fa-print"/>
 
                 <MenuBorder/>
+
+                <ToggleEnglishMenu onMenuToggle={props.onMenuToggle}/>
+
+                <MenuBorder/>
+
+                <ToggleEnglishBody />
+
+                <MenuBorder/>
+
 
                 <EditFont/>
 
@@ -45,10 +55,10 @@ const Menu = () => {
 
                 <EditButton cmd="bold" icon="fa fa-bold"/>
                 <EditButton cmd="italic" icon="fa fa-italic"/>
-                <Underline></Underline>
+                <EditButton cmd="underline" icon="fa fa-underline"/>
                 <EditButton cmd="strikeThrough" icon="fa fa-strikethrough"/>
                 <EditColor cmd="forecolor" icon="fa fa-font"/>
-                <EditColor cmd="backcolor"icon="fa fa-pen"/>
+                <EditColor cmd="backcolor"icon="fa fa-highlighter"/>
 
                 <MenuBorder/>
                   
