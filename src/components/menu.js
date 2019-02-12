@@ -41,7 +41,7 @@ const Menu = (props) => {
                 <MenuBorder/>
 
 
-                <EditFont/>
+                <EditFont abeshaMenu={props.abeshaMenu}/>
 
                 <MenuBorder/>
 
@@ -49,7 +49,7 @@ const Menu = (props) => {
 
                 <MenuBorder/>
 
-                <EditHeading/>
+                <EditHeading abeshaMenu={props.abeshaMenu} />
 
                 <MenuBorder/>
 

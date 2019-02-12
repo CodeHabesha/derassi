@@ -1,45 +1,31 @@
 import React from 'react'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import keyboardMap from '../../keyboardMap'
+import FileMenu from './fileMenu'
 
-class FormatMenu extends React.Component {
+class FormatMenu extends FileMenu {
 
 
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state = {
-            dropdownOpen: false
-        }
-        this.toggle = this.toggle.bind(this)
     }
 
-    toggle(){
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-          });
-    }
+    render = () => (
 
-
-   name = keyboardMap.ze + keyboardMap.n + keyboardMap.tc
-   
-    render =  () => (
-
-        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-         <DropdownToggle  color="light"  >
-           {this.props.abeshaMenu ? this.name :  "Format" }
-        </DropdownToggle>
-        <DropdownMenu>
-            <DropdownItem header>Header</DropdownItem>
-            <DropdownItem disabled>Action</DropdownItem>
-            <DropdownItem>Another Action</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>Another Action</DropdownItem>
-        </DropdownMenu>
+        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} onMouseEnter={this.toggle} onMouseLeave={this.toggle}>
+            <DropdownToggle color="light" >
+                {this.getMeaning(['ua', 's', 't', 'ka', 'k','l'], "Format")}
+            </DropdownToggle>
+            <DropdownMenu>
+                <DropdownItem>{this.getMeaning(['ua', 's', 'te', 'ta', 'te', 'm'], "Print layout")}</DropdownItem>
+                <DropdownItem>{this.getMeaning(['ma', 's', 'me', 'ree', 'ya'], "Show ruler")}</DropdownItem>
+                <DropdownItem divider></DropdownItem>
+                <DropdownItem>{this.getMeaning(['moo', 'loo', ' ', 'ge', 'pc'], "Fullscreen")}</DropdownItem>
+            </DropdownMenu>
         </Dropdown>
-       
+
     )
-    
-} 
+
+}
 export default FormatMenu; 
 
   

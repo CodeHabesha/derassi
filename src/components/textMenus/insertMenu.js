@@ -1,44 +1,31 @@
 import React from 'react'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import keyboardMap from '../../keyboardMap'
+import FileMenu from './fileMenu'
 
-class InsertMenu extends React.Component {
+class InsertMenu extends FileMenu {
 
 
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state = {
-            dropdownOpen: false
-        }
-        this.toggle = this.toggle.bind(this)
     }
 
-    toggle(){
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-          });
-    }
+    render = () => (
 
-
-    name = keyboardMap.ua + keyboardMap.s + keyboardMap.ge + keyboardMap.ba 
-    render =  () => (
-
-        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-         <DropdownToggle  color="light"  >
-         {this.props.abeshaMenu ? this.name :  "Insert" }
-        </DropdownToggle>
-        <DropdownMenu>
-            <DropdownItem header>Header</DropdownItem>
-            <DropdownItem disabled>Action</DropdownItem>
-            <DropdownItem>Another Action</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>Another Action</DropdownItem>
-        </DropdownMenu>
+        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} onMouseEnter={this.toggle} onMouseLeave={this.toggle}>
+            <DropdownToggle color="light" >
+                {this.getMeaning(['de', 'ba', 'l', 'q'], "Insert")}
+            </DropdownToggle>
+            <DropdownMenu>
+                <DropdownItem>{this.getMeaning(['ua', 's', 'te', 'ta', 'te', 'm'], "Print layout")}</DropdownItem>
+                <DropdownItem>{this.getMeaning(['ma', 's', 'me', 'ree', 'ya'], "Show ruler")}</DropdownItem>
+                <DropdownItem divider></DropdownItem>
+                <DropdownItem>{this.getMeaning(['moo', 'loo', ' ', 'ge', 'pc'], "Fullscreen")}</DropdownItem>
+            </DropdownMenu>
         </Dropdown>
-       
+
     )
-    
-} 
+
+}
 export default InsertMenu; 
 
   

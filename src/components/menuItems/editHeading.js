@@ -2,7 +2,7 @@
 import React from "react";
 import executeCommand from './menuHelpers'
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-
+import keyboardMap from '../../keyboardMap'
 // 
 // issue with not keeping the currnet fornt when heading is execcommand
 const EditHeading = class EditFormatblock extends React.Component {
@@ -29,37 +29,30 @@ const EditHeading = class EditFormatblock extends React.Component {
     }
 
   render(){
-    
-    // let headings = 
-    //     ["h1", "h2", "h3", "h4", "h5", "h6"]
-    
- 
-    // let values =  headings.map( (heading,i) => <DropdownItem  onClick={this.handleChange} value={heading}  key={i}>
-    //                                             {heading}
-    //                                            </DropdownItem>)
+    let heading = keyboardMap['t'] + keyboardMap['l'] + keyboardMap['q']
     return(
         <ButtonDropdown  isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle  className="form-control" color="gainsboro" caret>
-          Heading 
+          {this.props.abeshaMenu ? heading : "Heading"} 
         </DropdownToggle>
         <DropdownMenu>
         <DropdownItem  onClick={this.handleChange} key={0}>
-            <h1>Heading 1</h1>
+            <h1> {this.props.abeshaMenu ? heading : "Heading"} 1</h1>
         </DropdownItem>
         <DropdownItem  onClick={this.handleChange} key={1}>
-            <h2>Heading 2</h2>
+            <h2>{this.props.abeshaMenu ? heading : "Heading"} 2</h2>
         </DropdownItem>
         <DropdownItem  onClick={this.handleChange} key={2}>
-            <h3>Heading 3</h3>
+            <h3>{this.props.abeshaMenu ? heading : "Heading"} 3</h3>
         </DropdownItem>
         <DropdownItem  onClick={this.handleChange} key={3}>
-            <h4>Heading 4</h4>
+            <h4>{this.props.abeshaMenu ? heading : "Heading"} 4</h4>
         </DropdownItem>
         <DropdownItem  onClick={this.handleChange} key={4}>
-            <h5>Heading 5</h5>
+            <h5>{this.props.abeshaMenu ? heading : "Heading"} 5</h5>
         </DropdownItem>
         <DropdownItem  onClick={this.handleChange} key={5}>
-            <h6>Heading 6</h6>
+            <h6>{this.props.abeshaMenu ? heading : "Heading"} 6</h6>
         </DropdownItem>
         </DropdownMenu>
        </ButtonDropdown>

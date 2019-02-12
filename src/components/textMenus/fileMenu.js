@@ -37,7 +37,7 @@ class FileMenu extends React.Component {
 
     render =  () => (
 
-        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} onMouseEnter={this.toggle} onMouseLeave={this.toggle}>
         <DropdownToggle color="light" >
             {this. getMeaning(['fa', 'ye', 'l'], "File")}
         </DropdownToggle>
@@ -63,6 +63,7 @@ class FileMenu extends React.Component {
             <DropdownItem divider />
             <DropdownItem><i className="fas fa-print"></i>  {this.getMeaning(['ua','t','m'], "print") }</DropdownItem>
         </DropdownMenu>
+       
          </Dropdown>
        
     )
