@@ -1,5 +1,6 @@
 import React from 'react'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import keyboardMap from '../../keyboardMap'
 
 class FormatMenu extends React.Component {
 
@@ -19,12 +20,13 @@ class FormatMenu extends React.Component {
     }
 
 
-
+   name = keyboardMap.ze + keyboardMap.n + keyboardMap.tc
+   
     render =  () => (
 
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
          <DropdownToggle  color="light"  >
-            Format
+           {this.props.abeshaMenu ? this.name :  "Format" }
         </DropdownToggle>
         <DropdownMenu>
             <DropdownItem header>Header</DropdownItem>

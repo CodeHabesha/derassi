@@ -1,6 +1,8 @@
 import React from 'react'
 import { UncontrolledDropdown, Dropdown, DropdownToggle, DropdownMenu,  DropdownItem } from 'reactstrap'
 import keyboardMap from '../../keyboardMap'
+import { fontStyle } from '../../GLOBAL'
+
 
 class FileMenu extends React.Component {
 
@@ -12,6 +14,7 @@ class FileMenu extends React.Component {
         }
         this.toggle = this.toggle.bind(this)
         this.shareFile = this.shareFile.bind(this)
+        this.getMeaning = this.getMeaning.bind(this)
     }
 
     toggle(){
@@ -22,37 +25,44 @@ class FileMenu extends React.Component {
     shareFile(e){
         console.log(" share file ....", e)
     }
-    name = keyboardMap.f + keyboardMap.ye + keyboardMap.li
+
+    getMeaning(amArray, eng ){
+            let meaning = ""
+            for(let k of amArray){
+                keyboardMap[k]  ?  (meaning += keyboardMap[k]) : (meaning += " ")
+            }
+            return(this.props.abeshaMenu ? <Amharic meaing={meaning}/> : eng)
+    }
+
+
     render =  () => (
 
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle color="light" >
-            {this.props.abeshaMenu ? "File" : this.name}
+            {this. getMeaning(['fa', 'ye', 'l'], "File")}
         </DropdownToggle>
         <DropdownMenu>
-            <DropdownItem onClick={this.shareFile}>Share</DropdownItem>
+            <DropdownItem onClick={this.shareFile}>{this.getMeaning(['sxaa', 'r'], "Share")}</DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>New</DropdownItem>
-            <DropdownItem>Open</DropdownItem>
-            <DropdownItem>Make a copy</DropdownItem>
-            <DropdownItem>Rename</DropdownItem>
-            <DropdownItem>Save</DropdownItem>
-            <DropdownItem>Save as ...</DropdownItem>
-            <DropdownItem><i className="fas fa-folder"></i>  Move</DropdownItem>
-            <DropdownItem><i className="fas fa-trash-alt"></i>  Trash</DropdownItem>
+            <DropdownItem>{this.getMeaning(['ua', 'dee', 's'], "New")} </DropdownItem>
+            <DropdownItem>{this.getMeaning(['k', 'fe', 't'], "Open") } </DropdownItem>
+            <DropdownItem>{this.getMeaning(['ge', 'l', 'b', 'tc'], "Make copy") } </DropdownItem>
+            <DropdownItem>{this.getMeaning(['s', 'm', ' ', 'qe', 'y', 'r'], "Rename")} </DropdownItem>
+            <DropdownItem>{this.getMeaning(['ua', 's', 'qe', 'm', 't'],   "Save" )} </DropdownItem>
+            <DropdownItem>{this.getMeaning(['qe', 'y', 'r', 'na', ' ', 'ua', 's', 'qe', 'm', 'tc'],"Save as")} ...</DropdownItem>
+            <DropdownItem><i className="fas fa-folder"></i> {this.getMeaning(['bo', 'ta', ' ', 'qe', 'y', 'r'], "Move")}</DropdownItem>
+            <DropdownItem><i className="fas fa-trash-alt"></i>  {this.getMeaning(['tca', 'l'], "Trash")}</DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>Download as PDF</DropdownItem>
-            <DropdownItem tag="a" onHover={console.log("hoverd")}>Email as<i className="dropright" ></i>
+            <DropdownItem>{this.getMeaning(['pee', 'dee','iaa', 'f',  " ", 's','ra'], "Download as PDF")}</DropdownItem>
+            <DropdownItem>{this.getMeaning(['uee', 'maa', 'l'], "Email")}<i className="dropright" ></i>
                     
             </DropdownItem>
-            <DropdownItem>Publish to web </DropdownItem>
+            <DropdownItem>{this.getMeaning(['waa', 'b', ' ', 'la','y', ' ', 'tca', 'l'], "Publish to web")} </DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>Document details</DropdownItem>
+            <DropdownItem>{this.getMeaning(['y', 'h', ' ', 'do','koo','me','n','t'], "Document detail") }</DropdownItem>
             <DropdownItem divider />
-            <DropdownItem><i className="fas fa-print"></i>  print</DropdownItem>
-            
+            <DropdownItem><i className="fas fa-print"></i>  {this.getMeaning(['ua','t','m'], "print") }</DropdownItem>
         </DropdownMenu>
-       
          </Dropdown>
        
     )
@@ -61,3 +71,6 @@ class FileMenu extends React.Component {
 export default FileMenu; 
 
   
+const Amharic = (props) => (
+    <span style={{fontFamily: fontStyle.menuFontStyle}}> {props.meaing} </span>
+)

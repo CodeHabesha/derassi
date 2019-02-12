@@ -8,8 +8,9 @@ export const fontStyle =  {
     },
     currentStyle:  'Abesha Lemma',
     currentCapStyle: 'Abesha Lemma Caps',
-    currentSize: 12
-   
+    currentSize: 12,
+    menuFontStyle: 'Abesha Lemma'
+    
 }
 
 export const currentTitle = {
