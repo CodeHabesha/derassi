@@ -1,7 +1,7 @@
 //import { saveState } from "./actions"
 
 export const isConsonant = (letter)  => {
-  let  c = /[a-bdf-hj-np-tv-wyz]/
+  let  c = /[bdf-np-wyz]/
   return letter.match(c) !== null;
 }
 
