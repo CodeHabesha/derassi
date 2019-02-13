@@ -1,42 +1,60 @@
 import React from "react";
 import { fontStyle } from '../../GLOBAL'
 import executeCommand from './menuHelpers'
-import fonts, { fontsInAmharic, getFamily} from '../fontFamily'
+import fonts from './fontFamily'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import keyboardMap from '../../keyboardMap'
 
-const EditFont = class EditFont extends React.Component {
+class EditFont extends React.Component {
     constructor(props){
       super(props)
-      console.log(fonts, fontsInAmharic)
       this.toggle = this.toggle.bind(this);
       this.state = {
-        dropdownOpen: false,
-        currentStyle: fontStyle.currentStyle
+        dropdownOpen: false
       };
       this.handleChange = this.handleChange.bind(this)
+      this.getMeaning = this.getMeaning.bind(this)
+      this.unquote = this.unquote.bind(this)
     }
     toggle() {
       this.setState(prevState => ({
-        dropdownOpen: !prevState.dropdownOpen,
-        currentStyle: fontStyle.currentStyle
+        dropdownOpen: !prevState.dropdownOpen
       }));
     }
+    unquote(string){
+        let newstr = ""
+        for(let str of string){
+            if(str !== "\""){
+                newstr += str
+            }
+        }
+        return newstr
+    }
+    getMeaning = ( font ) => {
+
+        if(!this.props.abeshaMenu){
+            return font
+        }
+        let amharics = fonts[font] || fonts[fontStyle.currentStyle]
+        if(!amharics){return font} 
+        let meaning = ""
+        for(let am of amharics){
+            keyboardMap[am]  ?  (meaning += keyboardMap[am]) : (meaning += " ")
+        }
+        return <AmharicStyle fontFamily={font} meaing={meaning}/>
+    }
+    
 
     handleChange(e){
-      console.log(e)
-      let index = ( fonts.indexOf(e.target.value) < 0 ? fonts.indexOf(e.target.value) : this.currentIndex )
-      console.log(index)
-      fontStyle.setFont(fonts[index])
-      executeCommand( { cmd: "fontName", arg: fontStyle.cursty } ) 
-      this.setState({currentStyle: fontStyle.currentStyle})
+      this.props.abeshaMenu ? fontStyle.setFont(this.unquote(e.target.style.fontFamily)) : fontStyle.setFont(e.target.value)
+      executeCommand( { cmd: "fontName", arg: fontStyle.currentStyle }) 
   }
   render(){
-    console.log(this.state.currentStyle)
-    let values =  fonts.map( (font,i) => <DropdownItem ref={ (e) => this.el = e } onClick={this.handleChange}  value={font} key={i}  > {this.props.abeshaMenu ? getFamily(i) : fonts[i]} </DropdownItem>)
+    let values =  Object.keys(fonts).map( (font,i) => <DropdownItem  onClick={this.handleChange} key={i} value={font} >{this.getMeaning(font) || font}</DropdownItem>)
     return(
       <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle  color="light" caret>
-            {this.props.abeshaMenu ? getFamily(this.currentIndex) : fontStyle.currentStyle}
+            {this.props.abeshaMenu ? this.getMeaning(fontStyle.currentStyle) : fontStyle.currentStyle}
         </DropdownToggle>
         <DropdownMenu>
           {values} 
@@ -48,4 +66,7 @@ const EditFont = class EditFont extends React.Component {
 
   export default EditFont;
 
-  
+
+const AmharicStyle = (props) => (
+    <span style={{fontFamily: props.fontFamily}}> {props.meaing} </span>
+)
