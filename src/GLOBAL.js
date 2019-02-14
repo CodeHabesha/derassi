@@ -21,3 +21,11 @@ export const currentTitle = {
 }
 
 
+export const abeshaToggle = {
+    setCurrent: () => {
+        abeshaToggle.current = !abeshaToggle.current
+    },
+    current: true
+}
+
+

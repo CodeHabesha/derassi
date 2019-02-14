@@ -63,7 +63,6 @@ class FileMenu extends React.Component {
             <DropdownItem divider />
             <DropdownItem><i className="fas fa-print"></i>  {this.getMeaning(['ua','t','m'], "print") }</DropdownItem>
         </DropdownMenu>
-       
          </Dropdown>
        
     )

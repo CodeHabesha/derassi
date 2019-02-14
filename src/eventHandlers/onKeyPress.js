@@ -1,12 +1,17 @@
 import keyboardMap from '../keyboardMap'
 import {isConsonant, formatDoc} from '../helpers'
-import {fontStyle} from '../GLOBAL'
+import {fontStyle, abeshaToggle} from '../GLOBAL'
 
 let vowels = ""
 let currentConsonant = ""
 
 
-const  onKeyPress = (e)  => {
+const  onKeyPress = (e, self)  => {
+  
+  if(!abeshaToggle.current){
+    return 
+  }
+
   if(!e.key){
     return;
   }

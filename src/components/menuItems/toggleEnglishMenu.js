@@ -10,15 +10,15 @@ class ToggleEnglishMenu extends React.Component {
     constructor(props){
         super(props)
         this.handleClick = this.handleClick.bind(this)
-        this.toggle = false
+        this.state = {toggle: false}
     }
     handleClick(e){
             this.props.onMenuToggle()
-            this.toggle = !this.toggle
+            this.setState({toggle: !this.state.toggle})
     }
     render = () => (
             <Button  color="light" onClick={this.handleClick}>
-                    <i className="fas fa-arrow-up">  </i> {this.toggle ? <i className="fa fa-toggle-on"></i>  :  <i className="fa fa-toggle-off"></i>}
+                    <i className="fas fa-arrow-up">  </i> {this.state.toggle ? <i className="fa fa-toggle-on"></i>  :  <i className="fa fa-toggle-off"></i>}
             </Button>   
     )
 }

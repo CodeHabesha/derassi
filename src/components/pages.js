@@ -16,6 +16,7 @@ class Pages extends React.Component {
         this.goToNextPage = this.goToNextPage.bind(this);
         this.goToPreviousPage = this.goToPreviousPage.bind(this);
         this.getNewPage = this.getNewPage.bind(this)
+        
 
     }
 
@@ -25,7 +26,8 @@ class Pages extends React.Component {
             goToPreviousPage={this.goToPreviousPage}
             removePage={this.removePage}
             focus={focus}
-            key={id} />
+            key={id}
+             />
 
     goToNextPage = (args) => {
         let nextId = (Number(args.id) + 1).toString()

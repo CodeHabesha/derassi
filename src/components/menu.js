@@ -36,7 +36,7 @@ const Menu = (props) => {
 
                 <MenuBorder/>
 
-                <ToggleEnglishBody />
+                <ToggleEnglishBody onBodyToggle={props.onBodyToggle} />
 
                 <MenuBorder/>
 
