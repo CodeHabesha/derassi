@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navbar, NavbarBrand } from 'reactstrap'
 import { currentTitle } from '../GLOBAL'
+import onKeyPress from '../eventHandlers/onKeyPress'
 
 class Title extends React.Component {
 
@@ -11,6 +12,7 @@ class Title extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleEnter = this.handleEnter.bind(this)
+        this.handleKeyPress = this.handleKeyPress.bind(this)
     }
 
     handleChange(e){
@@ -20,13 +22,16 @@ class Title extends React.Component {
         console.log(currentTitle.title)
     }
     handleEnter(e){
+       
         if(e.key === 'Enter' ) {
-            e.preventDefault()
+             e.preventDefault()
             currentTitle.setCurrent(this.state.title)
             console.log(currentTitle.title)
             return;
           }
     }
+
+    handleKeyPress = (e) => onKeyPress(e,this)
 
     style={ 
     maxHeight: 40
@@ -35,7 +40,7 @@ class Title extends React.Component {
     render =  () =>  (
                       <Navbar  color="light" style={this.style}>
                       <NavbarBrand>
-                          <div contentEditable={true} onChange={this.handleChange} onKeyDown={this.handleEnter}>{this.state.title}</div>
+                          <div contentEditable={true} onKeyPress={this.handleKeyPress} onChange={this.handleChange} onKeyDown={this.handleEnter}>{this.state.title}</div>
                       </NavbarBrand>
                       </Navbar>
                       )

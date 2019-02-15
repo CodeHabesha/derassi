@@ -1,3 +1,4 @@
+import keyboardMap from './keyboardMap'
 export const fontStyle =  {
 
     setFont:   (font) => { 
@@ -13,13 +14,6 @@ export const fontStyle =  {
     
 }
 
-export const currentTitle = {
-    setCurrent: (title) => {
-        currentTitle.title = title
-    },
-    title: "untitled"
-}
-
 
 export const abeshaToggle = {
     setCurrent: () => {
@@ -27,5 +21,14 @@ export const abeshaToggle = {
     },
     current: true
 }
+
+
+export const currentTitle = {
+    setCurrent: (title) => {
+        currentTitle.title = title
+    },
+    title: (abeshaToggle.current ? (keyboardMap['ua'] + keyboardMap['r'] + keyboardMap['u'] + keyboardMap['s'] + keyboardMap['t']) : "untitled")
+}
+
 
 
