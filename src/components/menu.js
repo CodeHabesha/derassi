@@ -92,7 +92,7 @@ const Menu = (props) => {
 const MenuBorder = () => (
     <div style={{ borderRightStyle: 'solid',
     borderRightWidth: 'thin',
-    borderRightColor: 'gainsboro',
+    borderRightColor: 'gainsboro'
     }} ></div>
 )
 

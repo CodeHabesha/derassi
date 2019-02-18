@@ -3,6 +3,7 @@ import React from "react";
 import executeCommand from './menuHelpers'
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import keyboardMap from '../../keyboardMap'
+import {fontStyle} from '../../GLOBAL'
 // 
 // issue with not keeping the currnet fornt when heading is execcommand
 const EditHeading = class EditFormatblock extends React.Component {
@@ -31,11 +32,11 @@ const EditHeading = class EditFormatblock extends React.Component {
   render(){
     let heading = keyboardMap['t'] + keyboardMap['l'] + keyboardMap['q']
     return(
-        <ButtonDropdown  isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+        <ButtonDropdown  style={{fontFamily: fontStyle.currentStyle}} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle  className="form-control" color="gainsboro" caret>
           {this.props.abeshaMenu ? heading : "Heading"} 
         </DropdownToggle>
-        <DropdownMenu>
+        <DropdownMenu >
         <DropdownItem  onClick={this.handleChange} key={0}>
             <h1> {this.props.abeshaMenu ? heading : "Heading"} 1</h1>
         </DropdownItem>

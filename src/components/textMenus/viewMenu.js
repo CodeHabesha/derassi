@@ -13,7 +13,7 @@ class ViewMenu extends FileMenu {
 
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} onMouseEnter={this.toggle} onMouseLeave={this.toggle}>
             <DropdownToggle color="light" >
-                {this.getMeaning(['qa', 'nx'], "View")}
+                {this.getMeaning(['ue', 's', 'te', 'ya', 'ye', 't'], "View")}
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem>{this.getMeaning(['ua', 's', 'te', 'ta', 'te', 'm'], "Print layout")}</DropdownItem>

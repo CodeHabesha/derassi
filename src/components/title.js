@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navbar, NavbarBrand } from 'reactstrap'
-import { currentTitle } from '../GLOBAL'
+import { currentTitle , fontStyle} from '../GLOBAL'
 import onKeyPress from '../eventHandlers/onKeyPress'
 
 class Title extends React.Component {
@@ -34,7 +34,8 @@ class Title extends React.Component {
     handleKeyPress = (e) => onKeyPress(e,this)
 
     style={ 
-    maxHeight: 40
+    maxHeight: 40,
+    fontFamily: fontStyle.currentStyle
     }
     
     render =  () =>  (

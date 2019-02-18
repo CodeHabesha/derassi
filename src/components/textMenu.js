@@ -14,7 +14,7 @@ class TextMenu extends  React.Component {
       super(props)
     }
     style={
-    maxHeight: 30
+       maxHeight: 'auto'
     }
 
     render = () => (
