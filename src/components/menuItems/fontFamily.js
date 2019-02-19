@@ -8,7 +8,8 @@ const  fonts =
       'Abesha Kitfo'      :['ua','be','sxa'," ",'k', 't', 'fo'],
       'Abesha Lemma'      :['ua','be','sxa'," ",'le', 'ma'],
       'Abesha Lemma Light':['ua','be','sxa'," ",'le', 'ma', ' ', 'qe','jx','n'], 
-      'Abesha Tana'       :['ua','be','sxa'," ",'ta', 'na']
+      'Abesha Tana'       :['ua','be','sxa'," ",'ta', 'na'],
+      'Abesha Fasil'       :['ua','be','sxa'," ",'fa', 'see', 'l']
 }
 
 

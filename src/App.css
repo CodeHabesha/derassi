@@ -65,6 +65,16 @@
     src: url('fonts/AbeshaTanaCaps-Regular.woff');
 }
 
+@font-face {
+    font-family: 'Abesha Fasil';
+    src: url('fonts/AbeshaFasil-Regular.woff');
+}
+
+@font-face {
+    font-family: 'Abesha Fasil Caps';
+    src: url('fonts/AbeshaFasilCaps-Regular.woff');
+}
+
 body {
     background-color: gainsboro;
 }
