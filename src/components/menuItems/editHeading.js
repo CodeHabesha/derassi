@@ -32,7 +32,7 @@ const EditHeading = class EditFormatblock extends React.Component {
   render(){
     let heading = keyboardMap['t'] + keyboardMap['l'] + keyboardMap['q']
     return(
-        <ButtonDropdown  style={{fontFamily: fontStyle.currentStyle}} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+        <ButtonDropdown  style={{fontFamily: fontStyle.menuFontStyle}} isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle  className="form-control" color="gainsboro" caret>
           {this.props.abeshaMenu ? heading : "Heading"} 
         </DropdownToggle>
