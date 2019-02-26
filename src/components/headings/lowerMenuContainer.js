@@ -1,12 +1,12 @@
 import React from 'react'
-import EditFont from './menuItems/editFont'
-import EditSize  from './menuItems/editSize'
-import EditButton from './menuItems/editButton'
-import EditColor from './menuItems/editColor'
+import EditFont from './lowerMenus/editFont'
+import EditSize  from './lowerMenus/editSize'
+import EditButton from './lowerMenus/editButton'
+import EditColor from './lowerMenus/editColor'
 import { Navbar } from 'reactstrap';
-import EditHeading from './menuItems/editHeading';
-import ToggleEnglishMenu from './menuItems/toggleEnglishMenu'
-import ToggleEnglishBody from './menuItems/toggleEnglishBody'
+import EditHeading from './lowerMenus/editHeading';
+import ToggleEnglishMenu from './lowerMenus/toggleEnglishMenu'
+import ToggleEnglishBody from './lowerMenus/toggleEnglishBody'
 
 
 /**

@@ -1,7 +1,7 @@
 import React from 'react'
 import { UncontrolledDropdown, Dropdown, DropdownToggle, DropdownMenu,  DropdownItem } from 'reactstrap'
-import keyboardMap from '../../keyboardMap'
-import { fontStyle } from '../../GLOBAL'
+import keyboardMap from '../../../keyboardMap'
+import { fontStyle } from '../../../GLOBAL'
 
 
 class FileMenu extends React.Component {
