@@ -15,19 +15,13 @@ const  onKeyPress = (e, self)  => {
   if(!e.key){
     return;
   }
-  console.log(e.key)
-  let enter = e.getModifierState('Enter');
-  console.log(enter)
-  if(enter){
-    console.log("enteredmmm")
-    return;
-  }
 
   let isCaps = e.getModifierState('CapsLock');
   let letter = e.key
 
   if (letter) {
     
+    // return if number or none letter
     if (letter.match(/[^a-zA-z]/)) { return }
 
    e.preventDefault()
