@@ -1,6 +1,6 @@
 
 import React from "react";
-import executeCommand from './menuHelpers'
+import { executeCommand } from '../menuHelpers'
 import { Button } from 'reactstrap';
 import { SketchPicker } from 'react-color';
 

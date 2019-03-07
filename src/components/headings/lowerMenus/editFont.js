@@ -1,9 +1,10 @@
 import React from "react";
 import { fontStyle } from '../../../GLOBAL'
-import executeCommand from './menuHelpers'
+import { executeCommand } from '../menuHelpers'
 import fonts from './fontFamily'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import keyboardMap from '../../../keyboardMap'
+import CapAbesha from '../../others/capAbesha'
 
 class EditFont extends React.Component {
     constructor(props){
@@ -41,7 +42,7 @@ class EditFont extends React.Component {
         for(let am of amharics){
             keyboardMap[am]  ?  (meaning += keyboardMap[am]) : (meaning += " ")
         }
-        return <AmharicStyle fontFamily={font} meaing={meaning}/>
+        return <AmharicStyle fontFamily={font} meaning={meaning}/>
     }
     
 
@@ -68,5 +69,5 @@ class EditFont extends React.Component {
 
 
 const AmharicStyle = (props) => (
-    <span style={{fontFamily: props.fontFamily}}> {props.meaing} </span>
+  <span style={{fontFamily: props.fontFamily}}>{props.meaning}</span>
 )

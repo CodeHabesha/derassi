@@ -1,6 +1,6 @@
 
 import React from "react";
-import executeCommand from './menuHelpers'
+import { executeCommand } from '../menuHelpers'
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import keyboardMap from '../../../keyboardMap'
 import {fontStyle} from '../../../GLOBAL'
