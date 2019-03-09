@@ -9,10 +9,31 @@ let currentConsonant = ""
 const  onKeyPress = (e, self)  => {
   
   if(!abeshaToggle.current){
-    return 
+    return;
   }
 
-  if(!e.key){
+  if( !e.key){
+    return;
+  }
+  
+  // prevent from creating letters after space is pressed
+  if(e.key === " "){
+      vowels = ""
+      currentConsonant = ""
+      return; 
+  }
+  // prevent from creating letters after space is pressed
+  if(e.key === "Enter"){
+    e.preventDefault();
+    vowels = ""
+    currentConsonant = ""
+    document.execCommand('insertParagraph',false); 
+    return; 
+  }
+  
+  if(e.getModifierState('Tab')){
+    e.preventDefault();
+    formatDoc( e.target, "insertHTML", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
     return;
   }
 
@@ -22,7 +43,7 @@ const  onKeyPress = (e, self)  => {
   if (letter) {
     
     // return if number or none letter
-    if (letter.match(/[^a-zA-z]/)) { return }
+   if (letter.match(/[^a-zA-z]/)) { return }
 
    e.preventDefault()
     let key = letter.toLowerCase()

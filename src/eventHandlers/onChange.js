@@ -1,6 +1,16 @@
 
 
+let paraCount = 0; 
 const onChange = (e, self) => {
+
+  // wrap the first prargraph of first page in div
+ if(self.element.id === "0" && paraCount === 0){
+    let div = document.createElement('div')
+    self.element.prepend(div);
+    document.execCommand('insertParagraph',false); 
+    paraCount += 1
+ }
+
   let style = window.getComputedStyle(e.srcElement)
   let padding = Number(style.paddingTop.slice(0, -2))
   let pageHeight = Number(style.height.slice(0, -2))
