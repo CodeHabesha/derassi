@@ -1,10 +1,12 @@
 import {formatDoc} from '../helpers'
 
 const onKeyDown = (e,self)  => {
+   
     if (e.key === 'Tab') {
       e.preventDefault();
-      formatDoc( e.target, "insertHTML", "&nbsp;&nbsp;&nbsp;&nbsp;");
-      return;
+     
+      // formatDoc( e.target, "insertHTML", "&nbsp;&nbsp;&nbsp;&nbsp");
+      // return;
     }
     // if(e.key === 'Backspace'){
         

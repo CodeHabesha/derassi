@@ -8,6 +8,8 @@ let currentConsonant = ""
 
 const  onKeyPress = (e, self)  => {
   
+
+  
   if(!abeshaToggle.current){
     return;
   }
@@ -27,15 +29,11 @@ const  onKeyPress = (e, self)  => {
     e.preventDefault();
     vowels = ""
     currentConsonant = ""
-    document.execCommand('insertParagraph',false); 
+    document.execCommand("insertParagraph",false); 
     return; 
   }
   
-  if(e.getModifierState('Tab')){
-    e.preventDefault();
-    formatDoc( e.target, "insertHTML", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-    return;
-  }
+
 
   let isCaps = e.getModifierState('CapsLock');
   let letter = e.key

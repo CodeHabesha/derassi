@@ -1,4 +1,5 @@
 
+import {replaceCaret} from '../helpers'
 
 let paraCount = 0; 
 const onChange = (e, self) => {
@@ -7,7 +8,8 @@ const onChange = (e, self) => {
  if(self.element.id === "0" && paraCount === 0){
     let div = document.createElement('div')
     self.element.prepend(div);
-    document.execCommand('insertParagraph',false); 
+    div.focus()
+   //TODO: try to get focus in this div so when amharic is typed, it is inserted in this div
     paraCount += 1
  }
 
