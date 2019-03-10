@@ -4,12 +4,13 @@ import {replaceCaret} from '../helpers'
 
 const onChange = (e, self) => {
   
-
-  let style = window.getComputedStyle(e.srcElement)
-  let padding = Number(style.paddingTop.slice(0, -2))
-  let pageHeight = Number(style.height.slice(0, -2))
-  let border = Number(style.borderTopWidth.slice(0, -2))
-  let pageLen = pageHeight - 2*padding - 2*border
+  
+  let style = window.getComputedStyle(e.srcElement);
+  let padding = Number(style.paddingTop.slice(0, -2));
+  let pageHeight = Number(style.height.slice(0, -2));
+  let border = Number(style.borderTopWidth.slice(0, -2));
+  let margin = Number(style.marginTop.slice(0, -2));
+  let pageLen = pageHeight - 2*padding - 2*border - 2*margin
 
   let firstNode = e.srcElement.firstChild
   let lastNode = e.srcElement.lastChild
