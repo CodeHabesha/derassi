@@ -1,35 +1,26 @@
 import {formatDoc} from '../helpers'
+import {fontStyle} from '../GLOBAL'
+
+let paraCount = 0; 
 
 const onKeyDown = (e,self)  => {
-   
+
+    // wrap the first prargraph of first page in div, since this is the olny paragraph that won't be
+    // because insertParagraph of formatDoc only works after the first paragraph
+    if(self.element.id === "0" && paraCount === 0){
+      formatDoc(self.element, "insertParagraph")
+      // paraCount > 0 prevents exectution from entering here again
+      paraCount += 1
+     }
+
+    
     if (e.key === 'Tab') {
       e.preventDefault();
-     
-      // formatDoc( e.target, "insertHTML", "&nbsp;&nbsp;&nbsp;&nbsp");
-      // return;
+      document.execCommand("insertHTML", false,
+      `<span  style="font-family: ${fontStyle.currentStyle}">\u2001\u2001\u2001\u2001</span>`
+      )
+       return;
     }
-    // if(e.key === 'Backspace'){
-        
-        
-    //     let empty = sanitizeHtml(e.target.innerHTML).length === 0 
-    //     let dirty = e.target.innerHTML.replace( /(<br>)/g,'') 
-        
-    //     let deletable = (empty || !dirty) && e.target.id !== "0" 
-        
-    //     if(deletable){
-    //       self.removePage(e)
-    //     }
-    //     return; 
-    // }
-    
-    // if(e.key === 'Enter' ) {
-    //   e.preventDefault()
-    //   //(e.target, 'insertParagraph');
-    //   //formatDoc(e.target, "insertHTML", '<br><br>')
-    //   // formatDoc(e.target, "insertParagraph"); //better to insertparagraph thatn use brbr
-    //   document.execCommand('insertParagraph',false); 
-    //   return;
-    // }
 }
 
 

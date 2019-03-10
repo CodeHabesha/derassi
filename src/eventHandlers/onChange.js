@@ -1,35 +1,35 @@
 
 import {replaceCaret} from '../helpers'
 
-let paraCount = 0; 
-const onChange = (e, self) => {
 
-  // wrap the first prargraph of first page in div
- if(self.element.id === "0" && paraCount === 0){
-    let div = document.createElement('div')
-    self.element.prepend(div);
-    div.focus()
-   //TODO: try to get focus in this div so when amharic is typed, it is inserted in this div
-    paraCount += 1
- }
+const onChange = (e, self) => {
+  
 
   let style = window.getComputedStyle(e.srcElement)
   let padding = Number(style.paddingTop.slice(0, -2))
   let pageHeight = Number(style.height.slice(0, -2))
   let border = Number(style.borderTopWidth.slice(0, -2))
   let pageLen = pageHeight - 2*padding - 2*border
+
   let firstNode = e.srcElement.firstChild
   let lastNode = e.srcElement.lastChild
   let range = document.createRange()
   
-  if(!range){
+  if(!range || !firstNode || !lastNode){
     return;
   }
-  range.setStart(firstNode, 0)
-  range.setEnd(lastNode, 0)
+  
+  if(range.setStart(firstNode, 0)){
+     range.setStart(firstNode, 0)
+  }
+  if(  range.setEnd(lastNode, 0)) {
+    range.setEnd(lastNode, lastNode.length)
+  }
+  
   let rect = range.getBoundingClientRect()
+  console.log(rect.height, pageLen)
 
-  if (rect.height > pageLen) {
+  if (rect && rect.height > pageLen) {
     let selection = window.getSelection()
     let selRange = document.createRange()
     
@@ -49,9 +49,13 @@ const onChange = (e, self) => {
     let sel = window.getSelection()
     let range = document.createRange()
     let startNode = e.srcElement.firstChild
-
-    range.setStart(startNode, 0)
-    range.setEnd(sel.anchorNode, 0)
+    if( range.setStart(startNode, 0)){
+      range.setStart(startNode, 0)
+    }
+    if(range.setEnd(sel.anchorNode, 0)){
+      range.setEnd(sel.anchorNode, 0)
+    }
+   
 
     let rect = range.getBoundingClientRect()
     let focus = (rect.height <= startNode.getBoundingClientRect().height && sel.anchorNode === startNode)
