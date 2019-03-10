@@ -7,8 +7,10 @@ export const isConsonant = (letter)  => {
 
 export const  formatDoc = ( oDoc, sCmd, sValue)  => {
   if(document) {
-    document.execCommand(sCmd, false, sValue); oDoc.focus();
-
+    document.execCommand(sCmd, false, sValue); 
+    oDoc.focus();
+    //TODO: make focus scrollIntoView when out of screen view
+    //oDoc.scrollIntoView({block: "nearest", inline: "nearest"})
   }
 }
 

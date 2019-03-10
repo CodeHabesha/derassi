@@ -1,7 +1,7 @@
 import React from "react"
-import onChange from '../eventHandlers/onChange'
-import onKeyDown from '../eventHandlers/onKeyDown'
-import onKeyPress from '../eventHandlers/onKeyPress'
+import onChange from '../../eventHandlers/onChange'
+import onKeyDown from '../../eventHandlers/onKeyDown'
+import onKeyPress from '../../eventHandlers/onKeyPress'
 
 
 class  Page extends React.Component {

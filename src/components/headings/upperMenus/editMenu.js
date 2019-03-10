@@ -1,6 +1,5 @@
 import React from 'react'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import keyboardMap from '../../keyboardMap'
 import FileMenu from './fileMenu'
 
 class EditMenu extends FileMenu {

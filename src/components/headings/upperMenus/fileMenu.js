@@ -1,7 +1,8 @@
 import React from 'react'
 import { UncontrolledDropdown, Dropdown, DropdownToggle, DropdownMenu,  DropdownItem } from 'reactstrap'
-import keyboardMap from '../../keyboardMap'
-import { fontStyle } from '../../GLOBAL'
+import keyboardMap from '../../../keyboardMap'
+import CapAbesha from '../../others/capAbesha'
+
 
 
 class FileMenu extends React.Component {
@@ -31,13 +32,13 @@ class FileMenu extends React.Component {
             for(let k of amArray){
                 keyboardMap[k]  ?  (meaning += keyboardMap[k]) : (meaning += " ")
             }
-            return(this.props.abeshaMenu ? <Amharic meaing={meaning}/> : eng)
+            return(this.props.abeshaMenu ? <CapAbesha meaning={meaning}/> : eng)
     }
 
 
     render =  () => (
 
-        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} onMouseEnter={this.toggle} onMouseLeave={this.toggle}>
+        <Dropdown isOpen={this.state.dropdownOpen} onMouseEnter={this.toggle} onMouseLeave={this.toggle}>
         <DropdownToggle color="light" >
             {this. getMeaning(['fa', 'ye', 'l'], "File")}
         </DropdownToggle>
@@ -71,6 +72,3 @@ class FileMenu extends React.Component {
 export default FileMenu; 
 
   
-const Amharic = (props) => (
-    <span style={{fontFamily: fontStyle.menuFontStyle}}> {props.meaing} </span>
-)

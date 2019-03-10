@@ -5,34 +5,49 @@ import {fontStyle, abeshaToggle} from '../GLOBAL'
 let vowels = ""
 let currentConsonant = ""
 
-
 const  onKeyPress = (e, self)  => {
   
   if(!abeshaToggle.current){
-    return 
+    return;
   }
 
-  if(!e.key){
+  if( !e.key){
     return;
   }
-  console.log(e.key)
-  let enter = e.getModifierState('Enter');
-  console.log(enter)
-  if(enter){
-    console.log("enteredmmm")
-    return;
+  
+  // prevent from creating letters after space is pressed
+  if(e.key === " "){
+      e.preventDefault();
+      vowels = ""
+      currentConsonant = ""
+      document.execCommand("insertHTML", false,
+      `<span  style="font-family: ${fontStyle.currentStyle}">\u2001</span>`
+      )
+      return; 
   }
+  // prevent from creating letters after Enter is pressed
+  if(e.key === "Enter"){
+    e.preventDefault();
+    vowels = ""
+    currentConsonant = ""
+    document.execCommand("insertParagraph",false); 
+    return; 
+  }
+  
+
 
   let isCaps = e.getModifierState('CapsLock');
   let letter = e.key
 
   if (letter) {
     
-    if (letter.match(/[^a-zA-z]/)) { return }
+    // return if number or none letter
+   if (letter.match(/[^a-zA-z]/)) { return }
 
    e.preventDefault()
     let key = letter.toLowerCase()
     let consonant = isConsonant(key);
+  
     if (consonant) {
       if (isCaps){
         formatDoc( e.target, "insertHTML", getSpan(isCaps, key));
@@ -80,5 +95,6 @@ const getSpan = (isCaps, key) => {
   }
    let text = document.createTextNode(keyboardMap[key])
    span.appendChild(text)
+   span.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
    return span.outerHTML
 }

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Navbar, Nav, NavItem} from 'reactstrap'
-import FileMenu from './textMenus/fileMenu'
-import EditMenu from './textMenus/editMenu'
-import ViewMenu from './textMenus/viewMenu'
-import FormatMenu from './textMenus/formatMenu'
-import HelpMenu from './textMenus/helpMenu'
-import ToolsMenu from './textMenus/toolsMenu'
-import InsertMenu from './textMenus/insertMenu'
+import FileMenu from './upperMenus/fileMenu'
+import EditMenu from './upperMenus/editMenu'
+import ViewMenu from './upperMenus/viewMenu'
+import FormatMenu from './upperMenus/formatMenu'
+import HelpMenu from './upperMenus/helpMenu'
+import ToolsMenu from './upperMenus/toolsMenu'
+import InsertMenu from './upperMenus/insertMenu'
 
 class TextMenu extends  React.Component {
 

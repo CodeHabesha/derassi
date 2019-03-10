@@ -1,7 +1,6 @@
 import React from "react"
-import Menu from './menu'
 import Page from './page';
-import { replaceCaret } from "../helpers";
+import { replaceCaret } from "../../helpers";
 
 
 class Pages extends React.Component {

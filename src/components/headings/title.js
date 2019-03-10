@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navbar, NavbarBrand } from 'reactstrap'
-import { currentTitle , fontStyle} from '../GLOBAL'
-import onKeyPress from '../eventHandlers/onKeyPress'
+import { currentTitle , fontStyle} from '../../GLOBAL'
+import onKeyPress from '../../eventHandlers/onKeyPress'
 
 class Title extends React.Component {
 

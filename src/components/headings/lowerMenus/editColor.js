@@ -1,9 +1,9 @@
 
 import React from "react";
-import executeCommand from './menuHelpers'
+import { executeCommand } from '../menuHelpers'
 import { Button } from 'reactstrap';
 import { SketchPicker } from 'react-color';
-import reactCSS from 'reactcss'
+
 
 const EditColor = class EditColor extends React.Component {
     constructor(props){

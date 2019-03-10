@@ -1,5 +1,5 @@
 import React from "react";
-import { fontStyle } from '../../GLOBAL'
+import { fontStyle } from '../../../GLOBAL'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 

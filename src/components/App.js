@@ -1,11 +1,11 @@
 import React from 'react'
-import Menu from './menu'
-import Pages from './pages'
+import Menu from './headings/lowerMenuContainer'
+import Pages from './body/pages'
 import '../fontawsome/css/all.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css'
-import Title from './title'
-import TextMenu from './textMenu'
+import Title from './headings/title'
+import TextMenu from './headings/upperMenuContainer'
 import {abeshaToggle} from '../GLOBAL'
 
 
