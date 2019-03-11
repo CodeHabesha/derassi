@@ -9,7 +9,7 @@ class Pages extends React.Component {
         super(props)
         let page = this.getNewPage(0, true)
         this.state = { pages: [page] }
-        this.addPage = this.addPage.bind(this)
+        this.addNextPage = this.addNextPage.bind(this)
         this.removePage = this.removePage.bind(this)
         this.goBackApage = this.goBackApage.bind(this)
         this.goToNextPage = this.goToNextPage.bind(this);
@@ -23,17 +23,40 @@ class Pages extends React.Component {
         <Page id={id}
             goToNextPage={this.goToNextPage}
             goToPreviousPage={this.goToPreviousPage}
+            addNextPage={this.addNextPage}
             removePage={this.removePage}
             focus={focus}
             key={id}
              />
+    
+    //addes new next page when carot reaches a certain distance down a page
+    //if that page does exist
+    addNextPage = (thisId) => {
+        let nextId = (Number(thisId) + 1).toString();
+        if(document.getElementById(nextId)) return;
+        let page = this.getNewPage(nextId, false)
+        let pages = [...this.state.pages, page]
+        this.setState({ pages: pages })
+        
+    }
+
+    
+    // addPage = (args) => {
+    //     let page = this.getNewPage(args.id, args.focus)
+    //     let pages = [...this.state.pages, page]
+    //     this.setState({ pages: pages })
+    //     this.forceUpdate();
+    //     let newPage; 
+    //     setTimeout(() => {
+    //         newPage = document.getElementById(args.id)
+    //         newPage.prepend(args.content)
+    //     }, 0);
+    // }
+
 
     goToNextPage = (args) => {
         let nextId = (Number(args.id) + 1).toString()
-        console.log("...next Id ", nextId)
-        if (!document.getElementById(nextId)) {
-            this.addPage({ id: nextId, content: args.content, focus: args.focus })
-        }else{
+        if (document.getElementById(nextId)) {
             let page = document.getElementById(nextId)
             if (page) {
                     setTimeout(() => {
@@ -80,18 +103,6 @@ class Pages extends React.Component {
         )
     }
 
-
-    addPage = (args) => {
-        let page = this.getNewPage(args.id, args.focus)
-        let pages = [...this.state.pages, page]
-        this.setState({ pages: pages })
-        this.forceUpdate();
-        let newPage; 
-        setTimeout(() => {
-            newPage = document.getElementById(args.id)
-            newPage.prepend(args.content)
-        }, 0);
-    }
 
 
     removePage = (thisId) => {

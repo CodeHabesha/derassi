@@ -28,21 +28,30 @@ const onChange = (e, self) => {
   }
   
   let rect = range.getBoundingClientRect()
-  console.log(rect.height, pageLen)
 
-  if (rect && rect.height > pageLen) {
+  let portion = 0.60; 
+  if (rect && rect.height > pageLen * portion) {
+    self.props.addNextPage(self.element.id)
+  }
+  
+  if (rect && rect.height > pageLen ) {
     let selection = window.getSelection()
     let selRange = document.createRange()
     
     selRange.setStart(firstNode, 0)
-    selRange.setEnd(selection.focusNode, 0)
+    selRange.setEnd(selection.anchorNode, 0)
 
-    let selRect = selRange.getBoundingClientRect()
-    console.log(selRect.height , pageLen)
-    let focus = (selRect.height >= pageLen)
-    let content = moveLastLine(e.srcElement, pageLen)
+     let selRect = selRange.getBoundingClientRect()
+     console.log(selRect.height , pageLen)
+     let content = moveLastLine(e.srcElement, pageLen)
+     if(selRect.height >= pageLen){
+      self.props.goToNextPage({ id: self.element.id, content: content, focus: true })
+     }else{
+      self.props.goToNextPage({ id: self.element.id, content: content, focus: false })
+     }
+     
 
-    self.props.goToNextPage({ id: self.element.id, content: content, focus: focus })
+    
   }
 
   if (e.inputType === 'deleteContentBackward') {
