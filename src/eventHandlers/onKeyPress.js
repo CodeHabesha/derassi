@@ -34,9 +34,12 @@ const  onKeyPress = (e, self)  => {
     return; 
   }
   
-
-
   let isCaps = e.getModifierState('CapsLock');
+  let isShift = e.getModifierState('Shift');
+
+  if(isShift){
+     isCaps = !isCaps; 
+  }
   let letter = e.key
 
   if (letter) {
