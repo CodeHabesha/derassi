@@ -9,7 +9,8 @@ const  fonts =
       'Abesha Lemma'      :['ua','be','sxa'," ",'le', 'ma'],
       'Abesha Lemma Light':['ua','be','sxa'," ",'le', 'ma', ' ', 'qe','jx','n'], 
       'Abesha Tana'       :['ua','be','sxa'," ",'tca', 'na'],
-      'Abesha Fasil'       :['ua','be','sxa'," ",'fa', 'see', 'l']
+      'Abesha Fasil'       :['ua','be','sxa'," ",'fa', 'see', 'l'],
+      'Abesha Selam'       :['ua','be','sxa'," ",'se', 'la', 'm']
 }
 
 

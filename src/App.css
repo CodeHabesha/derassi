@@ -75,6 +75,17 @@
     src: url('fonts/AbeshaFasilCaps-Regular.woff');
 }
 
+@font-face {
+    font-family: 'Abesha Selam';
+    src: url('fonts/AbeshaSelam.woff');
+}
+
+@font-face {
+    font-family: 'Abesha Selam Caps';
+    src: url('fonts/AbeshaSelamCaps.woff');
+}
+
+
 body {
     background-color: gainsboro;
 }

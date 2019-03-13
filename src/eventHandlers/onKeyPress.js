@@ -21,7 +21,7 @@ const  onKeyPress = (e, self)  => {
       vowels = ""
       currentConsonant = ""
       document.execCommand("insertHTML", false,
-      `<span  style="font-family: ${fontStyle.currentStyle}">\u2001</span>`
+      `<span  style="font-family: ${fontStyle.currentStyle}">\u2000</span>`
       )
       return; 
   }
@@ -95,6 +95,5 @@ const getSpan = (isCaps, key) => {
   }
    let text = document.createTextNode(keyboardMap[key])
    span.appendChild(text)
-   span.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
    return span.outerHTML
 }
