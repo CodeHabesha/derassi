@@ -32,23 +32,68 @@ const onChange = (e, self) => {
   let portion = 0.60; 
   if (rect && rect.height > pageLen * portion) {
     self.props.addNextPage(self.element.id)
-  }
-  
-  if (rect && rect.height > pageLen ) {
-    let selection = window.getSelection()
-    let selRange = document.createRange()
-    
-    selRange.setStart(firstNode, 0)
-    selRange.setEnd(selection.anchorNode, 0)
 
-     let selRect = selRange.getBoundingClientRect()
-     console.log(selRect.height , pageLen)
-     let content = moveLastLine(e.srcElement, pageLen)
-     if(selRect.height >= pageLen){
-      self.props.goToNextPage({ id: self.element.id, content: content, focus: true })
-     }else{
-      self.props.goToNextPage({ id: self.element.id, content: content, focus: false })
-     }
+    let allDivs = document.getElementById(e.srcElement.id).childNodes
+    let lastDivIndex = allDivs.length - 1
+    let lastDiv = allDivs[lastDivIndex]
+    console.log(lastDiv, typeof lastDiv)
+
+    let lastDivRange = document.createRange()
+        lastDivRange.setStart(lastDiv, 0)
+        lastDivRange.setEnd(lastDiv, lastDiv.length)
+    
+    // let lastDivRect = lastDivRange.getBoundingClientRect()
+
+    
+    let caret = window.getSelection()
+    let caretRange = caret.getRangeAt(0)
+
+   if(rect.height > pageLen){
+
+    if(caretRange.intersectsNode(lastDiv)){ 
+
+        console.log(" carot is here ...")
+        let content = moveLastLine(e.srcElement, pageLen)   
+       self.props.goToNextPage({ id: self.element.id, content: content, focus: true }) 
+
+       
+       
+       return; 
+      }
+
+
+
+        console.log("focus is false")
+        let content = moveLastLine(e.srcElement, pageLen)
+         self.props.goToNextPage({ id: self.element.id, content: content, focus: false }) 
+        
+
+  
+
+   }
+
+  //   caretRange.setStart(firstNode, 0)
+  //   caretRange.setEnd(selection.anchorNode, 0)
+
+  //   let selRect = selRange.getBoundingClientRect()
+  //    console.log(selRect.height , pageLen)
+  // // }
+
+  // // if (rect && rect.height >= pageLen ) {
+  //   // let selection = window.getSelection()
+  //   // let selRange = document.createRange()
+    
+  //   // selRange.setStart(firstNode, 0)
+  //   // selRange.setEnd(selection.anchorNode, 0)
+
+  //   //  let selRect = selRange.getBoundingClientRect()
+  //   //  console.log(selRect.height , pageLen)
+  //    let content = moveLastLine(e.srcElement, pageLen)
+  //    if(selRect.height === pageLen){
+  //     self.props.goToNextPage({ id: self.element.id, content: content, focus: true })
+  //    }else{
+  //     self.props.goToNextPage({ id: self.element.id, content: content, focus: false })
+  //    }
      
 
     

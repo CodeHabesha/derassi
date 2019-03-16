@@ -90,7 +90,7 @@ const getSpan = (isCaps, key) => {
   let span = document.createElement('span')
       span.style.fontSize = fontStyle.currentSize + 'pt' 
   if (isCaps){
-    span.style.fontFamily = fontStyle.currentCapStyle
+    span.style.fontFamily = (fontStyle.currentCapStyle ? fontStyle.currentCapStyle : fontStyle.currentStyle)
     //return `<span  style="font-family: ${fontStyle.currentCapStyle}; font-size=${fontStyle.currentSize}pt">${keyboardMap[key]}</span>`
   }else{
     span.style.fontFamily = fontStyle.currentStyle

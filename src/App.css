@@ -85,6 +85,16 @@
     src: url('fonts/AbeshaSelamCaps.woff');
 }
 
+@font-face {
+    font-family: 'Abesha Jolly';
+    src: url('fonts/AbeshaJolly.woff');
+}
+
+/* @font-face {
+    font-family: 'Abesha Jolly Caps';
+    src: url('fonts/AbeshaJollyCaps.woff');
+} */
+
 
 body {
     background-color: gainsboro;
@@ -116,8 +126,6 @@ body {
 div[contenteditable="true"]:focus {
   outline: none;
 }
-
-
 
 
 
