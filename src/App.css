@@ -90,10 +90,20 @@
     src: url('fonts/AbeshaJolly.woff');
 }
 
+@font-face {
+    font-family: 'Abesha Jolly Caps';
+    src: url('fonts/AbeshaJollyCaps.woff');
+}
+
+@font-face {
+    font-family: 'Abesha Tibs';
+    src: url('fonts/AbeshaTibs.woff');
+}
 /* @font-face {
     font-family: 'Abesha Jolly Caps';
     src: url('fonts/AbeshaJollyCaps.woff');
 } */
+
 
 
 body {

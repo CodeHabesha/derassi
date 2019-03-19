@@ -11,7 +11,8 @@ const  fonts =
       'Abesha Tana'       :['ua','be','sxa'," ",'tca', 'na'],
       'Abesha Fasil'       :['ua','be','sxa'," ",'fa', 'see', 'l'],
       'Abesha Selam'       :['ua','be','sxa'," ",'se', 'la', 'm'],
-      'Abesha Jolly'       :['ua','be','sxa'," ",'jo', 'lee']
+      'Abesha Jolly'       :['ua','be','sxa'," ",'jo', 'lee'],
+      'Abesha Tibs'       :['ua','be','sxa'," ",'t', 'b', 's']
 }
 
 
