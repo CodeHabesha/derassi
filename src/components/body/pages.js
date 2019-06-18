@@ -59,10 +59,10 @@ class Pages extends React.Component {
         if (document.getElementById(nextId)) {
             let page = document.getElementById(nextId)
             if (page) {
-                    setTimeout(() => {
+                    // setTimeout(() => {
                         page.prepend(args.content) 
                         if(args.focus ) page.focus();
-                    }, 0); 
+                    // }, 0); 
                 }
         }
     }

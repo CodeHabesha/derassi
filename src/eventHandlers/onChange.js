@@ -1,5 +1,5 @@
 
-import {replaceCaret} from '../helpers'
+import {debugPrint} from '../helpers'
 
 
 const onChange = (e, self) => {
@@ -14,6 +14,7 @@ const onChange = (e, self) => {
 
   let firstNode = e.srcElement.firstChild
   let lastNode = e.srcElement.lastChild
+ 
   let range = document.createRange()
   
   if(!range || !firstNode || !lastNode){
@@ -40,17 +41,19 @@ const onChange = (e, self) => {
     let caretRange = caret.getRangeAt(0)
     
 
-    setTimeout(() => {
+    // setTimeout(() => {
       let focus = false
       if(caretRange.intersectsNode(lastNode)){ 
         focus = true
        }
- 
+       debugPrint(onChange.name, `focus is ${focus}`, [])
+       console.log(focus)
+       console.log("after")
        let content = moveLastLine(e.srcElement, pageLen)
        console.log(content)
        self.props.goToNextPage({ id: self.element.id, content: content, focus: focus }) 
       
-    }, 0);
+    // }, 0);
 
   }
 

@@ -8,7 +8,7 @@ export const isConsonant = (letter)  => {
 export const  formatDoc = ( oDoc, sCmd, sValue)  => {
   if(document) {
     document.execCommand(sCmd, false, sValue); 
-    oDoc.focus();
+    //oDoc.focus();
     //TODO: make focus scrollIntoView when out of screen view
     //oDoc.scrollIntoView({block: "nearest", inline: "nearest"})
   }
@@ -52,5 +52,12 @@ export  const replaceCaret = (el /*:HTMLElement*/)  => {
     sel.addRange(range);
     if (el instanceof HTMLElement) el.focus();
   }
+} 
+
+
+export const debugPrint = (funcName, message, args) =>
+{
+    console.log(funcName, message, "\n" , args)
+
 }
 

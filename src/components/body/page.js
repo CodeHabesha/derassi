@@ -8,7 +8,7 @@ class  Page extends React.Component {
 
     constructor(props){
         super(props)
-        console.log(props)
+        
         this.handleKeyPress = this.handleKeyPress.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleKeyDown = this.handleKeyDown.bind(this)

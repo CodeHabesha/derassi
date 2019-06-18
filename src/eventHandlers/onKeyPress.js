@@ -2,6 +2,7 @@ import keyboardMap from '../keyboardMap'
 import {isConsonant, formatDoc} from '../helpers'
 import {fontStyle, abeshaToggle} from '../GLOBAL'
 
+
 let vowels = ""
 let currentConsonant = ""
 
@@ -67,7 +68,7 @@ const  onKeyPress = (e, self)  => {
       let val = keyboardMap[key]
       if(val){
         // go back one and edit
-        formatDoc( e.target, "delete")
+        formatDoc( e.target, "undo")
         if (isCaps){
           formatDoc( e.target, "insertHTML", getSpan(isCaps,key));
 
