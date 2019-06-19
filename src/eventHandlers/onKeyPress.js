@@ -12,7 +12,7 @@ const  onKeyPress = (e, self)  => {
     return;
   }
 
-  if( !e.key){
+  if( !e ){
     return;
   }
   

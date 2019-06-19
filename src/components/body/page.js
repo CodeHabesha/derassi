@@ -29,7 +29,7 @@ class  Page extends React.Component {
         if(this.props.focus) {this.element.focus()} ;
         this.element.id = this.props.id
         this.element.addEventListener("input", this.handleChange)
-        this.element.addEventListener("focus", this.handleFocus)
+        // this.element.addEventListener("focus", this.handleFocus)
 
         }
     
@@ -37,8 +37,8 @@ class  Page extends React.Component {
     render(){
         return(
         <div contentEditable={true} className="page"  
-            id={this.props.id} ref={ el => this.element = el} 
-            onKeyDown={this.handleKeyDown} onKeyPress={this.handleKeyPress}  >
+            id={this.props.id} ref={ el => this.element = el } 
+            onKeyDown={this.handleKeyDown} onKeyPress={this.handleKeyPress} >
             {/* <Paragraph id={this.props.id}   onKeyDown={this.props.onKeyDown} onKeyPress={this.handleKeyPress}/> */}
         </div>
         )

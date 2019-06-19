@@ -3,8 +3,8 @@ import {debugPrint} from '../helpers'
 
 
 const onChange = (e, self) => {
-  
-  
+
+ 
   let style = window.getComputedStyle(e.srcElement);
   let padding = Number(style.paddingTop.slice(0, -2));
   let pageHeight = Number(style.height.slice(0, -2));
@@ -12,11 +12,13 @@ const onChange = (e, self) => {
   let margin = Number(style.marginTop.slice(0, -2));
   let pageLen = pageHeight - 2*padding - 2*border - 2*margin
 
-  let firstNode = e.srcElement.firstChild
-  let lastNode = e.srcElement.lastChild
+  let divs = document.getElementById(self.element.id).children
  
+  let firstNode = divs[0]
+  let lastNode = divs[divs.length - 1]
+
   let range = document.createRange()
-  
+ 
   if(!range || !firstNode || !lastNode){
     return;
   }
@@ -24,11 +26,12 @@ const onChange = (e, self) => {
   if(range.setStart(firstNode, 0)){
      range.setStart(firstNode, 0)
   }
-  if(  range.setEnd(lastNode, 0)) {
+  if( range.setEnd(lastNode, 0)) {
     range.setEnd(lastNode, lastNode.length)
   }
   
   let rect = range.getBoundingClientRect()
+
 
   let portion = 0.60; 
   if (rect && rect.height > pageLen * portion) {
@@ -39,21 +42,15 @@ const onChange = (e, self) => {
     
     let caret = window.getSelection()
     let caretRange = caret.getRangeAt(0)
-    
-
-    // setTimeout(() => {
-      let focus = false
-      if(caretRange.intersectsNode(lastNode)){ 
+    let focus = false
+      // check to see if last node is not an empty one with no child (or just 'br')
+    let lastIntersectionNode = (lastNode.lastChild ? lastNode.lastChild : lastNode)
+    if(caretRange.intersectsNode(lastIntersectionNode)){ 
         focus = true
        }
-       debugPrint(onChange.name, `focus is ${focus}`, [])
-       console.log(focus)
-       console.log("after")
        let content = moveLastLine(e.srcElement, pageLen)
-       console.log(content)
        self.props.goToNextPage({ id: self.element.id, content: content, focus: focus }) 
-      
-    // }, 0);
+    
 
   }
 
@@ -63,9 +60,13 @@ const onChange = (e, self) => {
 
     let sel = window.getSelection()
     let range = document.createRange()
-    let startNode = e.srcElement.firstChild
-    if( range.setStart(startNode, 0)){
-      range.setStart(startNode, 0)
+    //let divs = document.getElementById(self.element.id).children
+ 
+    // let firstNode = divs[0]
+    // let lastNode = divs[divs.length - 1]
+    // let startNode = e.srcElement.children
+    if( range.setStart(firstNode, 0)){
+      range.setStart(firstNode, 0)
     }
     if(range.setEnd(sel.anchorNode, 0)){
       range.setEnd(sel.anchorNode, 0)
@@ -73,7 +74,7 @@ const onChange = (e, self) => {
    
 
     let rect = range.getBoundingClientRect()
-    let focus = (rect.height <= startNode.getBoundingClientRect().height && sel.anchorNode === startNode)
+    let focus = (rect.height <= firstNode.getBoundingClientRect().height && sel.anchorNode === firstNode)
   
     if (focus) {
       if(e.srcElement.id === "0"){
@@ -101,7 +102,7 @@ const moveLastLine = (element, pageLen) => {
   range.setEnd(element.lastChild, 0)
 
   let rect = range.getBoundingClientRect();
-  var lastLine = document.createElement('div') //createDocumentFragment();
+  var lastLine = document.createDocumentFragment();
   let height = rect.height
   let children = element.childNodes
   let index = children.length - 1
@@ -127,7 +128,7 @@ const moveFirstLine = (element) => {
   range.selectNodeContents(element)
 
   let rect = range.getBoundingClientRect();
-  let firstLine = document.createElement('span')
+  let firstLine = document.createDocumentFragment() 
   let height = rect.height
   let children = element.childNodes
   let index = 0

@@ -2,7 +2,7 @@ import React from "react"
 import Page from './page';
 import { replaceCaret } from "../../helpers";
 
-
+// manages adding removing pages
 class Pages extends React.Component {
 
     constructor(props) {
@@ -11,12 +11,10 @@ class Pages extends React.Component {
         this.state = { pages: [page] }
         this.addNextPage = this.addNextPage.bind(this)
         this.removePage = this.removePage.bind(this)
-        this.goBackApage = this.goBackApage.bind(this)
         this.goToNextPage = this.goToNextPage.bind(this);
         this.goToPreviousPage = this.goToPreviousPage.bind(this);
         this.getNewPage = this.getNewPage.bind(this)
         
-
     }
 
     getNewPage = (id, focus ) =>
@@ -40,30 +38,20 @@ class Pages extends React.Component {
         
     }
 
-    
-    // addPage = (args) => {
-    //     let page = this.getNewPage(args.id, args.focus)
-    //     let pages = [...this.state.pages, page]
-    //     this.setState({ pages: pages })
-    //     this.forceUpdate();
-    //     let newPage; 
-    //     setTimeout(() => {
-    //         newPage = document.getElementById(args.id)
-    //         newPage.prepend(args.content)
-    //     }, 0);
-    // }
-
-
     goToNextPage = (args) => {
         let nextId = (Number(args.id) + 1).toString()
         if (document.getElementById(nextId)) {
             let page = document.getElementById(nextId)
+            console.log(page)
+            let divs = page.children
             if (page) {
-                    // setTimeout(() => {
-                        page.prepend(args.content) 
-                        if(args.focus ) page.focus();
-                    // }, 0); 
+                page.prepend(args.content) 
+                if(args.focus) {
+                    replaceCaret(page)                
+                }else {
+                    page.focus()
                 }
+            }
         }
     }
 
@@ -71,24 +59,13 @@ class Pages extends React.Component {
         let thisId = id
         if(thisId === "0") return; 
         let prevId = (Number(thisId) - 1).toString();
-        console.log(prevId, " prevId")
         let prevElement = document.getElementById(prevId)
-        console.log(prevElement)
-         
-          if(prevElement && prevElement.lastChild){
-            setTimeout(() => {
-              prevElement.focus() 
+          if(prevElement){
               replaceCaret(prevElement)
               let thisElement = document.getElementById(thisId)
-              let removable = thisElement.childNodes.length === 0 ||
-                              (thisElement.childNodes.length === 1 &&
-                              thisElement.firstChild.tagName === "BR")
-             console.log(removable, thisElement.childNodes)
-              if(removable){
+              if(thisElement.childNodes.length === 0  ){
                     this.removePage(thisId)
               }
-            }, 0); 
-            console.log(prevElement.lastChild, " focusiing...")
             }
       }
     
@@ -104,7 +81,6 @@ class Pages extends React.Component {
     }
 
 
-
     removePage = (thisId) => {
         if (thisId === "0") return;
         let pages = this.state.pages.filter((page) =>
@@ -112,13 +88,6 @@ class Pages extends React.Component {
         this.setState({ pages: pages })
         this.forceUpdate()
         console.log(".... ", thisId, " removed")
-    }
-
-    goBackApage = (prevId) => {
-        let prevEl = document.getElementById(prevId)
-        // you need to set focus here before replacing carot
-        prevEl.focus()
-        replaceCaret(prevEl)
     }
 
     componentDidMount = () => {
